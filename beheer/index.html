@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>John's Picks — Resultaten &amp; Historie</title>
+<style>
+  :root {
+    --bg:#0e1116; --panel:#161b22; --panel-2:#1c232d; --line:#29313c; --line-soft:#202832;
+    --ink:#e6edf3; --ink-dim:#8b96a5; --ink-faint:#5b6675;
+    --signal:#29e0a0; --warn:#f0a24b; --neg:#e0556b;
+    --mono:'SF Mono','JetBrains Mono','Fira Code',ui-monospace,Menlo,monospace;
+    --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--bg); color:var(--ink); font-family:var(--sans); -webkit-font-smoothing:antialiased; line-height:1.5; padding-bottom:80px; }
+
+  header { border-bottom:1px solid var(--line); padding:26px 24px 20px; max-width:1120px; margin:0 auto; }
+  .brand { display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; }
+  .brand h1 { font-size:25px; font-weight:800; letter-spacing:-0.5px; }
+  .brand .sub { color:var(--signal); font-family:var(--mono); font-size:13px; font-weight:600; }
+  .tagline { color:var(--ink-dim); font-size:13px; margin-top:6px; max-width:640px; }
+  .actions { display:flex; gap:10px; margin-top:14px; flex-wrap:wrap; align-items:center; }
+  .btn { display:inline-flex; align-items:center; gap:7px; background:var(--panel-2); color:var(--ink); border:1px solid var(--line); border-radius:7px; padding:8px 14px; font-size:12.5px; font-weight:600; cursor:pointer; font-family:var(--sans); }
+  .btn:hover { border-color:var(--signal); color:var(--signal); }
+  .btn.edit-only { display:none; }
+  body.edit-mode .btn.edit-only { display:inline-flex; }
+  .edit-badge { display:none; font-family:var(--mono); font-size:11px; color:var(--warn); border:1px solid var(--warn); border-radius:6px; padding:4px 9px; }
+  body.edit-mode .edit-badge { display:inline-block; }
+
+  main { max-width:1120px; margin:0 auto; padding:22px 24px; }
+
+  /* vast totaaloverzicht */
+  .totals { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:13px; margin-bottom:12px; }
+  .stat { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px 18px; }
+  .stat .label { font-family:var(--mono); font-size:10px; letter-spacing:0.5px; text-transform:uppercase; color:var(--ink-faint); }
+  .stat .value { font-size:26px; font-weight:800; margin-top:5px; font-variant-numeric:tabular-nums; letter-spacing:-0.5px; }
+  .stat .value.pos { color:var(--signal); } .stat .value.neg { color:var(--neg); }
+  .stat .sub { font-family:var(--mono); font-size:11px; color:var(--ink-dim); margin-top:2px; }
+  .totals-note { font-family:var(--mono); font-size:11px; color:var(--ink-faint); margin-bottom:22px; }
+
+  /* maand-tabbladen */
+  nav.tabs { display:flex; gap:4px; flex-wrap:wrap; border-bottom:1px solid var(--line-soft); margin-bottom:18px; }
+  .tab { background:none; border:none; cursor:pointer; color:var(--ink-dim); font-family:var(--sans); font-size:13px; font-weight:600; padding:9px 14px; border-bottom:2px solid transparent; margin-bottom:-1px; display:flex; align-items:center; gap:7px; }
+  .tab:hover { color:var(--ink); }
+  .tab.active { color:var(--ink); border-bottom-color:var(--signal); }
+  .tab .cnt { font-family:var(--mono); font-size:10.5px; background:var(--panel-2); color:var(--ink-dim); padding:1px 7px; border-radius:10px; }
+  .tab.active .cnt { background:var(--signal); color:#06231a; }
+
+  /* dag-blok */
+  .day { margin-bottom:20px; border:1px solid var(--line); border-radius:12px; overflow:hidden; }
+  .day-head { display:flex; justify-content:space-between; align-items:center; padding:12px 16px; background:var(--panel); gap:12px; flex-wrap:wrap; cursor:pointer; }
+  .day-date { font-weight:700; font-size:14px; }
+  .day-date .dow { color:var(--ink-faint); font-weight:400; font-size:12px; margin-left:8px; }
+  .day-summary { display:flex; gap:16px; font-family:var(--mono); font-size:12px; flex-wrap:wrap; }
+  .day-summary .k { color:var(--ink-faint); }
+  .day-summary .pos { color:var(--signal); } .day-summary .neg { color:var(--neg); }
+
+  .day-body { overflow-x:auto; }
+  table { width:100%; border-collapse:collapse; font-size:12.5px; }
+  thead th { text-align:right; font-family:var(--mono); font-weight:500; font-size:10px; letter-spacing:0.3px; text-transform:uppercase; color:var(--ink-faint); padding:9px 12px; border-top:1px solid var(--line-soft); border-bottom:1px solid var(--line-soft); background:var(--panel-2); white-space:nowrap; }
+  thead th.l { text-align:left; }
+  tbody td { text-align:right; font-family:var(--mono); padding:8px 12px; border-bottom:1px solid var(--line-soft); font-variant-numeric:tabular-nums; white-space:nowrap; }
+  tbody td.l { text-align:left; font-family:var(--sans); }
+  tbody tr:hover { background:var(--panel); }
+  tbody tr.fictief td { opacity:0.4; font-style:italic; }
+  .pos { color:var(--signal); } .neg { color:var(--neg); }
+  .badge { display:inline-block; font-family:var(--mono); font-size:9.5px; font-weight:700; padding:1px 7px; border-radius:9px; }
+  .badge.g { background:rgba(41,224,160,0.15); color:var(--signal); }
+  .badge.f { background:rgba(224,85,107,0.15); color:var(--neg); }
+  .badge.x { background:var(--panel-2); color:var(--ink-faint); }
+  .matchup-empty { color:var(--ink-faint); font-style:italic; }
+  .del-row { color:var(--neg); cursor:pointer; font-weight:700; padding:0 4px; }
+  .edit-col { display:none; }
+  body.edit-mode .edit-col { display:table-cell; }
+
+  .empty { text-align:center; padding:70px 20px; color:var(--ink-dim); }
+  .empty h2 { font-size:17px; margin-bottom:8px; color:var(--ink); font-weight:700; }
+  .empty p { font-size:13px; max-width:440px; margin:0 auto 6px; }
+  .empty code { font-family:var(--mono); font-size:12px; background:var(--panel-2); padding:2px 7px; border-radius:4px; color:var(--signal); }
+
+  .filebar { font-family:var(--mono); font-size:11px; color:var(--ink-faint); margin-top:10px; }
+  dialog { background:var(--panel); color:var(--ink); border:1px solid var(--line); border-radius:12px; padding:0; max-width:520px; width:92%; }
+  dialog::backdrop { background:rgba(0,0,0,0.6); }
+  .modal-head { padding:16px 20px; border-bottom:1px solid var(--line); font-weight:700; font-size:15px; }
+  .modal-body { padding:18px 20px; display:grid; gap:10px; }
+  .modal-body label { font-size:11px; color:var(--ink-dim); font-family:var(--mono); display:block; margin-bottom:3px; }
+  .modal-body input, .modal-body select { width:100%; background:var(--panel-2); border:1px solid var(--line); border-radius:6px; color:var(--ink); font-family:var(--mono); font-size:13px; padding:7px 9px; }
+  .modal-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .modal-foot { padding:14px 20px; border-top:1px solid var(--line); display:flex; justify-content:flex-end; gap:10px; }
+  .btn-primary { background:var(--signal); color:#06231a; border:none; font-weight:800; }
+</style>
+</head>
+<body>
+<!-- JB-NAV -->
+<nav style="border-bottom:1px solid #29313c;background:#161b22;padding:0 24px;">
+  <div style="max-width:1000px;margin:0 auto;display:flex;gap:2px;flex-wrap:wrap;align-items:center;font-family:'Inter',-apple-system,system-ui,sans-serif;">
+    <a href="../" style="color:#5b6675;text-decoration:none;font-size:13.5px;font-weight:800;padding:13px 14px 13px 0;white-space:nowrap;">John's</a>
+      <a href="../radar/" style="color:#8b96a5;text-decoration:none;font-size:13.5px;font-weight:600;padding:13px 15px;border-bottom:2px solid transparent;white-space:nowrap;">Value Radar</a>
+      <a href="../picks/" style="color:#8b96a5;text-decoration:none;font-size:13.5px;font-weight:600;padding:13px 15px;border-bottom:2px solid transparent;white-space:nowrap;">Picks</a>
+      <a href="../beheer/" style="color:#29e0a0;text-decoration:none;font-size:13.5px;font-weight:600;padding:13px 15px;border-bottom:2px solid #29e0a0;white-space:nowrap;">Beheer</a>
+      <a href="../historie/" style="color:#8b96a5;text-decoration:none;font-size:13.5px;font-weight:600;padding:13px 15px;border-bottom:2px solid transparent;white-space:nowrap;">Historie</a>
+  </div>
+</nav>
+
+  <header>
+    <div class="brand">
+      <h1>John's Picks</h1>
+      <span class="sub">● resultaten &amp; historie</span>
+      <span class="edit-badge">✎ EDIT-MODUS</span>
+    </div>
+    <p class="tagline">
+      Volledige registratie van alle geplaatste bets, met dag- en totaaloverzichten.
+      Speel altijd verantwoord en met je eigen oordeel.
+    </p>
+    <div class="actions">
+      <button class="btn" id="export-btn">Exporteer alles (CSV)</button>
+      <button class="btn edit-only" id="export-new-btn">Exporteer alleen nieuw</button>
+      <label class="btn edit-only">
+        Bestand toevoegen
+        <input type="file" id="add-file" accept=".csv" hidden>
+      </label>
+      <button class="btn edit-only" id="add-bet-btn">Bet toevoegen</button>
+      <button class="btn edit-only" id="manage-btn">Uploads beheren</button>
+      <button class="btn edit-only" id="log-btn">Wijzigingslogboek</button>
+      <button class="btn edit-only" id="clear-btn" style="border-color:var(--neg);color:var(--neg)">Alles wissen</button>
+    </div>
+    <div class="filebar" id="filebar"></div>
+  </header>
+
+  <main id="main"></main>
+
+  <!-- modal: bet toevoegen/bewerken -->
+  <dialog id="bet-modal">
+    <div class="modal-head" id="modal-title">Bet toevoegen</div>
+    <div class="modal-body">
+      <div class="modal-grid">
+        <div><label>Datum (dd/mm/jj)</label><input id="f-date" placeholder="03/04/26"></div>
+        <div><label>Match-up</label><input id="f-matchup" placeholder="PSG - Lyon"></div>
+      </div>
+      <div><label>Bet (market)</label><input id="f-market" placeholder="PSG Under 3.5"></div>
+      <div class="modal-grid">
+        <div><label>Fair odd</label><input id="f-fair" type="number" step="0.01"></div>
+        <div><label>Bookie odd</label><input id="f-bookie" type="number" step="0.01"></div>
+      </div>
+      <div class="modal-grid">
+        <div><label>Edge %</label><input id="f-edge" type="number" step="0.1"></div>
+        <div><label>Uitslag (bv 3-1)</label><input id="f-score" placeholder="3-1"></div>
+      </div>
+      <div class="modal-grid">
+        <div><label>Goed/Fout</label><select id="f-gf"><option value="">—</option><option value="G">G (goed)</option><option value="F">F (fout)</option></select></div>
+        <div><label>Inzet €</label><input id="f-bet" type="number" step="0.25"></div>
+      </div>
+      <div class="modal-grid">
+        <div><label>Winst/Verlies €</label><input id="f-winloss" type="number" step="0.01"></div>
+        <div><label>Notitie</label><input id="f-note" placeholder="bv. Early payout"></div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn" id="modal-cancel">Annuleren</button>
+      <button class="btn btn-primary" id="modal-save">Opslaan</button>
+    </div>
+  </dialog>
+
+  <!-- modal: uploads beheren -->
+  <dialog id="manage-modal">
+    <div class="modal-head">Toegevoegde bestanden beheren</div>
+    <div class="modal-body" id="manage-list"></div>
+    <div class="modal-foot"><button class="btn" id="manage-close">Sluiten</button></div>
+  </dialog>
+
+  <!-- modal: wijzigingslogboek -->
+  <dialog id="log-modal">
+    <div class="modal-head">Wijzigingslogboek — laatste bewerkingen</div>
+    <div class="modal-body" id="log-list" style="max-height:420px;overflow-y:auto"></div>
+    <div class="modal-foot"><button class="btn" id="log-close">Sluiten</button></div>
+  </dialog>
+
+<script>
+// ═══════════════════════════════════════════════════════════════════════════
+//  DATA-LAAG
+//  Bets worden bewaard in window.storage (persistent, per browser). De
+//  historische basis komt uit historie.csv naast dit bestand (auto-geladen).
+//  Toegevoegde bestanden krijgen een 'source'-label zodat je ze los kunt
+//  verwijderen. Er is bewust GEEN 'wis alles'-knop.
+// ═══════════════════════════════════════════════════════════════════════════
+const STORE_KEY = 'johnspicks:bets:v1';
+const SOURCES_KEY = 'johnspicks:sources:v1';
+let BETS = [];          // alle bet-objecten
+let SOURCES = {};       // source-label → aantal, voor 'uploads beheren'
+let CHANGELOG = [];     // wijzigingslogboek, elk los terug te draaien
+let activeTab = 0;
+let editIndex = null;
+
+const EDIT = location.hash.toLowerCase().includes('edit');
+if (EDIT) document.body.classList.add('edit-mode');
+
+const CHANGELOG_KEY = 'johnspicks:changelog:v1';
+const CHANGELOG_MAX = 50;   // laatste 50 wijzigingen bewaren
+const COLS = ['date','matchup','market','fair','bookie','edge','score','gf','result','bet','winloss','note','source'];
+
+// ── Opslag ─────────────────────────────────────────────────────────────────
+async function loadStore() {
+  try {
+    const r = await window.storage.get(STORE_KEY);
+    if (r && r.value) BETS = JSON.parse(r.value);
+    const s = await window.storage.get(SOURCES_KEY);
+    if (s && s.value) SOURCES = JSON.parse(s.value);
+    const c = await window.storage.get(CHANGELOG_KEY);
+    if (c && c.value) CHANGELOG = JSON.parse(c.value);
+  } catch(e) { BETS=[]; SOURCES={}; CHANGELOG=[]; }
+}
+async function saveStore() {
+  try {
+    await window.storage.set(STORE_KEY, JSON.stringify(BETS));
+    await window.storage.set(SOURCES_KEY, JSON.stringify(SOURCES));
+    await window.storage.set(CHANGELOG_KEY, JSON.stringify(CHANGELOG));
+  } catch(e) { console.error('opslaan mislukt', e); }
+}
+
+// ── Wijzigingslogboek ──────────────────────────────────────────────────────
+// Elke bewerking legt genoeg vast om ZELF teruggedraaid te worden:
+//   type 'add'    → undo verwijdert de toegevoegde bet weer
+//   type 'edit'   → undo zet de oude versie terug
+//   type 'delete' → undo voegt de verwijderde bet weer toe
+function betLabel(b){ return `${b.date||'?'} · ${b.matchup?b.matchup+' · ':''}${b.market}`; }
+function logChange(entry){
+  entry.time = new Date().toISOString();
+  entry.done = false;   // nog niet teruggedraaid
+  CHANGELOG.unshift(entry);
+  if (CHANGELOG.length > CHANGELOG_MAX) CHANGELOG = CHANGELOG.slice(0, CHANGELOG_MAX);
+}
+async function undoChange(i){
+  const e = CHANGELOG[i];
+  if (!e || e.done) return;
+  if (e.type === 'add'){
+    // verwijder de bet die toen is toegevoegd (zoek op inhoud)
+    const idx = BETS.findIndex(b => JSON.stringify(b) === JSON.stringify(e.after));
+    if (idx >= 0) BETS.splice(idx, 1);
+  } else if (e.type === 'edit'){
+    const idx = BETS.findIndex(b => JSON.stringify(b) === JSON.stringify(e.after));
+    if (idx >= 0) BETS[idx] = e.before;
+    else BETS.push(e.before);   // was al weg — zet oude terug
+  } else if (e.type === 'delete'){
+    BETS.push(e.before);        // verwijderde bet terugzetten
+  } else if (e.type === 'clear'){
+    BETS = JSON.parse(JSON.stringify(e.before));   // hele gewiste set terugzetten
+    // bronnen opnieuw opbouwen uit de teruggezette bets
+    SOURCES = {};
+    BETS.forEach(b => { const s=b.source||'onbekend'; SOURCES[s]=(SOURCES[s]||0)+1; });
+  }
+  e.done = true;
+  await saveStore();
+  renderChangelog();
+  render();
+}
+
+// ── CSV parsing (NL: komma-decimaal mogelijk, quotes) ──────────────────────
+function parseCSV(text) {
+  const rows = [];
+  let row = [], cur = '', q = false;
+  for (let i=0;i<text.length;i++){
+    const c=text[i];
+    if(q){ if(c==='"'){ if(text[i+1]==='"'){cur+='"';i++;} else q=false; } else cur+=c; }
+    else { if(c==='"')q=true; else if(c===','){row.push(cur);cur='';} else if(c==='\r'){} else if(c==='\n'){row.push(cur);rows.push(row);row=[];cur='';} else cur+=c; }
+  }
+  if(cur.length||row.length){row.push(cur);rows.push(row);}
+  return rows;
+}
+function toNum(s){ if(s==null)return null; s=String(s).trim(); if(s===''||s==='X'||s==='x')return null; s=s.replace(',','.'); const n=parseFloat(s); return isNaN(n)?null:n; }
+
+// verwerk een historie.csv (nieuw formaat met kopregel Datum,Match-up,...)
+function ingestHistorieCSV(text, source) {
+  const rows = parseCSV(text).filter(r=>r.some(c=>c && c.trim()));
+  if(!rows.length) return 0;
+  const header = rows[0].map(h=>h.toLowerCase().trim());
+  const idx = (name)=>header.findIndex(h=>h.includes(name));
+  const iDate=idx('datum'), iMu=idx('match'), iMk=idx('bet')>=0?idx('bet'):idx('market'),
+        iFair=idx('fair'), iBook=idx('bookie'), iEdge=idx('edge'), iScore=idx('uitslag'),
+        iGf=idx('g/f'), iRes=idx('result'), iBet=idx('inzet'), iWl=idx('winst'), iNote=idx('notitie');
+  let added=0;
+  for(let i=1;i<rows.length;i++){
+    const r=rows[i];
+    const market=(r[iMk]||'').trim();
+    if(!market) continue;
+    BETS.push({
+      date:(r[iDate]||'').trim(), matchup:(r[iMu]||'').trim(), market,
+      fair:toNum(r[iFair]), bookie:toNum(r[iBook]), edge:toNum(r[iEdge]),
+      score:(r[iScore]||'').trim(), gf:(r[iGf]||'').trim().toUpperCase(),
+      result:(r[iRes]||'').trim(), bet:toNum(r[iBet]), winloss:toNum(r[iWl]),
+      note:(r[iNote]||'').trim(), source
+    });
+    added++;
+  }
+  return added;
+}
+
+// ── Datum helpers (dd/mm/jj) ───────────────────────────────────────────────
+function parseDate(d){ const m=(d||'').match(/(\d{2})\/(\d{2})\/(\d{2})/); if(!m)return null; return new Date(2000+ +m[3], +m[2]-1, +m[1]); }
+function monthKey(d){ const dt=parseDate(d); return dt?`${dt.getFullYear()}-${String(dt.getMonth()+1).padStart(2,'0')}`:'onbekend'; }
+function monthLabel(k){ const [y,m]=k.split('-'); const n=['jan','feb','mrt','apr','mei','jun','jul','aug','sep','okt','nov','dec']; return `${n[+m-1]} ${y}`; }
+function dowLabel(d){ const dt=parseDate(d); if(!dt)return''; return dt.toLocaleDateString('nl-NL',{weekday:'long'}); }
+
+// ── Totalen ────────────────────────────────────────────────────────────────
+function played(bets){ return bets.filter(b=>b.bet!=null && b.winloss!=null && b.result!=='X'); }
+function totals(bets){
+  const p=played(bets);
+  const wl=p.reduce((a,b)=>a+b.winloss,0);
+  const st=p.reduce((a,b)=>a+b.bet,0);
+  const w=p.filter(b=>b.result==='1'||b.gf==='G').length;
+  const l=p.length-w;
+  return { plays:p.length, wl, stake:st, roi: st?wl/st*100:0, wins:w, losses:l,
+           hit: (w+l)?w/(w+l)*100:0 };
+}
+
+// ── Render ─────────────────────────────────────────────────────────────────
+function render(){
+  const main=document.getElementById('main');
+  updateFilebar();
+  if(!BETS.length){ renderEmpty(); return; }
+
+  const T=totals(BETS);
+  const sign=T.wl>=0?'+':'';
+  let html=`
+    <div class="totals">
+      <div class="stat"><div class="label">Totaal W/V</div><div class="value ${T.wl>=0?'pos':'neg'}">${sign}€${T.wl.toFixed(2)}</div><div class="sub">over ${T.plays} plays</div></div>
+      <div class="stat"><div class="label">Totale inzet</div><div class="value">€${T.stake.toFixed(2)}</div></div>
+      <div class="stat"><div class="label">ROI</div><div class="value ${T.roi>=0?'pos':'neg'}">${sign}${T.roi.toFixed(2)}%</div></div>
+      <div class="stat"><div class="label">Trefkans</div><div class="value">${T.hit.toFixed(0)}%</div><div class="sub">${T.wins} G · ${T.losses} F</div></div>
+    </div>
+    <div class="totals-note">Cumulatief over de gehele geregistreerde periode. Fictieve bets (X) tellen niet mee in de totalen.</div>`;
+
+  // maand-tabbladen
+  const byMonth={};
+  BETS.forEach(b=>{ const k=monthKey(b.date); (byMonth[k]=byMonth[k]||[]).push(b); });
+  const months=Object.keys(byMonth).sort();
+  if(activeTab>=months.length) activeTab=0;
+
+  html+=`<nav class="tabs">`;
+  months.forEach((mk,i)=>{
+    const t=totals(byMonth[mk]);
+    html+=`<button class="tab ${i===activeTab?'active':''}" data-tab="${i}">${monthLabel(mk)}<span class="cnt">${t.plays}</span></button>`;
+  });
+  html+=`</nav>`;
+
+  // dagen binnen de actieve maand
+  const monthBets=byMonth[months[activeTab]]||[];
+  const byDay={};
+  monthBets.forEach(b=>{ (byDay[b.date]=byDay[b.date]||[]).push(b); });
+  const days=Object.keys(byDay).sort((a,b)=>{ const da=parseDate(a),db=parseDate(b); return (db?db:0)-(da?da:0); });
+
+  days.forEach(date=>{
+    const list=byDay[date];
+    const dt=totals(list);
+    const dsign=dt.wl>=0?'+':'';
+    html+=`
+      <div class="day">
+        <div class="day-head">
+          <div class="day-date">${date}<span class="dow">${dowLabel(date)}</span></div>
+          <div class="day-summary">
+            <span><span class="k">W/V</span> <span class="${dt.wl>=0?'pos':'neg'}">${dsign}€${dt.wl.toFixed(2)}</span></span>
+            <span><span class="k">inzet</span> €${dt.stake.toFixed(2)}</span>
+            <span><span class="k">ROI</span> <span class="${dt.roi>=0?'pos':'neg'}">${dsign}${dt.roi.toFixed(1)}%</span></span>
+            <span><span class="k">plays</span> ${dt.plays}</span>
+          </div>
+        </div>
+        <div class="day-body">
+          <table>
+            <thead><tr>
+              <th class="l">Match-up</th><th class="l">Bet</th>
+              <th>Fair</th><th>Bookie</th><th>Edge</th>
+              <th>Uitslag</th><th>G/F</th><th>Inzet</th><th>W/V</th>
+              <th class="edit-col"></th>
+            </tr></thead>
+            <tbody>`;
+    list.forEach(b=>{
+      const glob=BETS.indexOf(b);
+      const fic=b.result==='X';
+      const gf=b.gf==='G'?'<span class="badge g">G</span>':b.gf==='F'?'<span class="badge f">F</span>':(fic?'<span class="badge x">X</span>':'');
+      const wl=b.winloss!=null?`<span class="${b.winloss>=0?'pos':'neg'}">${b.winloss>=0?'+':''}${b.winloss.toFixed(2)}</span>`:'—';
+      html+=`<tr class="${fic?'fictief':''}">
+        <td class="l">${b.matchup?b.matchup:'<span class="matchup-empty">—</span>'}</td>
+        <td class="l">${b.market}</td>
+        <td>${b.fair!=null?b.fair.toFixed(2):'—'}</td>
+        <td>${b.bookie!=null?b.bookie.toFixed(2):'—'}</td>
+        <td>${b.edge!=null?b.edge.toFixed(1)+'%':'—'}</td>
+        <td>${b.score||'—'}</td>
+        <td>${gf}</td>
+        <td>${b.bet!=null?'€'+b.bet.toFixed(2):'—'}</td>
+        <td>${wl}</td>
+        <td class="edit-col"><span class="del-row" data-edit="${glob}">✎</span> <span class="del-row" data-del="${glob}">✕</span></td>
+      </tr>`;
+    });
+    html+=`</tbody></table></div></div>`;
+  });
+
+  main.innerHTML=html;
+
+  main.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{activeTab=+t.getAttribute('data-tab');render();});
+  main.querySelectorAll('[data-del]').forEach(x=>x.onclick=()=>deleteBet(+x.getAttribute('data-del')));
+  main.querySelectorAll('[data-edit]').forEach(x=>x.onclick=()=>openBetModal(+x.getAttribute('data-edit')));
+}
+
+function updateFilebar(){
+  const fb=document.getElementById('filebar');
+  const srcs=Object.keys(SOURCES);
+  if(EDIT){
+    fb.textContent = `${BETS.length} regels geladen · ${srcs.length} bron(nen) · edit-modus actief`;
+  } else {
+    fb.textContent = `${played(BETS).length} plays geregistreerd`;
+  }
+}
+
+function renderEmpty(){
+  document.getElementById('main').innerHTML=`
+    <div class="empty">
+      <h2>Nog geen historie geladen</h2>
+      <p>Plaats <code>historie.csv</code> naast dit bestand, of voeg in edit-modus
+         (<code>#edit</code> achter de URL) een CSV toe.</p>
+    </div>`;
+}
+
+// ── Bewerken (alleen edit-modus) ───────────────────────────────────────────
+function openBetModal(idx){
+  if(!EDIT) return;
+  editIndex = (idx==null?null:idx);
+  const b = idx!=null ? BETS[idx] : {};
+  document.getElementById('modal-title').textContent = idx!=null?'Bet bewerken':'Bet toevoegen';
+  document.getElementById('f-date').value=b.date||'';
+  document.getElementById('f-matchup').value=b.matchup||'';
+  document.getElementById('f-market').value=b.market||'';
+  document.getElementById('f-fair').value=b.fair??'';
+  document.getElementById('f-bookie').value=b.bookie??'';
+  document.getElementById('f-edge').value=b.edge??'';
+  document.getElementById('f-score').value=b.score||'';
+  document.getElementById('f-gf').value=b.gf||'';
+  document.getElementById('f-bet').value=b.bet??'';
+  document.getElementById('f-winloss').value=b.winloss??'';
+  document.getElementById('f-note').value=b.note||'';
+  document.getElementById('bet-modal').showModal();
+}
+async function saveBet(){
+  const g=id=>document.getElementById(id).value.trim();
+  const obj={ date:g('f-date'), matchup:g('f-matchup'), market:g('f-market'),
+    fair:toNum(g('f-fair')), bookie:toNum(g('f-bookie')), edge:toNum(g('f-edge')),
+    score:g('f-score'), gf:g('f-gf'), result:'', bet:toNum(g('f-bet')),
+    winloss:toNum(g('f-winloss')), note:g('f-note'), source:'handmatig' };
+  obj.result = obj.gf==='G'?'1':(obj.gf==='F'?'0':'');
+  if(!obj.market){ alert('Vul minstens de bet (market) in.'); return; }
+  if(editIndex!=null){
+    const before = JSON.parse(JSON.stringify(BETS[editIndex]));
+    obj.source=BETS[editIndex].source||'handmatig';
+    BETS[editIndex]=obj;
+    logChange({ type:'edit', label:betLabel(obj), before, after:JSON.parse(JSON.stringify(obj)) });
+  } else {
+    BETS.push(obj);
+    logChange({ type:'add', label:betLabel(obj), after:JSON.parse(JSON.stringify(obj)) });
+  }
+  await saveStore();
+  document.getElementById('bet-modal').close();
+  render();
+}
+async function deleteBet(idx){
+  if(!EDIT) return;
+  const b=BETS[idx];
+  if(!confirm(`Deze bet verwijderen?\n\n${b.date} · ${b.matchup||''} · ${b.market}`)) return;
+  const before = JSON.parse(JSON.stringify(b));
+  BETS.splice(idx,1);
+  logChange({ type:'delete', label:betLabel(before), before });
+  await saveStore();
+  render();
+}
+
+// ── Bestand toevoegen ──────────────────────────────────────────────────────
+document.getElementById('add-file').addEventListener('change',async e=>{
+  const f=e.target.files[0]; if(!f) return;
+  const text=await f.text();
+  const source=f.name;
+  const n=ingestHistorieCSV(text, source);
+  SOURCES[source]=(SOURCES[source]||0)+n;
+  await saveStore();
+  alert(`${n} bet(s) toegevoegd uit ${source}.`);
+  render();
+  e.target.value='';
+});
+
+// ── Uploads beheren (los verwijderen) ──────────────────────────────────────
+function openManage(){
+  const box=document.getElementById('manage-list');
+  const srcs=Object.keys(SOURCES);
+  if(!srcs.length){ box.innerHTML='<p style="color:var(--ink-dim);font-size:13px">Nog geen losse bestanden toegevoegd.</p>'; }
+  else {
+    box.innerHTML = srcs.map(s=>`
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--line-soft)">
+        <span style="font-family:var(--mono);font-size:12.5px">${s} <span style="color:var(--ink-faint)">(${SOURCES[s]} bets)</span></span>
+        <button class="btn" data-remove="${s}" style="border-color:var(--neg);color:var(--neg)">Verwijderen</button>
+      </div>`).join('');
+    box.querySelectorAll('[data-remove]').forEach(btn=>btn.onclick=()=>removeSource(btn.getAttribute('data-remove')));
+  }
+  document.getElementById('manage-modal').showModal();
+}
+async function removeSource(source){
+  if(!confirm(`Alle bets uit '${source}' verwijderen? Dit verwijdert ${SOURCES[source]} bets.`)) return;
+  BETS = BETS.filter(b=>b.source!==source);
+  delete SOURCES[source];
+  await saveStore();
+  document.getElementById('manage-modal').close();
+  render();
+}
+
+// ── Wijzigingslogboek tonen ────────────────────────────────────────────────
+function renderChangelog(){
+  const box=document.getElementById('log-list');
+  if(!CHANGELOG.length){ box.innerHTML='<p style="color:var(--ink-dim);font-size:13px">Nog geen wijzigingen in deze sessie.</p>'; return; }
+  const typeLabel={add:'toegevoegd', edit:'bewerkt', delete:'verwijderd', clear:'alles gewist'};
+  const typeColor={add:'var(--signal)', edit:'var(--warn)', delete:'var(--neg)', clear:'var(--neg)'};
+  box.innerHTML = CHANGELOG.map((e,i)=>{
+    const t=new Date(e.time).toLocaleString('nl-NL',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
+    const undone = e.done;
+    return `<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:9px 0;border-bottom:1px solid var(--line-soft);${undone?'opacity:0.45':''}">
+      <div style="min-width:0">
+        <span style="font-family:var(--mono);font-size:10px;color:${typeColor[e.type]};text-transform:uppercase">${typeLabel[e.type]}</span>
+        <div style="font-size:12.5px;margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${e.label}</div>
+        <div style="font-family:var(--mono);font-size:10.5px;color:var(--ink-faint)">${t}</div>
+      </div>
+      ${undone
+        ? '<span style="font-family:var(--mono);font-size:11px;color:var(--ink-faint)">teruggedraaid</span>'
+        : `<button class="btn" data-undo="${i}">Ongedaan maken</button>`}
+    </div>`;
+  }).join('');
+  box.querySelectorAll('[data-undo]').forEach(btn=>btn.onclick=()=>undoChange(+btn.getAttribute('data-undo')));
+}
+
+// ── Export CSV (alle bets + dag- en eindtotalen) ──────────────────────────
+function buildCSV(bets, withTotals){
+  const lines=[];
+  lines.push(['Datum','Match-up','Bet','Fair','Bookie','Edge','Uitslag','G/F','Result','Inzet','Winst/Verlies','Notitie'].join(','));
+  const esc=v=>{ if(v==null)return''; const s=String(v); return /[,"]/.test(s)?`"${s.replace(/"/g,'""')}"`:s; };
+  const byDay={};
+  bets.forEach(b=>{ (byDay[b.date]=byDay[b.date]||[]).push(b); });
+  const days=Object.keys(byDay).sort((a,b)=>(parseDate(a)||0)-(parseDate(b)||0));
+  days.forEach(date=>{
+    byDay[date].forEach(b=>{
+      lines.push([b.date,b.matchup,b.market,b.fair,b.bookie,
+        b.edge!=null?b.edge.toFixed(2):'',b.score,b.gf,b.result,b.bet,b.winloss,b.note].map(esc).join(','));
+    });
+    if(withTotals){
+      const dt=totals(byDay[date]);
+      lines.push([`Dagtotaal ${date}`,'','','','','','','','',dt.stake.toFixed(2),dt.wl.toFixed(2),`ROI ${dt.roi.toFixed(1)}% · ${dt.plays} plays`].map(esc).join(','));
+      lines.push('');
+    }
+  });
+  if(withTotals){
+    const T=totals(bets);
+    lines.push(['EINDTOTAAL','','','','','','','','',T.stake.toFixed(2),T.wl.toFixed(2),`ROI ${T.roi.toFixed(2)}% · ${T.plays} plays · trefkans ${T.hit.toFixed(0)}%`].map(esc).join(','));
+  }
+  return lines.join('\n');
+}
+
+function downloadCSV(csv, filename){
+  const blob=new Blob([csv],{type:'text/csv'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url; a.download=filename;
+  a.click(); URL.revokeObjectURL(url);
+}
+
+// Volledige export: alles, met dag- en eindtotalen (jouw backup / overzicht)
+function exportCSV(){
+  const stamp=new Date().toISOString().slice(0,10);
+  downloadCSV(buildCSV(BETS, true), `johnspicks_historie_${stamp}.csv`);
+}
+
+// Alleen-nieuw export: alles BEHALVE de basis 'historie.csv'. Dit zijn je losse
+// toevoegingen + bewerkingen. Veilig om als nieuwe basis te uploaden zonder dat
+// de oude data dubbel meetelt. Zonder totaal-regels, zodat het schoon herimporteert.
+function exportNewOnly(){
+  const nieuw = BETS.filter(b => (b.source||'') !== 'historie.csv');
+  if(!nieuw.length){ alert('Geen nieuwe bets om te exporteren — alles komt uit de basis historie.csv.'); return; }
+  const stamp=new Date().toISOString().slice(0,10);
+  downloadCSV(buildCSV(nieuw, false), `johnspicks_nieuw_${stamp}.csv`);
+}
+
+// Alles wissen — maakt EERST automatisch een volledige backup-export en leegt
+// dan pas de site. Zo raak je nooit data kwijt zonder vangnet. De undo blijft
+// ook beschikbaar. Alleen in edit-modus.
+async function clearAll(){
+  if(!EDIT) return;
+  if(!BETS.length){ alert('Er is niets om te wissen.'); return; }
+  const ok = confirm(
+    'ALLES WISSEN?\n\n'+
+    `Dit verwijdert alle ${BETS.length} regels uit de site.\n`+
+    'Er wordt eerst automatisch een backup-CSV gedownload, zodat je niets kwijtraakt.\n\n'+
+    'Doorgaan?'
+  );
+  if(!ok) return;
+  // 1. automatische backup
+  const stamp=new Date().toISOString().slice(0,19).replace(/[:T]/g,'-');
+  downloadCSV(buildCSV(BETS, true), `johnspicks_backup_${stamp}.csv`);
+  // 2. logboek-entry zodat undo mogelijk blijft
+  logChange({ type:'clear', label:`Alles gewist (${BETS.length} regels)`, before:JSON.parse(JSON.stringify(BETS)) });
+  // 3. leegmaken
+  BETS = [];
+  SOURCES = {};
+  await saveStore();
+  render();
+  alert('Alles gewist. Er is een backup-CSV gedownload. Gebruik "Ongedaan maken" in het logboek als je het wilt terugzetten.');
+}
+
+// ── Knoppen ────────────────────────────────────────────────────────────────
+document.getElementById('export-btn').onclick=exportCSV;
+document.getElementById('export-new-btn') && (document.getElementById('export-new-btn').onclick=exportNewOnly);
+document.getElementById('clear-btn') && (document.getElementById('clear-btn').onclick=clearAll);
+document.getElementById('add-bet-btn') && (document.getElementById('add-bet-btn').onclick=()=>openBetModal(null));
+document.getElementById('manage-btn') && (document.getElementById('manage-btn').onclick=openManage);
+document.getElementById('log-btn') && (document.getElementById('log-btn').onclick=()=>{ renderChangelog(); document.getElementById('log-modal').showModal(); });
+document.getElementById('log-close') && (document.getElementById('log-close').onclick=()=>document.getElementById('log-modal').close());
+document.getElementById('modal-cancel').onclick=()=>document.getElementById('bet-modal').close();
+document.getElementById('modal-save').onclick=saveBet;
+document.getElementById('manage-close').onclick=()=>document.getElementById('manage-modal').close();
+
+// ── Boot: laad opslag, of eerste keer historie.csv naast dit bestand ───────
+(async()=>{
+  await loadStore();
+  if(!BETS.length){
+    try{
+      const res=await fetch('historie.csv',{cache:'no-store'});
+      if(res.ok){
+        const n=ingestHistorieCSV(await res.text(),'historie.csv');
+        SOURCES['historie.csv']=n;
+        await saveStore();
+      }
+    }catch(e){}
+  }
+  render();
+})();
+</script>
+</body>
+</html>

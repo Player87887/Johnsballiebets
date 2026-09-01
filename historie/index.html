@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>John's Picks — Resultaten &amp; Historie</title>
+<style>
+  :root {
+    --bg:#0e1116; --panel:#161b22; --panel-2:#1c232d; --line:#29313c; --line-soft:#202832;
+    --ink:#e6edf3; --ink-dim:#8b96a5; --ink-faint:#5b6675;
+    --signal:#29e0a0; --warn:#f0a24b; --neg:#e0556b;
+    --mono:'SF Mono','JetBrains Mono','Fira Code',ui-monospace,Menlo,monospace;
+    --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--bg); color:var(--ink); font-family:var(--sans); -webkit-font-smoothing:antialiased; line-height:1.5; padding-bottom:80px; }
+
+  header { border-bottom:1px solid var(--line); padding:26px 24px 20px; max-width:1120px; margin:0 auto; }
+  .brand { display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; }
+  .brand h1 { font-size:25px; font-weight:800; letter-spacing:-0.5px; }
+  .brand .sub { color:var(--signal); font-family:var(--mono); font-size:13px; font-weight:600; }
+  .tagline { color:var(--ink-dim); font-size:13px; margin-top:6px; max-width:640px; }
+  .actions { display:flex; gap:10px; margin-top:14px; flex-wrap:wrap; }
+  .btn { display:inline-flex; align-items:center; gap:7px; background:var(--panel-2); color:var(--ink); border:1px solid var(--line); border-radius:7px; padding:8px 14px; font-size:12.5px; font-weight:600; cursor:pointer; font-family:var(--sans); }
+  .btn:hover { border-color:var(--signal); color:var(--signal); }
+  .filebar { font-family:var(--mono); font-size:11px; color:var(--ink-faint); margin-top:12px; }
+
+  main { max-width:1120px; margin:0 auto; padding:22px 24px; }
+
+  .totals { display:grid; grid-template-columns:repeat(auto-fit,minmax(158px,1fr)); gap:13px; margin-bottom:12px; }
+  .stat { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px 18px; }
+  .stat.hero { border-color:rgba(41,224,160,0.35); background:linear-gradient(180deg, rgba(41,224,160,0.06), transparent 70%), var(--panel); }
+  .stat .label { font-family:var(--mono); font-size:10px; letter-spacing:0.5px; text-transform:uppercase; color:var(--ink-faint); }
+  .stat .value { font-size:26px; font-weight:800; margin-top:5px; font-variant-numeric:tabular-nums; letter-spacing:-0.5px; }
+  .stat .value.pos { color:var(--signal); } .stat .value.neg { color:var(--neg); }
+  .stat .sub { font-family:var(--mono); font-size:11px; color:var(--ink-dim); margin-top:2px; }
+  .totals-note { font-family:var(--mono); font-size:11px; color:var(--ink-faint); margin-bottom:22px; }
+
+  nav.tabs { display:flex; gap:4px; flex-wrap:wrap; border-bottom:1px solid var(--line-soft); margin-bottom:18px; }
+  .tab { background:none; border:none; cursor:pointer; color:var(--ink-dim); font-family:var(--sans); font-size:13px; font-weight:600; padding:9px 14px; border-bottom:2px solid transparent; margin-bottom:-1px; display:flex; align-items:center; gap:7px; }
+  .tab:hover { color:var(--ink); }
+  .tab.active { color:var(--ink); border-bottom-color:var(--signal); }
+  .tab .cnt { font-family:var(--mono); font-size:10.5px; background:var(--panel-2); color:var(--ink-dim); padding:1px 7px; border-radius:10px; }
+  .tab.active .cnt { background:var(--signal); color:#06231a; }
+
+  .day { margin-bottom:20px; border:1px solid var(--line); border-radius:12px; overflow:hidden; }
+  .day-head { display:flex; justify-content:space-between; align-items:center; padding:12px 16px; background:var(--panel); gap:12px; flex-wrap:wrap; }
+  .day-date { font-weight:700; font-size:14px; }
+  .day-date .dow { color:var(--ink-faint); font-weight:400; font-size:12px; margin-left:8px; }
+  .day-summary { display:flex; gap:16px; font-family:var(--mono); font-size:12px; flex-wrap:wrap; }
+  .day-summary .k { color:var(--ink-faint); }
+  .day-summary .pos { color:var(--signal); } .day-summary .neg { color:var(--neg); }
+
+  .day-body { overflow-x:auto; }
+  table { width:100%; border-collapse:collapse; font-size:12.5px; }
+  thead th { text-align:right; font-family:var(--mono); font-weight:500; font-size:10px; letter-spacing:0.3px; text-transform:uppercase; color:var(--ink-faint); padding:9px 12px; border-top:1px solid var(--line-soft); border-bottom:1px solid var(--line-soft); background:var(--panel-2); white-space:nowrap; }
+  thead th.l { text-align:left; }
+  tbody td { text-align:right; font-family:var(--mono); padding:8px 12px; border-bottom:1px solid var(--line-soft); font-variant-numeric:tabular-nums; white-space:nowrap; }
+  tbody td.l { text-align:left; font-family:var(--sans); }
+  tbody tr:hover { background:var(--panel); }
+  tbody tr.fictief td { opacity:0.4; font-style:italic; }
+  .pos { color:var(--signal); } .neg { color:var(--neg); }
+  .badge { display:inline-block; font-family:var(--mono); font-size:9.5px; font-weight:700; padding:1px 7px; border-radius:9px; }
+  .badge.g { background:rgba(41,224,160,0.15); color:var(--signal); }
+  .badge.f { background:rgba(224,85,107,0.15); color:var(--neg); }
+  .badge.x { background:var(--panel-2); color:var(--ink-faint); }
+  .matchup-empty { color:var(--ink-faint); font-style:italic; }
+
+  .empty { text-align:center; padding:70px 20px; color:var(--ink-dim); }
+  .empty h2 { font-size:17px; margin-bottom:8px; color:var(--ink); font-weight:700; }
+  .empty p { font-size:13px; max-width:440px; margin:0 auto 6px; }
+  .empty code { font-family:var(--mono); font-size:12px; background:var(--panel-2); padding:2px 7px; border-radius:4px; color:var(--signal); }
+</style>
+</head>
+<body>
+<!-- JB-NAV -->
+<nav style="border-bottom:1px solid #29313c;background:#161b22;padding:0 24px;">
+  <div style="max-width:1000px;margin:0 auto;display:flex;gap:2px;flex-wrap:wrap;align-items:center;font-family:'Inter',-apple-system,system-ui,sans-serif;">
+    <a href="../" style="color:#5b6675;text-decoration:none;font-size:13.5px;font-weight:800;padding:13px 14px 13px 0;white-space:nowrap;">John's</a>
+      <a href="../radar/" style="color:#8b96a5;text-decoration:none;font-size:13.5px;font-weight:600;padding:13px 15px;border-bottom:2px solid transparent;white-space:nowrap;">Value Radar</a>
+      <a href="../picks/" style="color:#8b96a5;text-decoration:none;font-size:13.5px;font-weight:600;padding:13px 15px;border-bottom:2px solid transparent;white-space:nowrap;">Picks</a>
+      <a href="../beheer/" style="color:#8b96a5;text-decoration:none;font-size:13.5px;font-weight:600;padding:13px 15px;border-bottom:2px solid transparent;white-space:nowrap;">Beheer</a>
+      <a href="../historie/" style="color:#29e0a0;text-decoration:none;font-size:13.5px;font-weight:600;padding:13px 15px;border-bottom:2px solid #29e0a0;white-space:nowrap;">Historie</a>
+  </div>
+</nav>
+
+  <header>
+    <div class="brand">
+      <h1>John's Picks</h1>
+      <span class="sub">● resultaten &amp; historie</span>
+    </div>
+    <p class="tagline">
+      Volledige registratie van alle geplaatste bets, met dag- en totaaloverzichten.
+      Speel altijd verantwoord en met je eigen oordeel.
+    </p>
+    <div class="actions">
+      <button class="btn" id="export-btn">Exporteer CSV</button>
+    </div>
+    <div class="filebar" id="filebar"></div>
+  </header>
+
+  <main id="main"></main>
+
+<script>
+// ═══════════════════════════════════════════════════════════════════════════
+//  WEERGAVE-SITE (alleen tonen). Laadt de vaste historie.csv die naast dit
+//  bestand op Netlify staat. Geen bewerking, geen opslag, geen export — dat
+//  doe je op de edit-site. Jij updatet historie.csv, je vrienden zien het.
+// ═══════════════════════════════════════════════════════════════════════════
+let BETS = [];
+let activeTab = 0;
+
+// ── Instellingen ───────────────────────────────────────────────────────────
+// De stack waarmee je begonnen bent. Alle bankroll-cijfers rekenen hier vanaf.
+const START_BANKROLL = 1500;
+
+// ── Formatters ─────────────────────────────────────────────────────────────
+// Nederlandse notatie: €1.650,00 en +10,25%. Alleen voor weergave — de CSV-
+// export blijft punt-decimalen gebruiken, zodat Excel/Sheets hem inleest.
+function num(n, d){ return (n==null||isNaN(n)) ? '—' : n.toLocaleString('nl-NL',{minimumFractionDigits:d,maximumFractionDigits:d}); }
+function eur(n){ if(n==null||isNaN(n)) return '—'; return (n<0?'−':'')+'€'+num(Math.abs(n),2); }
+function eurSigned(n){ if(n==null||isNaN(n)) return '—'; return (n>=0?'+':'')+eur(n); }
+function pct(n, d){ if(n==null||isNaN(n)) return '—'; return (n>=0?'+':'−')+num(Math.abs(n),d==null?2:d)+'%'; }
+
+function toNum(s){ if(s==null)return null; s=String(s).trim(); if(s===''||s==='X'||s==='x')return null; s=s.replace(',','.'); const n=parseFloat(s); return isNaN(n)?null:n; }
+
+// ── CSV parsing ────────────────────────────────────────────────────────────
+function parseCSV(text){
+  const rows=[]; let row=[],cur='',q=false;
+  for(let i=0;i<text.length;i++){
+    const c=text[i];
+    if(q){ if(c==='"'){ if(text[i+1]==='"'){cur+='"';i++;} else q=false; } else cur+=c; }
+    else { if(c==='"')q=true; else if(c===','){row.push(cur);cur='';} else if(c==='\r'){} else if(c==='\n'){row.push(cur);rows.push(row);row=[];cur='';} else cur+=c; }
+  }
+  if(cur.length||row.length){row.push(cur);rows.push(row);}
+  return rows;
+}
+function ingestHistorieCSV(text){
+  const rows=parseCSV(text).filter(r=>r.some(c=>c&&c.trim()));
+  if(!rows.length)return 0;
+  const header=rows[0].map(h=>h.toLowerCase().trim());
+  const idx=name=>header.findIndex(h=>h.includes(name));
+  const iDate=idx('datum'),iMu=idx('match'),iMk=idx('bet')>=0?idx('bet'):idx('market'),
+        iFair=idx('fair'),iBook=idx('bookie'),iEdge=idx('edge'),iScore=idx('uitslag'),
+        iGf=idx('g/f'),iRes=idx('result'),iBet=idx('inzet'),iWl=idx('winst'),iNote=idx('notitie');
+  let added=0;
+  for(let i=1;i<rows.length;i++){
+    const r=rows[i]; const market=(r[iMk]||'').trim();
+    if(!market)continue;
+    BETS.push({ date:(r[iDate]||'').trim(), matchup:(r[iMu]||'').trim(), market,
+      fair:toNum(r[iFair]), bookie:toNum(r[iBook]), edge:toNum(r[iEdge]),
+      score:(r[iScore]||'').trim(), gf:(r[iGf]||'').trim().toUpperCase(),
+      result:(r[iRes]||'').trim(), bet:toNum(r[iBet]), winloss:toNum(r[iWl]),
+      note:(r[iNote]||'').trim() });
+    added++;
+  }
+  return added;
+}
+
+// ── Datum helpers ──────────────────────────────────────────────────────────
+function parseDate(d){ const m=(d||'').match(/(\d{2})\/(\d{2})\/(\d{2})/); if(!m)return null; return new Date(2000+ +m[3], +m[2]-1, +m[1]); }
+function monthKey(d){ const dt=parseDate(d); return dt?`${dt.getFullYear()}-${String(dt.getMonth()+1).padStart(2,'0')}`:'onbekend'; }
+function monthLabel(k){ const [y,m]=k.split('-'); const n=['jan','feb','mrt','apr','mei','jun','jul','aug','sep','okt','nov','dec']; return `${n[+m-1]} ${y}`; }
+function dowLabel(d){ const dt=parseDate(d); return dt?dt.toLocaleDateString('nl-NL',{weekday:'long'}):''; }
+
+// ── Totalen ────────────────────────────────────────────────────────────────
+function played(bets){ return bets.filter(b=>b.bet!=null && b.winloss!=null && b.result!=='X'); }
+function totals(bets){
+  const p=played(bets);
+  const wl=p.reduce((a,b)=>a+b.winloss,0);
+  const st=p.reduce((a,b)=>a+b.bet,0);
+  const w=p.filter(b=>b.result==='1'||b.gf==='G').length;
+  const l=p.length-w;
+  return { plays:p.length, wl, stake:st, roi:st?wl/st*100:0, wins:w, losses:l, hit:(w+l)?w/(w+l)*100:0,
+           avgStake:p.length?st/p.length:0,
+           // Bankroll: wat er van de startstack over is, en de groei daarvan.
+           bankroll:START_BANKROLL+wl,
+           growth:START_BANKROLL?wl/START_BANKROLL*100:0 };
+}
+
+// ── Render ─────────────────────────────────────────────────────────────────
+function render(){
+  const main=document.getElementById('main');
+  document.getElementById('filebar').textContent = `${played(BETS).length} plays geregistreerd`;
+  if(!BETS.length){ renderEmpty(); return; }
+
+  const T=totals(BETS);
+  let html=`
+    <div class="totals">
+      <div class="stat hero">
+        <div class="label">Bankroll</div>
+        <div class="value ${T.wl>=0?'pos':'neg'}">${eur(T.bankroll)}</div>
+        <div class="sub">start ${eur(START_BANKROLL)} · ${eurSigned(T.wl)}</div>
+      </div>
+      <div class="stat">
+        <div class="label">Rendement op stack</div>
+        <div class="value ${T.growth>=0?'pos':'neg'}">${pct(T.growth)}</div>
+        <div class="sub">groei sinds start</div>
+      </div>
+      <div class="stat">
+        <div class="label">Totaal W/V</div>
+        <div class="value ${T.wl>=0?'pos':'neg'}">${eurSigned(T.wl)}</div>
+        <div class="sub">over ${T.plays} plays</div>
+      </div>
+      <div class="stat">
+        <div class="label">Totale inzet</div>
+        <div class="value">${eur(T.stake)}</div>
+        <div class="sub">gem. ${eur(T.avgStake)} per play</div>
+      </div>
+      <div class="stat">
+        <div class="label">ROI op inzet</div>
+        <div class="value ${T.roi>=0?'pos':'neg'}">${pct(T.roi)}</div>
+        <div class="sub">per ingezette euro</div>
+      </div>
+      <div class="stat">
+        <div class="label">Trefkans</div>
+        <div class="value">${num(T.hit,0)}%</div>
+        <div class="sub">${T.wins} G · ${T.losses} F</div>
+      </div>
+    </div>
+    <div class="totals-note">Cumulatief over de gehele geregistreerde periode, vanaf een startstack van ${eur(START_BANKROLL)}. Fictieve bets (X) tellen niet mee.</div>`;
+
+  const byMonth={};
+  BETS.forEach(b=>{ const k=monthKey(b.date); (byMonth[k]=byMonth[k]||[]).push(b); });
+  const months=Object.keys(byMonth).sort();
+  if(activeTab>=months.length) activeTab=0;
+
+  html+=`<nav class="tabs">`;
+  months.forEach((mk,i)=>{
+    const t=totals(byMonth[mk]);
+    html+=`<button class="tab ${i===activeTab?'active':''}" data-tab="${i}">${monthLabel(mk)}<span class="cnt">${t.plays}</span></button>`;
+  });
+  html+=`</nav>`;
+
+  const monthBets=byMonth[months[activeTab]]||[];
+  const byDay={};
+  monthBets.forEach(b=>{ (byDay[b.date]=byDay[b.date]||[]).push(b); });
+  const days=Object.keys(byDay).sort((a,b)=>(parseDate(b)||0)-(parseDate(a)||0));
+
+  days.forEach(date=>{
+    const list=byDay[date]; const dt=totals(list);
+    html+=`
+      <div class="day">
+        <div class="day-head">
+          <div class="day-date">${date}<span class="dow">${dowLabel(date)}</span></div>
+          <div class="day-summary">
+            <span><span class="k">W/V</span> <span class="${dt.wl>=0?'pos':'neg'}">${eurSigned(dt.wl)}</span></span>
+            <span><span class="k">inzet</span> ${eur(dt.stake)}</span>
+            <span><span class="k">ROI</span> <span class="${dt.roi>=0?'pos':'neg'}">${pct(dt.roi,1)}</span></span>
+            <span><span class="k">plays</span> ${dt.plays}</span>
+          </div>
+        </div>
+        <div class="day-body">
+          <table>
+            <thead><tr>
+              <th class="l">Match-up</th><th class="l">Bet</th>
+              <th>Fair</th><th>Bookie</th><th>Edge</th>
+              <th>Uitslag</th><th>G/F</th><th>Inzet</th><th>W/V</th>
+            </tr></thead>
+            <tbody>`;
+    list.forEach(b=>{
+      const fic=b.result==='X';
+      const gf=b.gf==='G'?'<span class="badge g">G</span>':b.gf==='F'?'<span class="badge f">F</span>':(fic?'<span class="badge x">X</span>':'');
+      const wl=b.winloss!=null?`<span class="${b.winloss>=0?'pos':'neg'}">${b.winloss>=0?'+':'−'}${num(Math.abs(b.winloss),2)}</span>`:'—';
+      html+=`<tr class="${fic?'fictief':''}">
+        <td class="l">${b.matchup?b.matchup:'<span class="matchup-empty">—</span>'}</td>
+        <td class="l">${b.market}</td>
+        <td>${b.fair!=null?num(b.fair,2):'—'}</td>
+        <td>${b.bookie!=null?num(b.bookie,2):'—'}</td>
+        <td>${b.edge!=null?num(b.edge,1)+'%':'—'}</td>
+        <td>${b.score||'—'}</td>
+        <td>${gf}</td>
+        <td>${b.bet!=null?eur(b.bet):'—'}</td>
+        <td>${wl}</td>
+      </tr>`;
+    });
+    html+=`</tbody></table></div></div>`;
+  });
+
+  main.innerHTML=html;
+  main.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{activeTab=+t.getAttribute('data-tab');render();});
+}
+
+function renderEmpty(){
+  document.getElementById('main').innerHTML=`
+    <div class="empty">
+      <h2>Nog geen historie geladen</h2>
+      <p>Plaats <code>historie.csv</code> naast dit bestand op Netlify.</p>
+    </div>`;
+}
+
+// ── Export CSV (volledige historie met dag- en eindtotalen) ────────────────
+function buildCSV(bets){
+  const lines=[];
+  lines.push(['Datum','Match-up','Bet','Fair','Bookie','Edge','Uitslag','G/F','Result','Inzet','Winst/Verlies','Notitie'].join(','));
+  const esc=v=>{ if(v==null)return''; const s=String(v); return /[,"]/.test(s)?`"${s.replace(/"/g,'""')}"`:s; };
+  const byDay={};
+  bets.forEach(b=>{ (byDay[b.date]=byDay[b.date]||[]).push(b); });
+  const days=Object.keys(byDay).sort((a,b)=>(parseDate(a)||0)-(parseDate(b)||0));
+  days.forEach(date=>{
+    byDay[date].forEach(b=>{
+      lines.push([b.date,b.matchup,b.market,b.fair,b.bookie,
+        b.edge!=null?b.edge.toFixed(2):'',b.score,b.gf,b.result,b.bet,b.winloss,b.note].map(esc).join(','));
+    });
+    const dt=totals(byDay[date]);
+    lines.push([`Dagtotaal ${date}`,'','','','','','','','',dt.stake.toFixed(2),dt.wl.toFixed(2),`ROI ${dt.roi.toFixed(1)}% · ${dt.plays} plays`].map(esc).join(','));
+    lines.push('');
+  });
+  const T=totals(bets);
+  lines.push(['EINDTOTAAL','','','','','','','','',T.stake.toFixed(2),T.wl.toFixed(2),`ROI ${T.roi.toFixed(2)}% · ${T.plays} plays · trefkans ${T.hit.toFixed(0)}% · bankroll ${START_BANKROLL.toFixed(2)} -> ${T.bankroll.toFixed(2)} (${T.growth>=0?'+':''}${T.growth.toFixed(2)}%)`].map(esc).join(','));
+  return lines.join('\n');
+}
+function exportCSV(){
+  if(!BETS.length){ alert('Geen data om te exporteren.'); return; }
+  const blob=new Blob([buildCSV(BETS)],{type:'text/csv'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url; a.download=`johnspicks_historie_${new Date().toISOString().slice(0,10)}.csv`;
+  a.click(); URL.revokeObjectURL(url);
+}
+document.getElementById('export-btn').onclick=exportCSV;
+
+// ── Boot: laad de vaste historie.csv naast dit bestand ─────────────────────
+(async()=>{
+  try{
+    const res=await fetch('historie.csv',{cache:'no-store'});
+    if(res.ok){ ingestHistorieCSV(await res.text()); }
+  }catch(e){}
+  render();
+})();
+</script>
+</body>
+</html>

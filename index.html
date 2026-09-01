@@ -3,434 +3,93 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Value Radar — Bets kiezen</title>
+<title>John's Ballie Bets</title>
 <style>
   :root {
     --bg:#0e1116; --panel:#161b22; --panel-2:#1c232d; --line:#29313c; --line-soft:#202832;
     --ink:#e6edf3; --ink-dim:#8b96a5; --ink-faint:#5b6675;
-    --signal:#29e0a0; --warn:#f0a24b; --neg:#e0556b;
+    --signal:#29e0a0;
     --mono:'SF Mono','JetBrains Mono','Fira Code',ui-monospace,Menlo,monospace;
     --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
   }
   * { box-sizing:border-box; margin:0; padding:0; }
-  body { background:var(--bg); color:var(--ink); font-family:var(--sans); -webkit-font-smoothing:antialiased; line-height:1.5; padding-bottom:120px; }
+  body { background:var(--bg); color:var(--ink); font-family:var(--sans);
+         -webkit-font-smoothing:antialiased; line-height:1.5; min-height:100vh; }
 
-  header { border-bottom:1px solid var(--line); padding:28px 24px 22px; max-width:1080px; margin:0 auto; }
+  header { border-bottom:1px solid var(--line); padding:56px 24px 40px; }
+  .inner { max-width:1000px; margin:0 auto; }
   .brand { display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; }
-  .brand h1 { font-size:26px; font-weight:800; letter-spacing:-0.5px; }
+  .brand h1 { font-size:34px; font-weight:800; letter-spacing:-0.8px; }
   .brand .sub { color:var(--signal); font-family:var(--mono); font-size:13px; font-weight:600; }
-  .tagline { color:var(--ink-dim); font-size:13.5px; margin-top:6px; max-width:640px; }
-  .meta-row { display:flex; gap:20px; margin-top:16px; flex-wrap:wrap; align-items:center; font-family:var(--mono); font-size:12px; color:var(--ink-faint); }
-  .meta-row b { color:var(--ink-dim); font-weight:500; }
-  .load-btn { display:inline-flex; align-items:center; gap:8px; background:var(--panel-2); color:var(--ink); border:1px solid var(--line); border-radius:7px; padding:7px 13px; font-size:12.5px; font-weight:600; cursor:pointer; font-family:var(--sans); }
-  .load-btn:hover { border-color:var(--signal); color:var(--signal); }
+  .tagline { color:var(--ink-dim); font-size:14px; margin-top:10px; max-width:560px; }
 
-  nav.tabs { max-width:1080px; margin:0 auto; padding:18px 24px 0; display:flex; gap:4px; flex-wrap:wrap; border-bottom:1px solid var(--line-soft); }
-  .tab { background:none; border:none; cursor:pointer; color:var(--ink-dim); font-family:var(--sans); font-size:13.5px; font-weight:600; padding:10px 15px; border-bottom:2px solid transparent; display:flex; align-items:center; gap:8px; margin-bottom:-1px; }
-  .tab:hover { color:var(--ink); }
-  .tab.active { color:var(--ink); border-bottom-color:var(--signal); }
-  .tab .cnt { font-family:var(--mono); font-size:11px; background:var(--panel-2); color:var(--ink-dim); padding:1px 7px; border-radius:10px; }
-  .tab.active .cnt { background:var(--signal); color:#06231a; }
+  main { max-width:1000px; margin:0 auto; padding:32px 24px 80px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:14px; }
 
-  main { max-width:1080px; margin:0 auto; padding:24px; }
-  .match { background:var(--panel); border:1px solid var(--line); border-radius:12px; margin-bottom:16px; overflow:hidden; }
-  .match-head { display:flex; justify-content:space-between; align-items:flex-start; padding:16px 18px; gap:12px; }
-  .teams { font-size:17px; font-weight:700; letter-spacing:-0.2px; }
-  .teams .vs { color:var(--ink-faint); font-weight:400; margin:0 7px; }
-  .match-sub { font-family:var(--mono); font-size:11.5px; color:var(--ink-faint); margin-top:5px; display:flex; gap:14px; flex-wrap:wrap; }
-  .match-sub .lam { color:var(--ink-dim); }
-  .kickoff { text-align:right; font-family:var(--mono); font-size:11.5px; color:var(--ink-dim); white-space:nowrap; }
+  .card { display:block; text-decoration:none; color:inherit; background:var(--panel);
+          border:1px solid var(--line); border-radius:14px; padding:22px 22px 20px;
+          transition:border-color .15s, transform .15s; }
+  .card:hover { border-color:var(--signal); transform:translateY(-2px); }
+  .card .kicker { font-family:var(--mono); font-size:10px; letter-spacing:0.7px;
+                  text-transform:uppercase; color:var(--ink-faint); }
+  .card h2 { font-size:18px; font-weight:700; margin-top:8px; letter-spacing:-0.3px; }
+  .card p { font-size:13.5px; color:var(--ink-dim); margin-top:8px; }
+  .card .go { font-family:var(--mono); font-size:12px; color:var(--signal);
+              margin-top:16px; display:inline-block; }
 
-  .warns { padding:0 18px 12px; display:flex; flex-direction:column; gap:4px; }
-  .warn-chip { font-size:11.5px; color:var(--warn); display:flex; align-items:center; gap:7px; }
-  .warn-chip::before { content:"▲"; font-size:9px; }
-
-  .bets { border-top:1px solid var(--line-soft); }
-  .bets-empty, .no-odds { padding:14px 18px; color:var(--ink-faint); font-size:12.5px; font-family:var(--mono); }
-  .no-odds { border-top:1px solid var(--line-soft); }
-
-  table { width:100%; border-collapse:collapse; }
-  thead th { text-align:right; font-family:var(--mono); font-weight:500; font-size:10.5px; letter-spacing:0.4px; text-transform:uppercase; color:var(--ink-faint); padding:9px 18px 7px; border-bottom:1px solid var(--line-soft); }
-  thead th.l { text-align:left; }
-  tbody td { text-align:right; font-family:var(--mono); font-size:13px; padding:9px 18px; border-bottom:1px solid var(--line-soft); color:var(--ink); font-variant-numeric:tabular-nums; }
-  tbody tr:last-child td { border-bottom:none; }
-  tbody td.l { text-align:left; font-family:var(--sans); font-weight:600; font-size:13px; }
-  tbody tr.off td:not(.pick) { opacity:0.35; }
-  .mkt-type { display:inline-block; font-family:var(--mono); font-size:9.5px; color:var(--ink-faint); background:var(--panel-2); padding:1px 6px; border-radius:4px; margin-right:8px; }
-  .ev { color:var(--signal); font-weight:600; }
-  .ev.ev-neg { color:var(--ink-faint); }
-  .rec-star { color:var(--signal); font-size:11px; margin-left:6px; vertical-align:middle; }
-  tbody tr.shown-only td.l { color:var(--ink-dim); }
-  tbody tr.shown-only .mkt-type { opacity:0.7; }
-
-  /* checkbox */
-  td.pick { text-align:center; width:44px; }
-  .cbox { width:18px; height:18px; border:1.5px solid var(--line); border-radius:5px; background:var(--panel-2); cursor:pointer; display:inline-flex; align-items:center; justify-content:center; vertical-align:middle; transition:all .12s; }
-  .cbox.on { background:var(--signal); border-color:var(--signal); }
-  .cbox.on::after { content:"✓"; color:#06231a; font-size:12px; font-weight:800; }
-
-  /* stake input */
-  .stake-in { width:58px; background:var(--panel-2); border:1px solid var(--line); border-radius:5px; color:var(--ink); font-family:var(--mono); font-size:12.5px; padding:4px 6px; text-align:right; }
-  .stake-in:focus { outline:none; border-color:var(--signal); }
-  .odd-in { width:64px; background:var(--panel-2); border:1px solid var(--line); border-radius:5px; color:var(--ink); font-family:var(--mono); font-size:12.5px; padding:4px 6px; text-align:right; }
-  .odd-in:focus { outline:none; border-color:var(--signal); }
-  tr.needs-odd .odd-in { border-color:var(--warn); border-style:dashed; }
-  tr.needs-odd .odd-in::placeholder { color:var(--warn); }
-  .fill-hint { color:var(--warn); font-size:11px; margin-left:6px; cursor:help; }
-  .stake-euro { color:var(--ink-faint); margin-right:2px; }
-
-  /* export bar */
-  .exportbar { position:fixed; bottom:0; left:0; right:0; background:rgba(14,17,22,0.96); border-top:1px solid var(--line); backdrop-filter:blur(8px); }
-  .exportbar-inner { max-width:1080px; margin:0 auto; padding:14px 24px; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
-  .summary { font-family:var(--mono); font-size:12.5px; color:var(--ink-dim); }
-  .summary b { color:var(--ink); }
-  .summary .amt { color:var(--signal); }
-  .export-btn { background:var(--signal); color:#06231a; border:none; border-radius:8px; padding:11px 22px; font-size:13.5px; font-weight:800; cursor:pointer; font-family:var(--sans); }
-  .export-btn:disabled { opacity:0.4; cursor:not-allowed; }
-
-  .empty { text-align:center; padding:70px 20px; color:var(--ink-dim); }
-  .empty h2 { font-size:17px; margin-bottom:8px; color:var(--ink); font-weight:700; }
-  .empty p { font-size:13.5px; max-width:440px; margin:0 auto 18px; }
-  .empty code { font-family:var(--mono); font-size:12px; background:var(--panel-2); padding:2px 7px; border-radius:4px; color:var(--signal); }
+  footer { border-top:1px solid var(--line-soft); padding:22px 24px 40px; }
+  footer p { max-width:1000px; margin:0 auto; font-size:12px; color:var(--ink-faint); }
 </style>
 </head>
 <body>
-<!-- JB-NAV -->
-<nav style="border-bottom:1px solid #29313c;background:#161b22;padding:0 24px;">
-  <div style="max-width:1000px;margin:0 auto;display:flex;gap:2px;flex-wrap:wrap;align-items:center;font-family:'Inter',-apple-system,system-ui,sans-serif;">
-    <a href="../" style="color:#5b6675;text-decoration:none;font-size:13.5px;font-weight:800;padding:13px 14px 13px 0;white-space:nowrap;">John's</a>
-      <a href="../radar/" style="color:#29e0a0;text-decoration:none;font-size:13.5px;font-weight:600;padding:13px 15px;border-bottom:2px solid #29e0a0;white-space:nowrap;">Value Radar</a>
-      <a href="../picks/" style="color:#8b96a5;text-decoration:none;font-size:13.5px;font-weight:600;padding:13px 15px;border-bottom:2px solid transparent;white-space:nowrap;">Picks</a>
-      <a href="../beheer/" style="color:#8b96a5;text-decoration:none;font-size:13.5px;font-weight:600;padding:13px 15px;border-bottom:2px solid transparent;white-space:nowrap;">Beheer</a>
-      <a href="../historie/" style="color:#8b96a5;text-decoration:none;font-size:13.5px;font-weight:600;padding:13px 15px;border-bottom:2px solid transparent;white-space:nowrap;">Historie</a>
-  </div>
-</nav>
-
   <header>
-    <div class="brand">
-      <h1>Value Radar</h1>
-      <span class="sub">● bets kiezen &amp; exporteren</span>
-    </div>
-    <p class="tagline">
-      Vink aan welke bets je speelt en pas eventueel de inzet aan. Sla promovendus-bets
-      over waar je wilt. Eén klik exporteert je keuzes voor het tracking-dashboard.
-    </p>
-    <div class="meta-row">
-      <span><b>data:</b> <span id="gen-date">—</span></span>
-      <span><b>drempel:</b> EV &gt; <span id="ev-thr">5</span>%</span>
-      <label class="load-btn">
-        data laden
-        <input type="file" id="file-input" accept=".json,application/json" hidden>
-      </label>
+    <div class="inner">
+      <div class="brand">
+        <h1>John's Ballie Bets</h1>
+        <span class="sub">● overzicht</span>
+      </div>
+      <p class="tagline">
+        Alles op één plek: bets selecteren, de picks van deze week, invoer bijwerken
+        en de volledige resultatenhistorie. Puur ter info — speel altijd verantwoord
+        en met je eigen oordeel.
+      </p>
     </div>
   </header>
 
-  <nav class="tabs" id="tabs"></nav>
-  <main id="main"></main>
+  <main>
+    <div class="grid">
+      <a class="card" href="radar/">
+        <span class="kicker">stap 1</span>
+        <h2>Value Radar</h2>
+        <p>Bets kiezen uit de dashboard-export en publiceren naar de picks-pagina.</p>
+        <span class="go">openen →</span>
+      </a>
 
-  <div class="exportbar" id="exportbar" style="display:none;">
-    <div class="exportbar-inner">
-      <div class="summary" id="summary">Geen bets geselecteerd</div>
-      <div style="display:flex; gap:10px; flex-wrap:wrap;">
-        <button class="export-btn" id="publish-btn" disabled>Publiceren (picks_data)</button>
-      </div>
+      <a class="card" href="picks/">
+        <span class="kicker">stap 2</span>
+        <h2>Picks — deze week</h2>
+        <p>De bets die deze week gespeeld worden, met inzet en verwachte waarde.</p>
+        <span class="go">openen →</span>
+      </a>
+
+      <a class="card" href="beheer/">
+        <span class="kicker">stap 3</span>
+        <h2>Beheer</h2>
+        <p>Bets toevoegen en bijwerken, en de bijgewerkte historie exporteren.</p>
+        <span class="go">openen →</span>
+      </a>
+
+      <a class="card" href="historie/">
+        <span class="kicker">stap 4</span>
+        <h2>Resultaten &amp; Historie</h2>
+        <p>Alle afgeronde bets, per dag en per maand, met totalen en rendement.</p>
+        <span class="go">openen →</span>
+      </a>
     </div>
-  </div>
+  </main>
 
-<script>
-// ── State ───────────────────────────────────────────────────────────────
-let DATA = null;
-let activeTab = 0;
-// selections: bet_id → { played:bool, stake:number, bet:{...}, match:{...}, league }
-const SEL = {};
-
-function betId(leagueKey, m, b) {
-  // stabiele identiteit zodat settlement later kan matchen
-  return `${leagueKey}|${m.home}|${m.away}|${b.market}`;
-}
-
-// ── Laden ───────────────────────────────────────────────────────────────
-async function boot() {
-  try {
-    const res = await fetch('dashboard_data.json', { cache:'no-store' });
-    if (res.ok) { DATA = await res.json(); initSelections(); render(); return; }
-  } catch(e) {}
-  renderEmpty();
-}
-document.getElementById('file-input').addEventListener('change', (e) => {
-  const f = e.target.files[0]; if (!f) return;
-  const r = new FileReader();
-  r.onload = (ev) => {
-    try { DATA = JSON.parse(ev.target.result); activeTab=0; initSelections(); render(); }
-    catch { alert('Kon dit bestand niet lezen — is het geldige JSON?'); }
-  };
-  r.readAsText(f);
-});
-
-function initSelections() {
-  Object.keys(SEL).forEach(k => delete SEL[k]);
-  (DATA.leagues||[]).forEach(lg => (lg.matches||[]).forEach(m => (m.bets||[]).forEach(b => {
-    const id = betId(lg.key, m, b);
-    // Standaard AANGEVINKT alleen als de bet is AANBEVOLEN (recommended) én er
-    // geen promovendus-waarschuwing op de match staat. Getoonde-maar-niet-
-    // aanbevolen bets (lagere EV) staan zichtbaar maar uit — jij kiest zelf.
-    // Terugval: als 'recommended' ontbreekt (oud databestand), val terug op het
-    // oude gedrag (alles aan behalve bij waarschuwing).
-    const hasWarn = (m.warnings||[]).length > 0;
-    const isRec = (b.recommended !== undefined) ? b.recommended : true;
-    SEL[id] = { played: isRec && !hasWarn, stake: b.stake, bet: b, match: m, league: lg.key, leagueLabel: lg.label };
-  })));
-}
-
-// ── Helpers ─────────────────────────────────────────────────────────────
-function fmtDate(iso){ if(!iso) return '—'; const d=new Date(iso); return isNaN(d)?'—':d.toLocaleString('nl-NL',{weekday:'short',day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}); }
-function fmtGen(iso){ if(!iso) return '—'; const d=new Date(iso); return isNaN(d)?'—':d.toLocaleString('nl-NL',{dateStyle:'medium',timeStyle:'short'}); }
-function pct(p){ return (p*100).toFixed(1)+'%'; }
-
-// ── Render ──────────────────────────────────────────────────────────────
-function render() {
-  const leagues = (DATA.leagues||[]).filter(l => (l.matches||[]).length);
-  document.getElementById('gen-date').textContent = fmtGen(DATA.generated_at);
-  document.getElementById('ev-thr').textContent = DATA.ev_threshold_pct ?? 5;
-
-  const tabsEl = document.getElementById('tabs'); tabsEl.innerHTML='';
-  leagues.forEach((lg,i) => {
-    const betCount = lg.matches.reduce((a,m)=>a+(m.bets||[]).length,0);
-    const btn = document.createElement('button');
-    btn.className='tab'+(i===activeTab?' active':'');
-    btn.innerHTML = `${lg.label}<span class="cnt">${betCount}</span>`;
-    btn.onclick = () => { activeTab=i; render(); };
-    tabsEl.appendChild(btn);
-  });
-
-  const main = document.getElementById('main'); main.innerHTML='';
-  const lg = leagues[activeTab];
-  if (!lg) { main.innerHTML='<div class="empty"><p>Geen competities in dit bestand.</p></div>'; return; }
-
-  // Wedstrijden chronologisch op speeldatum + tijd. De 'date' is ISO
-  // (2026-08-09T12:15:00Z), en ISO-strings sorteren correct als tekst, dus
-  // localeCompare volstaat — geen Date-parsing nodig. Wedstrijden zonder datum
-  // (mocht dat voorkomen) zakken naar onderen.
-  const matches = [...lg.matches].sort((a,b) => {
-    const da = a.date || '', db = b.date || '';
-    if (!da && !db) return 0;
-    if (!da) return 1;            // a zonder datum → naar achteren
-    if (!db) return -1;           // b zonder datum → naar achteren
-    return da.localeCompare(db);  // vroegste eerst
-  });
-  matches.forEach(m => main.appendChild(renderMatch(lg, m)));
-
-  document.getElementById('exportbar').style.display = 'block';
-  updateSummary();
-}
-
-function renderMatch(lg, m) {
-  const el = document.createElement('div'); el.className='match';
-  const bets = m.bets||[], warns = m.warnings||[];
-  let html = `
-    <div class="match-head">
-      <div>
-        <div class="teams">${m.home}<span class="vs">vs</span>${m.away}</div>
-        <div class="match-sub">
-          <span>1X2 ${pct(m.prob_home)} / ${pct(m.prob_draw)} / ${pct(m.prob_away)}</span>
-          <span class="lam">λ ${m.lambda_home} – ${m.lambda_away}</span>
-        </div>
-      </div>
-      <div class="kickoff">${fmtDate(m.date)}</div>
-    </div>`;
-  if (warns.length) html += `<div class="warns">`+warns.map(w=>`<div class="warn-chip">${w}</div>`).join('')+`</div>`;
-
-  // Bij ontbrekende bookmaker-odds tonen we een informatieve kop, maar we
-  // tekenen de bets-tabel evengoed: het model levert dan alle mogelijke bets
-  // met hun fair odd (needs_odd=true), zodat je zelf de odd invult en kiest.
-  if (!m.has_odds) {
-    html += `<div class="no-odds">Nog geen bookmaker-odds — alle opties staan hieronder met hun fair odd. Vul zelf de bookmaker-odd in bij de bets die je speelt.</div>`;
-  }
-
-  if (!bets.length) {
-    html += `<div class="bets"><div class="bets-empty">${m.has_odds
-      ? 'Geen bet boven de EV-drempel voor dit duel.'
-      : 'Geen bets beschikbaar voor dit duel.'}</div></div>`;
-  } else {
-    html += `<div class="bets"><table><thead><tr>
-      <th class="l">Bet</th><th>Fair</th><th>Book</th><th>EV</th><th>Inzet</th><th>Speel</th>
-    </tr></thead><tbody>` +
-    bets.slice().sort((a,b)=>{
-      const ra = a.recommended!==undefined?a.recommended:true;
-      const rb = b.recommended!==undefined?b.recommended:true;
-      if (ra!==rb) return rb - ra;                 // aanbevolen eerst
-      // Bets met EV bovenaan (hoogste eerst). Bets zonder odd (ev_pct==null)
-      // hebben geen EV om op te sorteren; die groeperen we onderaan en houden
-      // we in hun oorspronkelijke volgorde (1X2 eerst, dan O/U-lijnen oplopend).
-      const ea = a.ev_pct, eb = b.ev_pct;
-      if (ea==null && eb==null) return 0;          // beide zonder odd → volgorde behouden
-      if (ea==null) return 1;                      // a zonder odd → naar achteren
-      if (eb==null) return -1;                     // b zonder odd → naar achteren
-      return eb - ea;                              // beide met EV → hoogste eerst
-    }).map(b => {
-      const id = betId(lg.key, m, b);
-      const s = SEL[id];
-      const label = b.market.replace(/^1X2 |^O\/U /,'');
-      const typ = b.type==='O/U'?'O/U':'1X2';
-      const isRec = (b.recommended!==undefined)?b.recommended:true;
-      const needsOdd = b.needs_odd===true;
-      const hasEv = s.bet.ev_pct!=null && s.bet.ev_pct!==undefined;
-      const evStr = hasEv ? ((s.bet.ev_pct>=0?'+':'') + s.bet.ev_pct.toFixed(1) + '%') : '—';
-      const bookVal = (s.bet.book_odd!=null) ? s.bet.book_odd.toFixed(2) : '';
-      return `<tr class="${s.played?'':'off'} ${isRec?'':'shown-only'} ${needsOdd?'needs-odd':''}" data-id="${id}">
-        <td class="l"><span class="mkt-type">${typ}</span>${label}${isRec?'<span class="rec-star" title="Aanbevolen">★</span>':''}${needsOdd?'<span class="fill-hint" title="Bookmaker-odd ontbreekt — vul zelf in">✎</span>':''}</td>
-        <td>${b.fair_odd.toFixed(2)}</td>
-        <td><input class="odd-in" type="number" min="1" step="0.01" value="${bookVal}" placeholder="—" data-odd="${id}"></td>
-        <td class="ev ${hasEv&&s.bet.ev_pct<0?'ev-neg':''}" data-ev="${id}">${evStr}</td>
-        <td><span class="stake-euro">€</span><input class="stake-in" type="number" min="0" step="0.25" value="${s.stake}" data-stake="${id}"></td>
-        <td class="pick"><span class="cbox ${s.played?'on':''}" data-toggle="${id}"></span></td>
-      </tr>`;
-    }).join('') + `</tbody></table></div>`;
-  }
-  el.innerHTML = html;
-
-  // events
-  el.querySelectorAll('[data-toggle]').forEach(cb => {
-    cb.onclick = () => {
-      const id = cb.getAttribute('data-toggle');
-      SEL[id].played = !SEL[id].played;
-      cb.classList.toggle('on', SEL[id].played);
-      cb.closest('tr').classList.toggle('off', !SEL[id].played);
-      updateSummary();
-    };
-  });
-  el.querySelectorAll('[data-stake]').forEach(inp => {
-    inp.onchange = () => {
-      const id = inp.getAttribute('data-stake');
-      const v = parseFloat(inp.value);
-      SEL[id].stake = isNaN(v) ? 0 : v;
-      updateSummary();
-    };
-  });
-  // book-odd bewerken → EV live herberekenen
-  el.querySelectorAll('[data-odd]').forEach(inp => {
-    inp.oninput = () => {
-      const id = inp.getAttribute('data-odd');
-      const odd = parseFloat(inp.value);
-      const bet = SEL[id].bet;
-      const evCell = el.querySelector(`[data-ev="${id}"]`);
-      if (isNaN(odd) || odd <= 1) {
-        bet.book_odd = null; bet.ev_pct = null;
-        evCell.textContent = '—'; evCell.classList.remove('ev-neg');
-      } else {
-        bet.book_odd = odd;
-        bet.ev_pct = (bet.model_prob * odd - 1) * 100;   // EV = kans × odd − 1
-        evCell.textContent = (bet.ev_pct>=0?'+':'') + bet.ev_pct.toFixed(1) + '%';
-        evCell.classList.toggle('ev-neg', bet.ev_pct < 0);
-      }
-      updateSummary();
-    };
-  });
-  return el;
-}
-
-function updateSummary() {
-  const played = Object.values(SEL).filter(s => s.played);
-  const totalStake = played.reduce((a,s)=>a + (s.stake||0), 0);
-  const sumEl = document.getElementById('summary');
-  const pub = document.getElementById('publish-btn');
-  if (!played.length) {
-    sumEl.innerHTML = 'Geen bets geselecteerd';
-    pub.disabled = true;
-  } else {
-    sumEl.innerHTML = `<b>${played.length}</b> bet(s) geselecteerd · totale inzet <span class="amt">€${totalStake.toFixed(2)}</span>`;
-    pub.disabled = false;
-  }
-}
-
-// ── Export ──────────────────────────────────────────────────────────────
-function buildExport() {
-  const played = Object.values(SEL).filter(s => s.played && s.stake > 0);
-  if (!played.length) return null;
-  // controleer of alle gespeelde bets een ingevulde odd hebben
-  const missing = played.filter(s => s.bet.book_odd == null || s.bet.book_odd <= 1);
-  if (missing.length) {
-    const namen = missing.map(s => `${s.match.home}-${s.match.away}: ${s.bet.market}`).join('\n');
-    alert('Deze geselecteerde bet(s) hebben nog geen bookmaker-odd ingevuld:\n\n' + namen +
-          '\n\nVul de odd in (of vink de bet uit) voordat je publiceert.');
-    return null;
-  }
-  return {
-    exported_at: new Date().toISOString(),
-    source_generated_at: DATA.generated_at || null,
-    bets: played.map(s => ({
-      bet_id: betId(s.league, s.match, s.bet),
-      league: s.league,
-      league_label: s.leagueLabel,
-      home: s.match.home,
-      away: s.match.away,
-      match_date: s.match.date || null,
-      market: s.bet.market,
-      type: s.bet.type,
-      fair_odd: s.bet.fair_odd,
-      book_odd: s.bet.book_odd,
-      ev_pct: s.bet.ev_pct,
-      stake: s.stake,
-      bookmaker: s.match.bookmaker || null,
-      status: 'open'          // settlement vult dit later: won / lost
-    }))
-  };
-}
-
-function downloadJSON(obj, filename) {
-  const blob = new Blob([JSON.stringify(obj, null, 2)], { type:'application/json' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url; a.download = filename;
-  a.click();
-  URL.revokeObjectURL(url);
-}
-
-// ── Publiceren met oplopend nummer ─────────────────────────────────────────
-// De site onthoudt het laatst gebruikte nummer in de browser-opslag en stelt
-// het volgende voor. Je kunt het aanpassen voordat je downloadt. Eén bestand
-// picks_data_NNN.json dient voor zowel je Python-script als de weergave-site.
-const PICKS_COUNTER_KEY = 'johnspicks:picksCounter:v1';
-
-function getNextPicksNumber() {
-  let last = 0;
-  try { last = parseInt(localStorage.getItem(PICKS_COUNTER_KEY) || '0', 10) || 0; } catch(e) {}
-  return last + 1;
-}
-function rememberPicksNumber(n) {
-  try { localStorage.setItem(PICKS_COUNTER_KEY, String(n)); } catch(e) {}
-}
-
-document.getElementById('publish-btn').onclick = () => {
-  const out = buildExport();
-  if (!out) return;
-  const suggested = getNextPicksNumber();
-  const answer = prompt(
-    'Volgnummer voor dit picks-bestand:\n\n' +
-    'De site stelt het volgende nummer voor. Pas aan als je wilt.\n' +
-    'Let op: kies geen nummer dat je al gebruikt hebt, anders download je een dubbele.',
-    String(suggested)
-  );
-  if (answer === null) return;                       // geannuleerd
-  const n = parseInt(answer, 10);
-  if (isNaN(n) || n < 1) { alert('Geen geldig nummer.'); return; }
-  const nnn = String(n).padStart(3, '0');
-  rememberPicksNumber(n);                             // onthoud het hoogste
-  downloadJSON(out, `picks_data_${nnn}.json`);
-};
-
-function renderEmpty() {
-  document.getElementById('tabs').innerHTML='';
-  document.getElementById('main').innerHTML = `
-    <div class="empty">
-      <h2>Nog geen data geladen</h2>
-      <p>Plaats <code>dashboard_data.json</code> naast dit bestand, of laad het
-         handmatig met <b>data laden</b> rechtsboven.</p>
-    </div>`;
-  document.getElementById('exportbar').style.display='none';
-}
-
-boot();
-</script>
+  <footer>
+    <p>John's Ballie Bets · gokken kan verslavend zijn · 18+</p>
+  </footer>
 </body>
 </html>
