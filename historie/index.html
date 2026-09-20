@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>John's Picks — Resultaten &amp; Historie</title>
+<style>
+  :root {
+    --bg:#0e1116; --panel:#161b22; --panel-2:#1c232d; --line:#29313c; --line-soft:#202832;
+    --ink:#e6edf3; --ink-dim:#8b96a5; --ink-faint:#5b6675;
+    --signal:#29e0a0; --warn:#f0a24b; --neg:#e0556b;
+    --mono:'SF Mono','JetBrains Mono','Fira Code',ui-monospace,Menlo,monospace;
+    --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--bg); color:var(--ink); font-family:var(--sans); -webkit-font-smoothing:antialiased; line-height:1.5; padding-bottom:80px; }
+
+  header { border-bottom:1px solid var(--line); padding:26px 24px 20px; max-width:1120px; margin:0 auto; }
+  .brand { display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; }
+  .brand h1 { font-size:25px; font-weight:800; letter-spacing:-0.5px; }
+  .brand .sub { color:var(--signal); font-family:var(--mono); font-size:13px; font-weight:600; }
+  .tagline { color:var(--ink-dim); font-size:13px; margin-top:6px; max-width:640px; }
+  .actions { display:flex; gap:10px; margin-top:14px; flex-wrap:wrap; }
+  .btn { display:inline-flex; align-items:center; gap:7px; background:var(--panel-2); color:var(--ink); border:1px solid var(--line); border-radius:7px; padding:8px 14px; font-size:12.5px; font-weight:600; cursor:pointer; font-family:var(--sans); }
+  .btn:hover { border-color:var(--signal); color:var(--signal); }
+  .filebar { font-family:var(--mono); font-size:11px; color:var(--ink-faint); margin-top:12px; }
+
+  main { max-width:1120px; margin:0 auto; padding:22px 24px; }
+
+  .totals { display:grid; grid-template-columns:repeat(auto-fit,minmax(158px,1fr)); gap:13px; margin-bottom:12px; }
+  .stat { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px 18px; }
+  .stat.hero { border-color:rgba(41,224,160,0.35); background:linear-gradient(180deg, rgba(41,224,160,0.06), transparent 70%), var(--panel); }
+  .stat .label { font-family:var(--mono); font-size:10px; letter-spacing:0.5px; text-transform:uppercase; color:var(--ink-faint); }
+  .stat .value { font-size:26px; font-weight:800; margin-top:5px; font-variant-numeric:tabular-nums; letter-spacing:-0.5px; }
+  .stat .value.pos { color:var(--signal); } .stat .value.neg { color:var(--neg); }
+  .stat .sub { font-family:var(--mono); font-size:11px; color:var(--ink-dim); margin-top:2px; }
+  .totals-note { font-family:var(--mono); font-size:11px; color:var(--ink-faint); margin-bottom:22px; }
+
+  nav.tabs { display:flex; gap:4px; flex-wrap:wrap; border-bottom:1px solid var(--line-soft); margin-bottom:18px; }
+  .tab { background:none; border:none; cursor:pointer; color:var(--ink-dim); font-family:var(--sans); font-size:13px; font-weight:600; padding:9px 14px; border-bottom:2px solid transparent; margin-bottom:-1px; display:flex; align-items:center; gap:7px; }
+  .tab:hover { color:var(--ink); }
+  .tab.active { color:var(--ink); border-bottom-color:var(--signal); }
+  .tab .cnt { font-family:var(--mono); font-size:10.5px; background:var(--panel-2); color:var(--ink-dim); padding:1px 7px; border-radius:10px; }
+  .tab.active .cnt { background:var(--signal); color:#06231a; }
+
+  .day { margin-bottom:20px; border:1px solid var(--line); border-radius:12px; overflow:hidden; }
+  .day-head { display:flex; justify-content:space-between; align-items:center; padding:12px 16px; background:var(--panel); gap:12px; flex-wrap:wrap; }
+  .day-date { font-weight:700; font-size:14px; }
+  .day-date .dow { color:var(--ink-faint); font-weight:400; font-size:12px; margin-left:8px; }
+  .day-summary { display:flex; gap:16px; font-family:var(--mono); font-size:12px; flex-wrap:wrap; }
+  .day-summary .k { color:var(--ink-faint); }
+  .day-summary .pos { color:var(--signal); } .day-summary .neg { color:var(--neg); }
+
+  .day-body { overflow-x:auto; }
+  table { width:100%; border-collapse:collapse; font-size:12.5px; }
+  thead th { text-align:right; font-family:var(--mono); font-weight:500; font-size:10px; letter-spacing:0.3px; text-transform:uppercase; color:var(--ink-faint); padding:9px 12px; border-top:1px solid var(--line-soft); border-bottom:1px solid var(--line-soft); background:var(--panel-2); white-space:nowrap; }
+  thead th.l { text-align:left; }
+  tbody td { text-align:right; font-family:var(--mono); padding:8px 12px; border-bottom:1px solid var(--line-soft); font-variant-numeric:tabular-nums; white-space:nowrap; }
+  tbody td.l { text-align:left; font-family:var(--sans); }
+  tbody tr:hover { background:var(--panel); }
+  tbody tr.fictief td { opacity:0.4; font-style:italic; }
+  .pos { color:var(--signal); } .neg { color:var(--neg); }
+  .badge { display:inline-block; font-family:var(--mono); font-size:9.5px; font-weight:700; padding:1px 7px; border-radius:9px; }
+  .badge.g { background:rgba(41,224,160,0.15); color:var(--signal); }
+  .badge.f { background:rgba(224,85,107,0.15); color:var(--neg); }
+  .badge.x { background:var(--panel-2); color:var(--ink-faint); }
+  .matchup-empty { color:var(--ink-faint); font-style:italic; }
+
+  .empty { text-align:center; padding:70px 20px; color:var(--ink-dim); }
+  .empty h2 { font-size:17px; margin-bottom:8px; color:var(--ink); font-weight:700; }
+  .empty p { font-size:13px; max-width:440px; margin:0 auto 6px; }
+  .empty code { font-family:var(--mono); font-size:12px; background:var(--panel-2); padding:2px 7px; border-radius:4px; color:var(--signal); }
+
+  /* ── Weergave-schakelaar (Overzicht / Analyse) ───────────────────────── */
+  .viewbar { max-width:1120px; margin:0 auto; padding:18px 24px 0; }
+  .viewswitch { display:inline-flex; background:var(--panel); border:1px solid var(--line); border-radius:9px; padding:3px; gap:3px; }
+  .viewswitch a { color:var(--ink-dim); text-decoration:none; font-size:13px; font-weight:700; padding:7px 16px; border-radius:6px; }
+  .viewswitch a:hover { color:var(--ink); }
+  .viewswitch a.on { background:var(--panel-2); color:var(--signal); box-shadow:inset 0 0 0 1px var(--line); }
+  .viewswitch a:focus-visible, .chip:focus-visible, .an-in:focus-visible, .seg button:focus-visible { outline:2px solid var(--signal); outline-offset:2px; }
+
+  /* ── Analyse ─────────────────────────────────────────────────────────── */
+  #analyse { max-width:1120px; margin:0 auto; padding:22px 24px; }
+  .an-filters { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:14px 16px 6px; margin-bottom:16px; }
+  .an-row { display:grid; grid-template-columns:118px 1fr; gap:10px; align-items:start; padding:7px 0; border-bottom:1px solid var(--line-soft); }
+  .an-row:last-child { border-bottom:none; }
+  .an-row > .k { font-size:12px; font-weight:600; color:var(--ink-dim); padding-top:5px; }
+  .an-row > .k small { display:block; font-weight:400; color:var(--ink-faint); font-size:10.5px; }
+  .chips { display:flex; flex-wrap:wrap; gap:6px; }
+  .chip { background:var(--panel-2); color:var(--ink-dim); border:1px solid var(--line); border-radius:999px; padding:4px 11px; font-size:12px; font-weight:600; cursor:pointer; font-family:var(--sans); display:inline-flex; gap:6px; align-items:center; }
+  .chip:hover { color:var(--ink); border-color:var(--ink-faint); }
+  .chip.on { background:rgba(41,224,160,0.13); border-color:rgba(41,224,160,0.55); color:var(--signal); }
+  .chip .n { font-family:var(--mono); font-size:10px; color:var(--ink-faint); }
+  .chip.on .n { color:var(--signal); opacity:0.75; }
+  .chip.ghost { background:none; border-style:dashed; }
+  .ranges { display:flex; flex-wrap:wrap; gap:8px 18px; }
+  .rng { display:flex; align-items:center; gap:6px; font-size:12px; color:var(--ink-dim); }
+  .rng .lbl { min-width:66px; }
+  .an-in { background:var(--bg); color:var(--ink); border:1px solid var(--line); border-radius:6px; padding:5px 8px; font-family:var(--mono); font-size:12px; width:74px; }
+  .an-in[type=date] { width:auto; color-scheme:dark; }
+  select.an-in { width:auto; font-family:var(--sans); cursor:pointer; }
+  .seg { display:inline-flex; border:1px solid var(--line); border-radius:7px; overflow:hidden; }
+  .seg button { background:var(--panel-2); color:var(--ink-dim); border:none; padding:5px 12px; font-size:12px; font-weight:600; cursor:pointer; font-family:var(--sans); }
+  .seg button + button { border-left:1px solid var(--line); }
+  .seg button.on { background:rgba(41,224,160,0.13); color:var(--signal); }
+  .an-foot { display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; padding:9px 0 8px; font-size:12px; color:var(--ink-dim); }
+  .an-foot b { color:var(--ink); }
+  .unknown { font-size:11px; color:var(--warn); margin-top:4px; }
+
+  .an-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .card { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:14px 16px; margin-bottom:14px; min-width:0; }
+  .an-grid .card { margin-bottom:0; }
+  .card-head { display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:10px; }
+  .card-head h3 { font-size:14px; font-weight:700; }
+  .card-head p { font-size:11.5px; color:var(--ink-faint); width:100%; margin-top:-4px; }
+  .card-ctl { display:flex; gap:8px; flex-wrap:wrap; align-items:center; font-size:12px; color:var(--ink-dim); }
+  .chartbox { position:relative; height:280px; }
+  .chartbox.tall { height:330px; }
+  .card .day-body { margin:12px -16px -14px; border-top:1px solid var(--line-soft); }
+  .card table tbody tr:last-child td { border-bottom:none; }
+  tr.small td { color:var(--ink-faint); }
+  tr.small td.l::after { content:' · kleine steekproef'; font-size:10.5px; color:var(--ink-faint); }
+  .kpis { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:11px; margin-bottom:14px; }
+  .kpis .stat { padding:13px 15px; }
+  .kpis .stat .value { font-size:22px; }
+  .chart-fallback { color:var(--ink-dim); font-size:12.5px; padding:40px 10px; text-align:center; }
+  @media (max-width:760px){
+    .an-grid { grid-template-columns:1fr; }
+    .an-row { grid-template-columns:1fr; gap:6px; }
+    .an-row > .k { padding-top:0; }
+    .chartbox, .chartbox.tall { height:250px; }
+  }
+</style>
+</head>
+<body>
+<!-- JB-NAV -->
+<nav style="border-bottom:1px solid #29313c;background:#161b22;padding:0 24px;">
+  <div style="max-width:1000px;margin:0 auto;display:flex;gap:2px;flex-wrap:wrap;align-items:center;font-family:'Inter',-apple-system,system-ui,sans-serif;">
+    <a href="../" style="color:#5b6675;text-decoration:none;font-size:13.5px;font-weight:800;padding:13px 14px 13px 0;white-space:nowrap;">John's</a>
+      <a href="../radar/" style="color:#8b96a5;text-decoration:none;font-size:13.5px;font-weight:600;padding:13px 15px;border-bottom:2px solid transparent;white-space:nowrap;">Value Radar</a>
+      <a href="../picks/" style="color:#8b96a5;text-decoration:none;font-size:13.5px;font-weight:600;padding:13px 15px;border-bottom:2px solid transparent;white-space:nowrap;">Picks</a>
+      <a href="../beheer/" style="color:#8b96a5;text-decoration:none;font-size:13.5px;font-weight:600;padding:13px 15px;border-bottom:2px solid transparent;white-space:nowrap;">Beheer</a>
+      <a href="../historie/" style="color:#29e0a0;text-decoration:none;font-size:13.5px;font-weight:600;padding:13px 15px;border-bottom:2px solid #29e0a0;white-space:nowrap;">Historie</a>
+  </div>
+</nav>
+
+  <header>
+    <div class="brand">
+      <h1>John's Picks</h1>
+      <span class="sub">● resultaten &amp; historie</span>
+    </div>
+    <p class="tagline">
+      Volledige registratie van alle geplaatste bets, met dag- en totaaloverzichten.
+      Speel altijd verantwoord en met je eigen oordeel.
+    </p>
+    <div class="actions">
+      <button class="btn" id="export-btn">Exporteer CSV</button>
+    </div>
+    <div class="filebar" id="filebar"></div>
+  </header>
+
+  <div class="viewbar">
+    <nav class="viewswitch" aria-label="Weergave">
+      <a href="#" data-view="overzicht">Overzicht</a>
+      <a href="#analyse" data-view="analyse">Analyse</a>
+    </nav>
+  </div>
+
+  <main id="main"></main>
+  <section id="analyse" hidden></section>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.js"></script>
+<script>
+// ═══════════════════════════════════════════════════════════════════════════
+//  WEERGAVE-SITE (alleen tonen). Laadt de vaste historie.csv die naast dit
+//  bestand op Netlify staat. Geen bewerking, geen opslag, geen export — dat
+//  doe je op de edit-site. Jij updatet historie.csv, je vrienden zien het.
+// ═══════════════════════════════════════════════════════════════════════════
+let BETS = [];
+let activeTab = 0;
+
+// ── Instellingen ───────────────────────────────────────────────────────────
+// De stack waarmee je begonnen bent. Alle bankroll-cijfers rekenen hier vanaf.
+const START_BANKROLL = 1500;
+
+// ── Formatters ─────────────────────────────────────────────────────────────
+// Nederlandse notatie: €1.650,00 en +10,25%. Alleen voor weergave — de CSV-
+// export blijft punt-decimalen gebruiken, zodat Excel/Sheets hem inleest.
+function num(n, d){ return (n==null||isNaN(n)) ? '—' : n.toLocaleString('nl-NL',{minimumFractionDigits:d,maximumFractionDigits:d}); }
+function eur(n){ if(n==null||isNaN(n)) return '—'; return (n<0?'−':'')+'€'+num(Math.abs(n),2); }
+function eurSigned(n){ if(n==null||isNaN(n)) return '—'; return (n>=0?'+':'')+eur(n); }
+function pct(n, d){ if(n==null||isNaN(n)) return '—'; return (n>=0?'+':'−')+num(Math.abs(n),d==null?2:d)+'%'; }
+
+function toNum(s){ if(s==null)return null; s=String(s).trim(); if(s===''||s==='X'||s==='x')return null; s=s.replace(',','.'); const n=parseFloat(s); return isNaN(n)?null:n; }
+
+// ── CSV parsing ────────────────────────────────────────────────────────────
+function parseCSV(text){
+  const rows=[]; let row=[],cur='',q=false;
+  for(let i=0;i<text.length;i++){
+    const c=text[i];
+    if(q){ if(c==='"'){ if(text[i+1]==='"'){cur+='"';i++;} else q=false; } else cur+=c; }
+    else { if(c==='"')q=true; else if(c===','){row.push(cur);cur='';} else if(c==='\r'){} else if(c==='\n'){row.push(cur);rows.push(row);row=[];cur='';} else cur+=c; }
+  }
+  if(cur.length||row.length){row.push(cur);rows.push(row);}
+  return rows;
+}
+function ingestHistorieCSV(text){
+  const rows=parseCSV(text).filter(r=>r.some(c=>c&&c.trim()));
+  if(!rows.length)return 0;
+  const header=rows[0].map(h=>h.toLowerCase().trim());
+  const idx=name=>header.findIndex(h=>h.includes(name));
+  const iDate=idx('datum'),iMu=idx('match'),iMk=idx('bet')>=0?idx('bet'):idx('market'),
+        iFair=idx('fair'),iBook=idx('bookie'),iEdge=idx('edge'),iScore=idx('uitslag'),
+        iGf=idx('g/f'),iRes=idx('result'),iBet=idx('inzet'),iWl=idx('winst'),iNote=idx('notitie'),
+        iComp=idx('compet');  // optionele kolom "Competitie"
+  let added=0;
+  for(let i=1;i<rows.length;i++){
+    const r=rows[i]; const market=(r[iMk]||'').trim();
+    if(!market)continue;
+    BETS.push({ date:(r[iDate]||'').trim(), matchup:(r[iMu]||'').trim(), market,
+      fair:toNum(r[iFair]), bookie:toNum(r[iBook]), edge:toNum(r[iEdge]),
+      score:(r[iScore]||'').trim(), gf:(r[iGf]||'').trim().toUpperCase(),
+      result:(r[iRes]||'').trim(), bet:toNum(r[iBet]), winloss:toNum(r[iWl]),
+      note:(r[iNote]||'').trim(), comp:iComp>=0?(r[iComp]||'').trim():'' });
+    added++;
+  }
+  return added;
+}
+
+// ── Datum helpers ──────────────────────────────────────────────────────────
+function parseDate(d){ const m=(d||'').match(/(\d{2})\/(\d{2})\/(\d{2})/); if(!m)return null; return new Date(2000+ +m[3], +m[2]-1, +m[1]); }
+function monthKey(d){ const dt=parseDate(d); return dt?`${dt.getFullYear()}-${String(dt.getMonth()+1).padStart(2,'0')}`:'onbekend'; }
+function monthLabel(k){ const [y,m]=k.split('-'); const n=['jan','feb','mrt','apr','mei','jun','jul','aug','sep','okt','nov','dec']; return `${n[+m-1]} ${y}`; }
+function dowLabel(d){ const dt=parseDate(d); return dt?dt.toLocaleDateString('nl-NL',{weekday:'long'}):''; }
+
+// ── Totalen ────────────────────────────────────────────────────────────────
+function played(bets){ return bets.filter(b=>b.bet!=null && b.winloss!=null && b.result!=='X'); }
+function totals(bets){
+  const p=played(bets);
+  const wl=p.reduce((a,b)=>a+b.winloss,0);
+  const st=p.reduce((a,b)=>a+b.bet,0);
+  const w=p.filter(b=>b.result==='1'||b.gf==='G').length;
+  const l=p.length-w;
+  return { plays:p.length, wl, stake:st, roi:st?wl/st*100:0, wins:w, losses:l, hit:(w+l)?w/(w+l)*100:0,
+           avgStake:p.length?st/p.length:0,
+           // Bankroll: wat er van de startstack over is, en de groei daarvan.
+           bankroll:START_BANKROLL+wl,
+           growth:START_BANKROLL?wl/START_BANKROLL*100:0 };
+}
+
+// ── Render ─────────────────────────────────────────────────────────────────
+function render(){
+  const main=document.getElementById('main');
+  document.getElementById('filebar').textContent = `${played(BETS).length} plays geregistreerd`;
+  if(!BETS.length){ renderEmpty(); return; }
+
+  const T=totals(BETS);
+  let html=`
+    <div class="totals">
+      <div class="stat hero">
+        <div class="label">Bankroll</div>
+        <div class="value ${T.wl>=0?'pos':'neg'}">${eur(T.bankroll)}</div>
+        <div class="sub">start ${eur(START_BANKROLL)} · ${eurSigned(T.wl)}</div>
+      </div>
+      <div class="stat">
+        <div class="label">Rendement op stack</div>
+        <div class="value ${T.growth>=0?'pos':'neg'}">${pct(T.growth)}</div>
+        <div class="sub">groei sinds start</div>
+      </div>
+      <div class="stat">
+        <div class="label">Totaal W/V</div>
+        <div class="value ${T.wl>=0?'pos':'neg'}">${eurSigned(T.wl)}</div>
+        <div class="sub">over ${T.plays} plays</div>
+      </div>
+      <div class="stat">
+        <div class="label">Totale inzet</div>
+        <div class="value">${eur(T.stake)}</div>
+        <div class="sub">gem. ${eur(T.avgStake)} per play</div>
+      </div>
+      <div class="stat">
+        <div class="label">ROI op inzet</div>
+        <div class="value ${T.roi>=0?'pos':'neg'}">${pct(T.roi)}</div>
+        <div class="sub">per ingezette euro</div>
+      </div>
+      <div class="stat">
+        <div class="label">Trefkans</div>
+        <div class="value">${num(T.hit,0)}%</div>
+        <div class="sub">${T.wins} G · ${T.losses} F</div>
+      </div>
+    </div>
+    <div class="totals-note">Cumulatief over de gehele geregistreerde periode, vanaf een startstack van ${eur(START_BANKROLL)}. Fictieve bets (X) tellen niet mee.</div>`;
+
+  const byMonth={};
+  BETS.forEach(b=>{ const k=monthKey(b.date); (byMonth[k]=byMonth[k]||[]).push(b); });
+  const months=Object.keys(byMonth).sort();
+  if(activeTab>=months.length) activeTab=0;
+
+  html+=`<nav class="tabs">`;
+  months.forEach((mk,i)=>{
+    const t=totals(byMonth[mk]);
+    html+=`<button class="tab ${i===activeTab?'active':''}" data-tab="${i}">${monthLabel(mk)}<span class="cnt">${t.plays}</span></button>`;
+  });
+  html+=`</nav>`;
+
+  const monthBets=byMonth[months[activeTab]]||[];
+  const byDay={};
+  monthBets.forEach(b=>{ (byDay[b.date]=byDay[b.date]||[]).push(b); });
+  const days=Object.keys(byDay).sort((a,b)=>(parseDate(b)||0)-(parseDate(a)||0));
+
+  days.forEach(date=>{
+    const list=byDay[date]; const dt=totals(list);
+    html+=`
+      <div class="day">
+        <div class="day-head">
+          <div class="day-date">${date}<span class="dow">${dowLabel(date)}</span></div>
+          <div class="day-summary">
+            <span><span class="k">W/V</span> <span class="${dt.wl>=0?'pos':'neg'}">${eurSigned(dt.wl)}</span></span>
+            <span><span class="k">inzet</span> ${eur(dt.stake)}</span>
+            <span><span class="k">ROI</span> <span class="${dt.roi>=0?'pos':'neg'}">${pct(dt.roi,1)}</span></span>
+            <span><span class="k">plays</span> ${dt.plays}</span>
+          </div>
+        </div>
+        <div class="day-body">
+          <table>
+            <thead><tr>
+              <th class="l">Match-up</th><th class="l">Bet</th>
+              <th>Fair</th><th>Bookie</th><th>Edge</th>
+              <th>Uitslag</th><th>G/F</th><th>Inzet</th><th>W/V</th>
+            </tr></thead>
+            <tbody>`;
+    list.forEach(b=>{
+      const fic=b.result==='X';
+      const gf=b.gf==='G'?'<span class="badge g">G</span>':b.gf==='F'?'<span class="badge f">F</span>':(fic?'<span class="badge x">X</span>':'');
+      const wl=b.winloss!=null?`<span class="${b.winloss>=0?'pos':'neg'}">${b.winloss>=0?'+':'−'}${num(Math.abs(b.winloss),2)}</span>`:'—';
+      html+=`<tr class="${fic?'fictief':''}">
+        <td class="l">${b.matchup?b.matchup:'<span class="matchup-empty">—</span>'}</td>
+        <td class="l">${b.market}</td>
+        <td>${b.fair!=null?num(b.fair,2):'—'}</td>
+        <td>${b.bookie!=null?num(b.bookie,2):'—'}</td>
+        <td>${b.edge!=null?num(b.edge,1)+'%':'—'}</td>
+        <td>${b.score||'—'}</td>
+        <td>${gf}</td>
+        <td>${b.bet!=null?eur(b.bet):'—'}</td>
+        <td>${wl}</td>
+      </tr>`;
+    });
+    html+=`</tbody></table></div></div>`;
+  });
+
+  main.innerHTML=html;
+  main.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{activeTab=+t.getAttribute('data-tab');render();});
+}
+
+function renderEmpty(){
+  document.getElementById('main').innerHTML=`
+    <div class="empty">
+      <h2>Nog geen historie geladen</h2>
+      <p>Plaats <code>historie.csv</code> in dezelfde map als dit bestand.</p>
+    </div>`;
+}
+
+// ── Export CSV (volledige historie met dag- en eindtotalen) ────────────────
+function buildCSV(bets){
+  const lines=[];
+  lines.push(['Datum','Match-up','Bet','Fair','Bookie','Edge','Uitslag','G/F','Result','Inzet','Winst/Verlies','Notitie'].join(','));
+  const esc=v=>{ if(v==null)return''; const s=String(v); return /[,"]/.test(s)?`"${s.replace(/"/g,'""')}"`:s; };
+  const byDay={};
+  bets.forEach(b=>{ (byDay[b.date]=byDay[b.date]||[]).push(b); });
+  const days=Object.keys(byDay).sort((a,b)=>(parseDate(a)||0)-(parseDate(b)||0));
+  days.forEach(date=>{
+    byDay[date].forEach(b=>{
+      lines.push([b.date,b.matchup,b.market,b.fair,b.bookie,
+        b.edge!=null?b.edge.toFixed(2):'',b.score,b.gf,b.result,b.bet,b.winloss,b.note].map(esc).join(','));
+    });
+    const dt=totals(byDay[date]);
+    lines.push([`Dagtotaal ${date}`,'','','','','','','','',dt.stake.toFixed(2),dt.wl.toFixed(2),`ROI ${dt.roi.toFixed(1)}% · ${dt.plays} plays`].map(esc).join(','));
+    lines.push('');
+  });
+  const T=totals(bets);
+  lines.push(['EINDTOTAAL','','','','','','','','',T.stake.toFixed(2),T.wl.toFixed(2),`ROI ${T.roi.toFixed(2)}% · ${T.plays} plays · trefkans ${T.hit.toFixed(0)}% · bankroll ${START_BANKROLL.toFixed(2)} -> ${T.bankroll.toFixed(2)} (${T.growth>=0?'+':''}${T.growth.toFixed(2)}%)`].map(esc).join(','));
+  return lines.join('\n');
+}
+function exportCSV(){
+  if(!BETS.length){ alert('Geen data om te exporteren.'); return; }
+  const blob=new Blob([buildCSV(BETS)],{type:'text/csv'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url; a.download=`johnspicks_historie_${new Date().toISOString().slice(0,10)}.csv`;
+  a.click(); URL.revokeObjectURL(url);
+}
+document.getElementById('export-btn').onclick=exportCSV;
+
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  ANALYSE — rekent alles opnieuw uit historie.csv bij elke paginalading.
+//  Nieuwe regels in de CSV verschijnen dus automatisch in de analyse.
+// ═══════════════════════════════════════════════════════════════════════════
+
+// ── Competitie-herkenning ──────────────────────────────────────────────────
+// De CSV heeft (nog) geen competitiekolom, dus de competitie wordt afgeleid
+// uit de teamnaam in "Match-up" of "Bet". Onbekend team? Voeg de naam (klein
+// geschreven, zonder accenten) toe aan de juiste lijst hieronder.
+// Wil je het per bet zelf bepalen: voeg een kolom "Competitie" toe aan de CSV;
+// een ingevulde waarde daar gaat altijd voor (handig voor CL- of bekerduels).
+const TEAM_COMPETITIE = {
+  'Eredivisie': ['psv','ajax','feyenoord','az','twente','utrecht','heerenveen','groningen','go ahead','nec','pec','zwolle',
+    'sparta','excelsior','heracles','fortuna','sittard','nac','volendam','telstar','willem ii','ado','den haag','almere','waalwijk','rkc'],
+  'Premier League': ['arsenal','aston villa','villa','bournemouth','bourenmouth','brentford','brighton','burnley','chelsea',
+    'crystal palace','palace','everton','fulham','leeds','liverpool','man city','manchester city','city','manu','man utd',
+    'manchester united','newcastle','nottingham','forest','sunderland','spurs','tottenham','west ham','wolverhampton','wolves','ipswich'],
+  'La Liga': ['alaves','athletic','atletico','atl madrid','barca','barcelona','betis','celta','elche','espanyol','getafe',
+    'girona','levante','mallorca','osasuna','oviedo','rayo','vallecano','real madrid','sociedad','sevilla','valencia',
+    'villarreal','villareal','malaga','coruna','santander'],
+  'Serie A': ['milan','inter','internazionale','juventus','juve','napoli','roma','lazio','atalanta','bologna','fiorentina',
+    'torino','genoa','udinese','cagliari','lecce','parma','como','sassuolo','cremonese','pisa','hellas','verona','monza',
+    'frosinone','venezia'],
+  'Bundesliga': ['bayern','dortmund','leverkusen','leipzig','stuttgart','frankfurt','eintracht','freiburg','hoffenheim',
+    'wolfsburg','gladbach','monchengladbach','bremen','werder','union berlin','berlin','augsburg','mainz','heidenheim',
+    'koln','hamburger','hsv','pauli'],
+  'Ligue 1': ['psg','paris','marseille','lyon','lyonnais','monaco','lille','lens','nice','rennes','brest','brestois',
+    'strasbourg','nantes','toulouse','angers','auxerre','havre','lorient','metz','mets'],
+  'Liga Portugal': ['benfica','porto','sporting','braga','vitoria','guimaraes','estoril','casa pia','cp','famalicao',
+    'gil vicente','moreirense','arouca','rio ave','nacional','santa clara','estrela','alverca','tondela','avs','afs','viseu'],
+};
+
+function norm(s){ return ' '+String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim()+' '; }
+const COMP_KEYS = Object.entries(TEAM_COMPETITIE)
+  .flatMap(([c,list])=>list.map(t=>[' '+t+' ',c]))
+  .sort((a,b)=>b[0].length-a[0].length);           // langste naam eerst ("aston villa" vóór "villa")
+function guessComp(text){ const n=norm(text); for(const [k,c] of COMP_KEYS){ if(n.includes(k)) return c; } return null; }
+
+// ── Markt uit de Bet-tekst halen ───────────────────────────────────────────
+// Ondersteunt beide notaties in de historie:
+//   oud:  "PSG Under 3.5", "Rayo V Win", "Ajax Gelijk", "Barca -1.5"
+//   nieuw: "O/U 2.5 Under", "1X2 Gelijkspel", "1X2 Go Ahead Eagles"
+function parseMarket(raw){
+  const s=String(raw||'').replace(/\(.*?\)/g,' ').replace(/\s+/g,' ').trim();
+  const L=v=>parseFloat(String(v).replace(',','.'));
+  const cap=w=>w[0].toUpperCase()+w.slice(1).toLowerCase();
+  let m;
+  if((m=s.match(/^O\/U\s+(\d+(?:[.,]\d+)?)\s+(over|under)$/i)))       return {type:cap(m[2]), line:L(m[1]), team:''};
+  if((m=s.match(/^1X2\s+(.+)$/i))){
+    if(/^(gelijkspel|gelijk|draw|x)$/i.test(m[1].trim()))                 return {type:'Gelijk', line:null, team:''};
+    return {type:'Winst', line:null, team:m[1]};
+  }
+  if((m=s.match(/^(.*?)\s*\b(over|under)\s*(\d+(?:[.,]\d+)?)$/i)))    return {type:cap(m[2]), line:L(m[3]), team:m[1]};
+  if((m=s.match(/^(.*?)\s*(?:\bwin\s*)?([+-]\s*\d+(?:[.,]\d+)?)$/i))) return {type:'Handicap', line:L(m[2].replace(/\s/g,'')), team:m[1]};
+  if((m=s.match(/^(.*?)\s+(draw|gelijk|gelijkspel)$/i)))                return {type:'Gelijk', line:null, team:m[1]};
+  if((m=s.match(/^(.*?)\s+(win|wint|winst)$/i)))                         return {type:'Winst', line:null, team:m[1]};
+  return {type:'Overig', line:null, team:s};
+}
+const TYPE_ORDER=['Winst','Gelijk','Over','Under','Handicap','Overig'];
+function marketLabel(mk){
+  if(mk.type==='Over'||mk.type==='Under') return `${mk.type} ${num(mk.line,1)}`;
+  if(mk.type==='Handicap') return `Handicap ${mk.line>0?'+':'−'}${num(Math.abs(mk.line),1)}`;
+  return mk.type;
+}
+function marketSort(mk){
+  const t=TYPE_ORDER.indexOf(mk.type);
+  return t*100+(mk.line!=null?mk.line+10:0);
+}
+
+// ── Buckets ────────────────────────────────────────────────────────────────
+const EDGE_B=[[0,'< 0%'],[5,'0–5%'],[10,'5–10%'],[15,'10–15%'],[20,'15–20%'],[30,'20–30%'],[50,'30–50%'],[Infinity,'50%+']];
+const ODD_B =[[1.5,'< 1,50'],[1.75,'1,50–1,75'],[2,'1,75–2,00'],[2.5,'2,00–2,50'],[3.5,'2,50–3,50'],[5,'3,50–5,00'],[Infinity,'5,00+']];
+function bucket(v,B){ if(v==null) return {k:'Onbekend',s:999}; for(let i=0;i<B.length;i++){ if(v<B[i][0]) return {k:B[i][1],s:i}; } return {k:B[B.length-1][1],s:B.length-1}; }
+const DOW=['maandag','dinsdag','woensdag','donderdag','vrijdag','zaterdag','zondag'];
+
+// ── Data voorbereiden ──────────────────────────────────────────────────────
+let ANA=[];
+function prepareAnalyse(){
+  ANA=played(BETS).filter(b=>b.bet>0).map((b,i)=>{
+    const mk=parseMarket(b.market);
+    const comp=(b.comp&&b.comp.trim()) || guessComp(b.matchup) || guessComp(mk.team) || guessComp(b.market) || 'Onbekend';
+    const edge=b.edge!=null?b.edge:(b.fair&&b.bookie?(b.bookie/b.fair-1)*100:null);
+    const dt=parseDate(b.date);
+    return {...b, _i:i, mk, mlabel:marketLabel(mk), msort:marketSort(mk), comp, edgeC:edge, dt};
+  }).sort((a,b)=>((a.dt||0)-(b.dt||0))||(a._i-b._i));
+}
+
+// ── Filterstatus ───────────────────────────────────────────────────────────
+const F={ types:new Set(), lines:new Set(), comps:new Set(), stakes:new Set(),
+  edgeMin:'', edgeMax:'', fairMin:'', fairMax:'', bookMin:'', bookMax:'', from:'', to:'',
+  unit:'eur', by:'market', metric:'roi' };
+function resetFilters(){ ['types','lines','comps','stakes'].forEach(k=>F[k].clear());
+  ['edgeMin','edgeMax','fairMin','fairMax','bookMin','bookMax','from','to'].forEach(k=>F[k]=''); }
+
+function inRange(v,lo,hi){ const a=toNum(lo), b=toNum(hi); if(a==null&&b==null) return true; if(v==null) return false; return (a==null||v>=a)&&(b==null||v<=b); }
+function passes(b){
+  const isOU=b.mk.type==='Over'||b.mk.type==='Under';
+  // Goal-lijn geldt alleen voor Over/Under. Met een lijn gekozen tellen andere
+  // markten alleen mee als je ze ook expliciet als markt hebt aangeklikt.
+  if(F.lines.size){
+    if(isOU){ if(!F.lines.has(String(b.mk.line))) return false; }
+    else if(!F.types.has(b.mk.type)) return false;
+  }
+  if(F.types.size && !F.types.has(b.mk.type)){
+    if(!(isOU && F.lines.size && ![...F.types].some(t=>t==='Over'||t==='Under'))) return false;
+  }
+  if(F.comps.size && !F.comps.has(b.comp)) return false;
+  if(F.stakes.size && !F.stakes.has(String(b.bet))) return false;
+  if(!inRange(b.edgeC,F.edgeMin,F.edgeMax)) return false;
+  if(!inRange(b.fair,F.fairMin,F.fairMax)) return false;
+  if(!inRange(b.bookie,F.bookMin,F.bookMax)) return false;
+  if(F.from && (!b.dt || b.dt<new Date(F.from+'T00:00'))) return false;
+  if(F.to && (!b.dt || b.dt>new Date(F.to+'T23:59'))) return false;
+  return true;
+}
+
+// ── Statistiek ─────────────────────────────────────────────────────────────
+// Eenheid "eur" = werkelijke inzet in euro's. Eenheid "u" = elke bet telt als
+// 1 unit (vlakke inzet): zo zie je hoe goed de selectie is los van de staking.
+function stake(b){ return F.unit==='u'?1:b.bet; }
+function profit(b){ return F.unit==='u'?b.winloss/b.bet:b.winloss; }
+function stats(list){
+  let st=0,wl=0,ev=0,wins=0,dec=0,pSum=0,pN=0,oSum=0,oN=0,eSum=0,eN=0; const rs=[];
+  list.forEach(b=>{
+    const s=stake(b); st+=s; wl+=profit(b); rs.push(b.winloss/b.bet);
+    if(b.edgeC!=null){ ev+=s*b.edgeC/100; eSum+=b.edgeC; eN++; }
+    if(b.winloss!==0){ dec++; if(b.winloss>0) wins++; if(b.fair){ pSum+=1/b.fair; pN++; } }
+    if(b.bookie){ oSum+=b.bookie; oN++; }
+  });
+  const n=list.length, mean=n?rs.reduce((a,r)=>a+r,0)/n:0;
+  const sd=n>1?Math.sqrt(rs.reduce((a,r)=>a+(r-mean)**2,0)/(n-1)):null;
+  return { n, stake:st, wl, ev, roi:st?wl/st*100:null, evRoi:st&&eN?ev/st*100:null,
+    hit:dec?wins/dec*100:null, expHit:pN?pSum/pN*100:null, wins, losses:dec-wins,
+    avgOdds:oN?oSum/oN:null, avgEdge:eN?eSum/eN:null,
+    margin:sd!=null?1.96*sd/Math.sqrt(n)*100:null };   // ±95%-marge op ROI (per unit)
+}
+function money(n){ if(n==null||isNaN(n)) return '—'; return F.unit==='u'?(n>=0?'+':'−')+num(Math.abs(n),2)+'u':eurSigned(n); }
+function moneyPlain(n){ if(n==null||isNaN(n)) return '—'; return F.unit==='u'?num(n,0)+'u':eur(n); }
+function cls(n){ return n==null?'':n>=0?'pos':'neg'; }
+function escH(s){ return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+// ── Uitsplitsen ────────────────────────────────────────────────────────────
+const DIMS={
+  market:{label:'Markt',        key:b=>({k:b.mlabel,s:b.msort})},
+  type:  {label:'Markttype',    key:b=>({k:b.mk.type,s:TYPE_ORDER.indexOf(b.mk.type)})},
+  comp:  {label:'Competitie',   key:b=>({k:b.comp,s:b.comp==='Onbekend'?'~':b.comp})},
+  edge:  {label:'Edge (EV)',    key:b=>bucket(b.edgeC,EDGE_B)},
+  stake: {label:'Inzet',        key:b=>({k:eur(b.bet),s:b.bet})},
+  fair:  {label:'Fair odd',     key:b=>bucket(b.fair,ODD_B)},
+  bookie:{label:'Bookie odd',   key:b=>bucket(b.bookie,ODD_B)},
+  month: {label:'Maand',        key:b=>{const k=monthKey(b.date); return {k:monthLabel(k),s:k};}},
+  dow:   {label:'Weekdag',      key:b=>{const d=b.dt?(b.dt.getDay()+6)%7:7; return {k:DOW[d]||'onbekend',s:d};}},
+};
+const METRICS={ roi:'ROI', wl:'Winst/verlies', hit:'Trefkans', n:'Aantal bets' };
+function groupBy(list,dim){
+  const g=new Map();
+  list.forEach(b=>{ const {k,s}=DIMS[dim].key(b); if(!g.has(k)) g.set(k,{k,s,list:[]}); g.get(k).list.push(b); });
+  const arr=[...g.values()].map(x=>({...x,st:stats(x.list)}));
+  arr.sort((a,b)=>typeof a.s==='string'||typeof b.s==='string'?String(a.s).localeCompare(String(b.s)):a.s-b.s);
+  return arr;
+}
+
+// ── Grafieken (Chart.js) ───────────────────────────────────────────────────
+const CHARTS={};
+const COL={ signal:'#29e0a0', neg:'#e0556b', warn:'#f0a24b', dim:'#8b96a5', faint:'#5b6675', grid:'#202832', line:'#29313c' };
+function chartOK(){ return typeof window.Chart!=='undefined'; }
+function mkChart(id,cfg){
+  if(CHARTS[id]){ CHARTS[id].destroy(); delete CHARTS[id]; }
+  const el=document.getElementById(id); if(!el) return;
+  if(!chartOK()){ el.parentNode.innerHTML='<div class="chart-fallback">De grafiekbibliotheek kon niet laden. Controleer je internetverbinding en herlaad de pagina.</div>'; return; }
+  CHARTS[id]=new Chart(el,cfg);
+}
+function baseOpts(extra){
+  return Object.assign({ responsive:true, maintainAspectRatio:false, animation:{duration:250},
+    interaction:{mode:'index',intersect:false},
+    plugins:{ legend:{labels:{boxWidth:12,boxHeight:12,color:COL.dim}},
+      tooltip:{backgroundColor:'#1c232d',borderColor:COL.line,borderWidth:1,titleColor:'#e6edf3',bodyColor:'#e6edf3',padding:10} },
+    scales:{ x:{grid:{color:COL.grid},ticks:{color:COL.faint,maxRotation:0,autoSkipPadding:14}},
+             y:{grid:{color:COL.grid},ticks:{color:COL.faint}} } }, extra||{});
+}
+if(chartOK()){ Chart.defaults.font.family="'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif"; Chart.defaults.font.size=11; Chart.defaults.color=COL.dim; }
+
+// ── Render: filters (één keer opbouwen) ────────────────────────────────────
+function countBy(fn){ const m=new Map(); ANA.forEach(b=>{const k=fn(b); if(k!=null) m.set(k,(m.get(k)||0)+1);}); return m; }
+function chipRow(fkey,entries,labelFn){
+  return entries.map(([v,n])=>`<button class="chip ${F[fkey].has(String(v))?'on':''}" data-f="${fkey}" data-v="${escH(String(v))}">${escH(labelFn?labelFn(v):v)}<span class="n">${n}</span></button>`).join('');
+}
+function renderAnalyseFilters(){
+  const el=document.getElementById('an-filters');
+  const types=[...countBy(b=>b.mk.type)].sort((a,b)=>TYPE_ORDER.indexOf(a[0])-TYPE_ORDER.indexOf(b[0]));
+  const lines=[...countBy(b=>(b.mk.type==='Over'||b.mk.type==='Under')?b.mk.line:null)].sort((a,b)=>a[0]-b[0]);
+  const comps=[...countBy(b=>b.comp)].sort((a,b)=>a[0]==='Onbekend'?1:b[0]==='Onbekend'?-1:b[1]-a[1]);
+  const stakes=[...countBy(b=>b.bet)].sort((a,b)=>a[0]-b[0]);
+  const unknown=[...new Set(ANA.filter(b=>b.comp==='Onbekend').map(b=>b.matchup||b.mk.team||b.market))];
+  const rng=(lbl,a,b,step,unit)=>`<label class="rng"><span class="lbl">${lbl}</span>
+      <input class="an-in" data-r="${a}" type="number" step="${step}" placeholder="min" value="${escH(F[a])}" aria-label="${lbl} minimum">
+      <span>–</span><input class="an-in" data-r="${b}" type="number" step="${step}" placeholder="max" value="${escH(F[b])}" aria-label="${lbl} maximum">${unit||''}</label>`;
+  el.innerHTML=`
+    <div class="an-row"><div class="k">Markt</div><div class="chips">${chipRow('types',types)}</div></div>
+    <div class="an-row"><div class="k">Goal-lijn<small>alleen Over/Under</small></div><div class="chips">${chipRow('lines',lines,v=>num(v,1))}</div></div>
+    <div class="an-row"><div class="k">Competitie</div><div>
+      <div class="chips">${chipRow('comps',comps)}</div>
+      ${unknown.length?`<div class="unknown" title="${escH(unknown.join(', '))}">${unknown.length} naam/namen niet herkend (zie TEAM_COMPETITIE in de code): ${escH(unknown.slice(0,6).join(', '))}${unknown.length>6?' …':''}</div>`:''}
+    </div></div>
+    <div class="an-row"><div class="k">Inzet</div><div class="chips">${chipRow('stakes',stakes,v=>eur(+v))}</div></div>
+    <div class="an-row"><div class="k">Bereik</div><div class="ranges">
+      ${rng('Edge (EV)','edgeMin','edgeMax','1','%')}
+      ${rng('Fair odd','fairMin','fairMax','0.05')}
+      ${rng('Bookie odd','bookMin','bookMax','0.05')}
+    </div></div>
+    <div class="an-row"><div class="k">Periode</div><div class="ranges">
+      <label class="rng"><span class="lbl">van</span><input class="an-in" data-r="from" type="date" value="${F.from}"></label>
+      <label class="rng"><span class="lbl">tot en met</span><input class="an-in" data-r="to" type="date" value="${F.to}"></label>
+    </div></div>
+    <div class="an-row"><div class="k">Rekenen met</div><div>
+      <div class="seg" role="group" aria-label="Eenheid">
+        <button data-unit="eur" class="${F.unit==='eur'?'on':''}">Werkelijke inzet (€)</button>
+        <button data-unit="u" class="${F.unit==='u'?'on':''}">Vlakke inzet (1 unit per bet)</button>
+      </div></div></div>
+    <div class="an-foot"><span id="an-count"></span><button class="chip ghost" id="an-reset">Filters wissen</button></div>`;
+
+  el.querySelectorAll('.chip[data-f]').forEach(c=>c.onclick=()=>{
+    const s=F[c.dataset.f], v=c.dataset.v; s.has(v)?s.delete(v):s.add(v); c.classList.toggle('on'); renderAnalyseResults(); });
+  el.querySelectorAll('.an-in[data-r]').forEach(i=>i.oninput=()=>{ F[i.dataset.r]=i.value; renderAnalyseResults(); });
+  el.querySelectorAll('.seg button[data-unit]').forEach(bt=>bt.onclick=()=>{ F.unit=bt.dataset.unit; renderAnalyseFilters(); renderAnalyseResults(); });
+  document.getElementById('an-reset').onclick=()=>{ resetFilters(); renderAnalyseFilters(); renderAnalyseResults(); };
+}
+
+// ── Render: resultaten (bij elke filterwijziging) ──────────────────────────
+function renderAnalyseResults(){
+  const list=ANA.filter(passes);
+  const S=stats(list);
+  document.getElementById('an-count').innerHTML=`<b>${list.length}</b> van ${ANA.length} gespeelde bets geselecteerd`;
+  const out=document.getElementById('an-results');
+
+  if(!list.length){
+    Object.keys(CHARTS).forEach(k=>{CHARTS[k].destroy(); delete CHARTS[k];});
+    out.innerHTML=`<div class="empty"><h2>Geen bets met deze filters</h2><p>Zet een of meer filters uit, of kies <b>Filters wissen</b>.</p></div>`;
+    return;
+  }
+
+  const luck=S.wl-S.ev;
+  out.innerHTML=`
+    <div class="kpis">
+      <div class="stat"><div class="label">Bets</div><div class="value">${S.n}</div><div class="sub">${S.wins} G · ${S.losses} F</div></div>
+      <div class="stat"><div class="label">Inzet</div><div class="value">${moneyPlain(S.stake)}</div><div class="sub">gem. odd ${num(S.avgOdds,2)}</div></div>
+      <div class="stat hero"><div class="label">Winst/verlies</div><div class="value ${cls(S.wl)}">${money(S.wl)}</div><div class="sub">verwacht (EV) ${money(S.ev)}</div></div>
+      <div class="stat"><div class="label">ROI</div><div class="value ${cls(S.roi)}">${pct(S.roi,1)}</div><div class="sub">${S.margin!=null?'±'+num(S.margin,1)+'% marge (95%)':'—'}</div></div>
+      <div class="stat"><div class="label">Trefkans</div><div class="value">${num(S.hit,1)}%</div><div class="sub">verwacht ${num(S.expHit,1)}% (fair)</div></div>
+      <div class="stat"><div class="label">Gem. edge</div><div class="value">${num(S.avgEdge,1)}%</div><div class="sub">${luck>=0?'boven':'onder'} EV: ${money(luck)}</div></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h3>Verloop: werkelijk vs. verwacht</h3>
+        <p>Cumulatieve winst per bet, naast wat je volgens de edge had mogen verwachten. Groot verschil op korte termijn = variantie.</p></div>
+      <div class="chartbox tall"><canvas id="ch-cum"></canvas></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h3>Uitsplitsing</h3>
+        <div class="card-ctl">
+          <label>per <select class="an-in" id="an-by">${Object.entries(DIMS).map(([k,d])=>`<option value="${k}" ${F.by===k?'selected':''}>${d.label}</option>`).join('')}</select></label>
+          <label>toon <select class="an-in" id="an-metric">${Object.entries(METRICS).map(([k,l])=>`<option value="${k}" ${F.metric===k?'selected':''}>${l}</option>`).join('')}</select></label>
+        </div></div>
+      <div class="chartbox"><canvas id="ch-by"></canvas></div>
+      <div class="day-body"><table id="an-table"></table></div>
+    </div>
+
+    <div class="an-grid">
+      <div class="card">
+        <div class="card-head"><h3>Kalibratie per fair odd</h3>
+          <p>Klopt de fair odd? Verwachte trefkans (1 / fair) naast de werkelijke.</p></div>
+        <div class="chartbox"><canvas id="ch-cal"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><h3>ROI per edge</h3>
+          <p>Levert een hogere edge ook echt een hogere ROI op?</p></div>
+        <div class="chartbox"><canvas id="ch-edge"></canvas></div>
+      </div>
+    </div>`;
+
+  document.getElementById('an-by').onchange=e=>{F.by=e.target.value; drawBreakdown(list);};
+  document.getElementById('an-metric').onchange=e=>{F.metric=e.target.value; drawBreakdown(list);};
+
+  // Verloop
+  let cw=0,ce=0; const lab=[],act=[],exp=[];
+  list.forEach(b=>{ cw+=profit(b); if(b.edgeC!=null) ce+=stake(b)*b.edgeC/100; lab.push(b.date); act.push(+cw.toFixed(2)); exp.push(+ce.toFixed(2)); });
+  const unitLbl=F.unit==='u'?'units':'€';
+  mkChart('ch-cum',{type:'line',data:{labels:lab,datasets:[
+      {label:'Werkelijk',data:act,borderColor:COL.signal,backgroundColor:'rgba(41,224,160,0.08)',fill:'origin',pointRadius:0,borderWidth:2,tension:0.15},
+      {label:'Verwacht (EV)',data:exp,borderColor:COL.dim,borderDash:[5,4],pointRadius:0,borderWidth:1.5,tension:0.15}]},
+    options:baseOpts({plugins:{...baseOpts().plugins,tooltip:{...baseOpts().plugins.tooltip,callbacks:{
+      title:it=>`Bet ${it[0].dataIndex+1} · ${it[0].label} · ${list[it[0].dataIndex].market}`,
+      label:it=>`${it.dataset.label}: ${money(it.parsed.y)}`}}},
+      scales:{x:{grid:{display:false},ticks:{color:COL.faint,maxRotation:0,autoSkipPadding:24}},
+              y:{grid:{color:COL.grid},ticks:{color:COL.faint},title:{display:true,text:unitLbl,color:COL.faint}}}})});
+
+  drawBreakdown(list);
+
+  // Kalibratie
+  const cal=groupBy(list.filter(b=>b.fair),'fair');
+  mkChart('ch-cal',{type:'bar',data:{labels:cal.map(g=>g.k),datasets:[
+      {label:'Verwacht',data:cal.map(g=>g.st.expHit),backgroundColor:'rgba(139,150,165,0.35)',borderColor:COL.dim,borderWidth:1,borderRadius:3},
+      {label:'Werkelijk',data:cal.map(g=>g.st.hit),backgroundColor:'rgba(41,224,160,0.55)',borderColor:COL.signal,borderWidth:1,borderRadius:3}]},
+    options:baseOpts({plugins:{...baseOpts().plugins,tooltip:{...baseOpts().plugins.tooltip,callbacks:{
+      label:it=>`${it.dataset.label}: ${num(it.parsed.y,1)}%`, afterBody:it=>`n = ${cal[it[0].dataIndex].st.n}`}}},
+      scales:{x:{grid:{display:false},ticks:{color:COL.faint}},y:{grid:{color:COL.grid},ticks:{color:COL.faint,callback:v=>v+'%'},min:0,max:100}}})});
+
+  // ROI per edge
+  const eg=groupBy(list,'edge');
+  mkChart('ch-edge',{type:'bar',data:{labels:eg.map(g=>g.k),datasets:[
+      {label:'ROI',data:eg.map(g=>g.st.roi),backgroundColor:eg.map(g=>g.st.roi>=0?'rgba(41,224,160,0.6)':'rgba(224,85,107,0.6)'),borderRadius:3},
+      {label:'Verwacht (gem. edge)',data:eg.map(g=>g.st.evRoi),type:'line',borderColor:COL.dim,borderDash:[5,4],pointRadius:3,pointBackgroundColor:COL.dim,borderWidth:1.5}]},
+    options:baseOpts({plugins:{...baseOpts().plugins,tooltip:{...baseOpts().plugins.tooltip,callbacks:{
+      label:it=>`${it.dataset.label}: ${pct(it.parsed.y,1)}`, afterBody:it=>`n = ${eg[it[0].dataIndex].st.n}`}}},
+      scales:{x:{grid:{display:false},ticks:{color:COL.faint}},y:{grid:{color:COL.grid},ticks:{color:COL.faint,callback:v=>v+'%'}}}})});
+}
+
+function drawBreakdown(list){
+  const groups=groupBy(list,F.by), m=F.metric;
+  const small=n=>n<20;
+  let ds;
+  if(m==='hit'){
+    ds=[{label:'Verwacht (fair)',data:groups.map(g=>g.st.expHit),backgroundColor:'rgba(139,150,165,0.35)',borderColor:COL.dim,borderWidth:1,borderRadius:3},
+        {label:'Werkelijk',data:groups.map(g=>g.st.hit),backgroundColor:'rgba(41,224,160,0.55)',borderColor:COL.signal,borderWidth:1,borderRadius:3}];
+  } else {
+    const val=g=>m==='roi'?g.st.roi:m==='wl'?g.st.wl:g.st.n;
+    ds=[{label:METRICS[m],data:groups.map(val),borderRadius:3,
+      backgroundColor:groups.map(g=>{ const v=val(g); const a=small(g.st.n)?0.3:0.65; return m==='n'?`rgba(139,150,165,${a})`:v>=0?`rgba(41,224,160,${a})`:`rgba(224,85,107,${a})`; })}];
+    if(m==='wl') ds.push({label:'Verwacht (EV)',data:groups.map(g=>g.st.ev),type:'line',borderColor:COL.dim,borderDash:[5,4],pointRadius:3,pointBackgroundColor:COL.dim,borderWidth:1.5,showLine:false});
+    if(m==='roi') ds.push({label:'Verwacht (gem. edge)',data:groups.map(g=>g.st.evRoi),type:'line',borderColor:COL.dim,pointRadius:4,pointStyle:'line',pointBorderWidth:2,showLine:false});
+  }
+  const fmt=v=>m==='roi'||m==='hit'?pct(v,1).replace(/^\+/,m==='hit'?'':'+'):m==='wl'?money(v):String(v);
+  mkChart('ch-by',{type:'bar',data:{labels:groups.map(g=>g.k),datasets:ds},
+    options:baseOpts({plugins:{...baseOpts().plugins,legend:{display:ds.length>1,labels:{boxWidth:12,boxHeight:12,color:COL.dim}},
+      tooltip:{...baseOpts().plugins.tooltip,callbacks:{label:it=>`${it.dataset.label}: ${fmt(it.parsed.y)}`,
+        afterBody:it=>{const s=groups[it[0].dataIndex].st; return [`n = ${s.n} · inzet ${moneyPlain(s.stake)}`, `ROI ${pct(s.roi,1)} · W/V ${money(s.wl)}`];}}}},
+      scales:{x:{grid:{display:false},ticks:{color:COL.faint,autoSkip:false,maxRotation:45}},
+              y:{grid:{color:COL.grid},ticks:{color:COL.faint,callback:v=>m==='roi'||m==='hit'?v+'%':v}}}})});
+
+  document.getElementById('an-table').innerHTML=`
+    <thead><tr><th class="l">${DIMS[F.by].label}</th><th>Bets</th><th>Inzet</th><th>W/V</th><th>Verwacht</th><th>ROI</th>
+      <th title="95%-onzekerheidsmarge op de ROI, berekend per unit">± marge</th><th>Trefkans</th><th>Verw. treff.</th><th>Gem. edge</th><th>Gem. odd</th></tr></thead>
+    <tbody>${groups.map(g=>{const s=g.st; return `<tr class="${small(s.n)?'small':''}">
+      <td class="l">${escH(g.k)}</td><td>${s.n}</td><td>${moneyPlain(s.stake)}</td>
+      <td class="${cls(s.wl)}">${money(s.wl)}</td><td>${money(s.ev)}</td>
+      <td class="${cls(s.roi)}">${pct(s.roi,1)}</td><td>${s.margin!=null?'±'+num(s.margin,1)+'%':'—'}</td>
+      <td>${s.hit!=null?num(s.hit,1)+'%':'—'}</td><td>${s.expHit!=null?num(s.expHit,1)+'%':'—'}</td>
+      <td>${s.avgEdge!=null?num(s.avgEdge,1)+'%':'—'}</td><td>${num(s.avgOdds,2)}</td></tr>`;}).join('')}</tbody>`;
+}
+
+function renderAnalyse(){
+  const sec=document.getElementById('analyse');
+  if(!ANA.length){ sec.innerHTML=`<div class="empty"><h2>Nog niets te analyseren</h2><p>Zodra <code>historie.csv</code> gespeelde bets bevat, verschijnt hier de analyse.</p></div>`; return; }
+  if(!document.getElementById('an-filters')) sec.innerHTML=`<div class="an-filters" id="an-filters"></div><div id="an-results"></div>`;
+  renderAnalyseFilters(); renderAnalyseResults();
+}
+
+// ── Weergave kiezen: #analyse in de URL toont de analyse ───────────────────
+function currentView(){ return location.hash.replace('#','')==='analyse'?'analyse':'overzicht'; }
+function renderView(){
+  const v=currentView();
+  document.querySelectorAll('.viewswitch a').forEach(a=>{ const on=a.dataset.view===v; a.classList.toggle('on',on); a.setAttribute('aria-current',on?'page':'false'); });
+  document.getElementById('main').hidden = v!=='overzicht';
+  document.getElementById('analyse').hidden = v!=='analyse';
+  if(v==='analyse') renderAnalyse(); else render();
+}
+window.addEventListener('hashchange',renderView);
+
+// ── Boot: laad de vaste historie.csv naast dit bestand ─────────────────────
+(async()=>{
+  try{
+    const res=await fetch('historie.csv',{cache:'no-store'});
+    if(res.ok){ ingestHistorieCSV(await res.text()); }
+  }catch(e){}
+  prepareAnalyse();
+  renderView();
+})();
+</script>
+</body>
+</html>
