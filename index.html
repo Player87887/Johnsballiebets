@@ -4,11 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>John's Ballie Bets</title>
+<link rel="icon" type="image/png" sizes="64x64" href="assets/favicon-64.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta property="og:title" content="John's Ballie Bets">
+<meta property="og:description" content="Data analysis × football betting — daily picks, value radar en de volledige resultatenhistorie.">
+<meta property="og:image" content="assets/logo.png">
 <style>
   :root {
     --bg:#0e1116; --panel:#161b22; --panel-2:#1c232d; --line:#29313c; --line-soft:#202832;
     --ink:#e6edf3; --ink-dim:#8b96a5; --ink-faint:#5b6675;
-    --signal:#29e0a0;
+    --signal:#29e0a0; --neg:#e0556b; --warn:#f0a24b;
     --mono:'SF Mono','JetBrains Mono','Fira Code',ui-monospace,Menlo,monospace;
     --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
   }
@@ -16,16 +21,44 @@
   body { background:var(--bg); color:var(--ink); font-family:var(--sans);
          -webkit-font-smoothing:antialiased; line-height:1.5; min-height:100vh; }
 
-  header { border-bottom:1px solid var(--line); padding:56px 24px 40px; }
+  header { border-bottom:1px solid var(--line); padding:44px 24px 36px;
+           background:radial-gradient(900px 320px at 12% -10%, rgba(41,224,160,.09), transparent 70%); }
   .inner { max-width:1000px; margin:0 auto; }
+  .kop { display:flex; align-items:center; gap:24px; flex-wrap:wrap; }
+  .kop .logo { width:112px; height:112px; border-radius:50%; flex:none;
+               box-shadow:0 0 0 1px var(--line), 0 12px 40px rgba(41,224,160,.12); }
+  .kop .tekst { flex:1; min-width:240px; }
   .brand { display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; }
   .brand h1 { font-size:34px; font-weight:800; letter-spacing:-0.8px; }
   .brand .sub { color:var(--signal); font-family:var(--mono); font-size:13px; font-weight:600; }
-  .tagline { color:var(--ink-dim); font-size:14px; margin-top:10px; max-width:560px; }
+  .tagline { color:var(--ink-dim); font-size:14px; margin-top:8px; max-width:560px; }
+  #jb-status { margin-top:14px; }
 
   main { max-width:1000px; margin:0 auto; padding:32px 24px 80px; }
-  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:14px; }
+  .sectie-kop { display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin-bottom:12px; flex-wrap:wrap; }
+  .sectie-kop h2 { font-size:13px; font-family:var(--mono); letter-spacing:0.7px; text-transform:uppercase; color:var(--ink-faint); font-weight:600; }
+  .sectie-kop a { font-family:var(--mono); font-size:12px; color:var(--signal); text-decoration:none; }
+  .sectie-kop a:hover { text-decoration:underline; }
 
+  /* daily picks blok */
+  .daily { background:var(--panel); border:1px solid var(--line); border-radius:14px; overflow:hidden; margin-bottom:36px;
+           box-shadow:inset 3px 0 0 var(--signal); }
+  .daily-top { display:flex; justify-content:space-between; align-items:center; gap:12px; padding:16px 20px 12px; flex-wrap:wrap; }
+  .daily-top .titel { font-size:18px; font-weight:800; letter-spacing:-0.3px; }
+  .daily-top .datum { font-family:var(--mono); font-size:12px; color:var(--ink-dim); }
+  .d-rij { display:grid; grid-template-columns:52px 1fr auto; gap:14px; align-items:center; padding:11px 20px; border-top:1px solid var(--line-soft); }
+  .d-rij .t { font-family:var(--mono); font-size:12px; color:var(--ink-dim); }
+  .d-rij .w { font-weight:700; font-size:14.5px; letter-spacing:-0.2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .d-rij .m { font-size:13px; color:var(--ink-dim); margin-top:1px; }
+  .d-rij .m b { color:var(--ink); font-weight:600; }
+  .d-rij .r { font-family:var(--mono); font-size:13px; font-weight:700; text-align:right; white-space:nowrap; }
+  .d-rij .r small { display:block; font-size:10px; font-weight:500; color:var(--ink-faint); }
+  .r.goed { color:var(--signal); } .r.fout { color:var(--neg); } .r.push { color:var(--ink-dim); }
+  .daily-leeg { padding:18px 20px 20px; color:var(--ink-dim); font-size:13.5px; border-top:1px solid var(--line-soft); }
+  .daily-voet { padding:10px 20px; border-top:1px solid var(--line-soft); font-family:var(--mono); font-size:11.5px; color:var(--ink-faint); }
+  .daily-voet .plus { color:var(--signal); } .daily-voet .min { color:var(--neg); }
+
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; }
   .card { display:block; text-decoration:none; color:inherit; background:var(--panel);
           border:1px solid var(--line); border-radius:14px; padding:22px 22px 20px;
           transition:border-color .15s, transform .15s; }
@@ -39,24 +72,46 @@
 
   footer { border-top:1px solid var(--line-soft); padding:22px 24px 40px; }
   footer p { max-width:1000px; margin:0 auto; font-size:12px; color:var(--ink-faint); }
+
+  @media (max-width:560px) {
+    header { padding:32px 16px 28px; } main { padding:24px 16px 60px; }
+    .kop .logo { width:84px; height:84px; }
+    .brand h1 { font-size:27px; }
+    .d-rij { grid-template-columns:44px 1fr auto; gap:10px; padding:11px 14px; }
+    .daily-top, .daily-leeg, .daily-voet { padding-left:14px; padding-right:14px; }
+  }
+  @media (prefers-reduced-motion:reduce) { .card { transition:none; } .card:hover { transform:none; } }
 </style>
 </head>
 <body>
   <header>
-    <div class="inner">
-      <div class="brand">
-        <h1>John's Ballie Bets</h1>
-        <span class="sub">● overzicht</span>
+    <div class="inner kop">
+      <img class="logo" src="assets/logo.png" alt="Johnsballiebets — data analysis × football betting" width="112" height="112">
+      <div class="tekst">
+        <div class="brand">
+          <h1>John's Ballie Bets</h1>
+          <span class="sub">● overzicht</span>
+        </div>
+        <p class="tagline">
+          Alles op één plek: de daily picks, bets selecteren, de picks van deze week, invoer
+          bijwerken en de volledige resultatenhistorie. Puur ter info — speel altijd verantwoord
+          en met je eigen oordeel.
+        </p>
+        <div id="jb-status"></div>
       </div>
-      <p class="tagline">
-        Alles op één plek: bets selecteren, de picks van deze week, invoer bijwerken
-        en de volledige resultatenhistorie. Puur ter info — speel altijd verantwoord
-        en met je eigen oordeel.
-      </p>
     </div>
   </header>
 
   <main>
+    <div class="sectie-kop">
+      <h2>⭐ Daily picks</h2>
+      <a href="picks/#daily">alle daily picks →</a>
+    </div>
+    <section class="daily" id="daily" aria-live="polite">
+      <div class="daily-top"><span class="titel">Daily picks</span><span class="datum">laden…</span></div>
+    </section>
+
+    <div class="sectie-kop"><h2>Pagina's</h2></div>
     <div class="grid">
       <a class="card" href="radar/">
         <span class="kicker">stap 1</span>
@@ -67,8 +122,8 @@
 
       <a class="card" href="picks/">
         <span class="kicker">stap 2</span>
-        <h2>Picks — deze week</h2>
-        <p>De bets die deze week gespeeld worden, met inzet en verwachte waarde.</p>
+        <h2>Picks</h2>
+        <p>De daily picks en alle bets van deze week, met inzet en verwachte waarde.</p>
         <span class="go">openen →</span>
       </a>
 
@@ -91,5 +146,59 @@
   <footer>
     <p>John's Ballie Bets · gokken kan verslavend zijn · 18+</p>
   </footer>
+
+<script>
+// Daily picks van vandaag (of de eerstvolgende dag) op de homepage.
+(function () {
+  const el = document.getElementById('daily');
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const dagIso = d => new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+  const fmtDag = iso => new Date(iso + 'T12:00:00').toLocaleDateString('nl-NL', { weekday:'long', day:'numeric', month:'long' });
+  const fmtTijd = iso => { const d = new Date(iso); return isNaN(d) ? '—' : d.toLocaleTimeString('nl-NL', { hour:'2-digit', minute:'2-digit' }); };
+  const fmtPL = v => (v < 0 ? '−' : '+') + '€' + Math.abs(v).toFixed(2);
+  const label = m => String(m || '').replace(/^1X2 /, '').replace(/^O\/U /, '');
+
+  async function laad() {
+    for (const url of ['picks/daily_picks.json', 'https://raw.githubusercontent.com/Player87887/Johnsballiebets/HEAD/picks/daily_picks.json']) {
+      try { const r = await fetch(url + '?t=' + Date.now(), { cache:'no-store' }); if (r.ok) return await r.json(); } catch (e) {}
+    }
+    return null;
+  }
+
+  function rij(p) {
+    const r = p.resultaat;
+    let res = `<span class="r">${p.book_odd ? (+p.book_odd).toFixed(2) : '—'}<small>odd</small></span>`;
+    if (r && r.gf) {
+      const s = r.gf === 'G' ? 'goed' : r.gf === 'F' ? 'fout' : 'push';
+      res = `<span class="r ${s}">${s === 'goed' ? '✓' : s === 'fout' ? '✗' : '='} ${esc(r.uitslag || '')}<small>${s === 'push' ? 'push' : (s === 'goed' ? 'gewonnen' : 'verloren')}</small></span>`;
+    }
+    return `<div class="d-rij">
+      <span class="t">${fmtTijd(p.match_date)}</span>
+      <div style="min-width:0"><div class="w">${esc(p.home)} – ${esc(p.away)}</div>
+        <div class="m">${esc(p.league_label || '')} · <b>${esc(label(p.market))}</b></div></div>
+      ${res}</div>`;
+  }
+
+  laad().then(data => {
+    const dagen = (data && data.dagen || []).filter(d => d.picks && d.picks.length).sort((a, b) => a.datum < b.datum ? -1 : 1);
+    const vandaag = dagIso(new Date());
+    const dag = dagen.find(d => d.datum === vandaag) || dagen.find(d => d.datum > vandaag) || dagen[dagen.length - 1];
+    if (!dag) {
+      el.innerHTML = `<div class="daily-top"><span class="titel">Daily picks</span></div>
+        <div class="daily-leeg">Nog geen daily picks gepubliceerd. Elke dag lichten we hier (maximaal) vier wedstrijden uit.</div>`;
+      return;
+    }
+    const wanneer = dag.datum === vandaag ? 'vandaag · ' + fmtDag(dag.datum) : fmtDag(dag.datum);
+    // totaalstand over alle afgeronde daily picks
+    let g = 0, f = 0, netto = 0;
+    dagen.forEach(d => d.picks.forEach(p => { const r = p.resultaat; if (!r) return;
+      if (r.gf === 'G') g++; else if (r.gf === 'F') f++; netto += +r.winst || 0; }));
+    const voet = (g + f) ? `<div class="daily-voet">daily picks tot nu: ${g} goed · ${f} fout · <span class="${netto >= 0 ? 'plus' : 'min'}">${fmtPL(netto)}</span></div>` : '';
+    el.innerHTML = `<div class="daily-top"><span class="titel">Daily picks</span><span class="datum">${esc(wanneer)}</span></div>`
+      + dag.picks.map(rij).join('') + voet;
+  });
+})();
+</script>
+<script src="assets/site.js" defer></script>
 </body>
 </html>

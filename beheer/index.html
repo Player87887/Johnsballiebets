@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>John's Picks — Resultaten &amp; Historie</title>
+<link rel="icon" type="image/png" sizes="64x64" href="../assets/favicon-64.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
 <style>
   :root {
     --bg:#0e1116; --panel:#161b22; --panel-2:#1c232d; --line:#29313c; --line-soft:#202832;
@@ -89,6 +91,22 @@
   .modal-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
   .modal-foot { padding:14px 20px; border-top:1px solid var(--line); display:flex; justify-content:flex-end; gap:10px; }
   .btn-primary { background:var(--signal); color:#06231a; border:none; font-weight:800; }
+  .daily-check { display:flex !important; align-items:center; gap:8px; font-family:var(--sans) !important; font-size:13px !important; color:var(--ink) !important; cursor:pointer; }
+  .daily-check input { width:auto !important; accent-color:var(--signal); }
+
+  /* ── logo in de kop ── */
+  .brand-wrap { display:flex; align-items:center; gap:14px; }
+  .brand-logo { width:52px; height:52px; border-radius:50%; flex:none; box-shadow:0 0 0 1px var(--line); }
+  /* ── daily-picks-filter en kenmerk ── */
+  .dfbar { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:16px; }
+  .dfbar .seg { display:inline-flex; border:1px solid var(--line); border-radius:8px; overflow:hidden; }
+  .dfbar .seg button { background:var(--panel-2); color:var(--ink-dim); border:none; padding:7px 13px; font-size:12.5px; font-weight:600; cursor:pointer; font-family:var(--sans); display:inline-flex; gap:6px; align-items:center; }
+  .dfbar .seg button + button { border-left:1px solid var(--line); }
+  .dfbar .seg button.on { background:rgba(41,224,160,0.13); color:var(--signal); }
+  .dfbar .seg button:focus-visible { outline:2px solid var(--signal); outline-offset:2px; }
+  .dfbar .seg .n { font-family:var(--mono); font-size:10px; opacity:.75; }
+  .dfbar .uitleg { font-family:var(--mono); font-size:11px; color:var(--ink-faint); }
+  .dstar { display:inline-block; font-family:var(--mono); font-size:9.5px; font-weight:700; color:var(--signal); border:1px solid rgba(41,224,160,.4); padding:0 6px; border-radius:9px; margin-left:7px; vertical-align:1px; white-space:nowrap; }
 </style>
 </head>
 <body>
@@ -104,10 +122,13 @@
 </nav>
 
   <header>
+    <div class="brand-wrap">
+    <img class="brand-logo" src="../assets/logo-192.png" alt="" width="52" height="52">
     <div class="brand">
       <h1>John's Picks</h1>
       <span class="sub">● resultaten &amp; historie</span>
       <span class="edit-badge">✎ EDIT-MODUS</span>
+    </div>
     </div>
     <p class="tagline">
       Volledige registratie van alle geplaatste bets, met dag- en totaaloverzichten.
@@ -155,6 +176,7 @@
         <div><label>Winst/Verlies €</label><input id="f-winloss" type="number" step="0.01"></div>
         <div><label>Notitie</label><input id="f-note" placeholder="bv. Early payout"></div>
       </div>
+      <label class="daily-check"><input type="checkbox" id="f-daily"> ★ Daily pick <span style="color:var(--ink-faint);font-family:var(--mono);font-size:11px">(zet "Daily pick" in de notitie)</span></label>
     </div>
     <div class="modal-foot">
       <button class="btn" id="modal-cancel">Annuleren</button>
@@ -191,6 +213,32 @@ let SOURCES = {};       // source-label → aantal, voor 'uploads beheren'
 let CHANGELOG = [];     // wijzigingslogboek, elk los terug te draaien
 let activeTab = 0;
 let editIndex = null;
+
+// ── Daily picks ────────────────────────────────────────────────────────────
+// Kenmerk = "Daily pick" in de notitie (zet de server er zelf in; hier kun je
+// het ook met het vinkje in het bewerkvenster aan- of uitzetten).
+function isDaily(b){ return /\bdaily pick/i.test(b && b.note || ''); }
+function zetDaily(note, aan){
+  note=String(note||'').trim();
+  if(aan) return isDaily({note}) ? note : (note ? 'Daily pick; '+note : 'Daily pick');
+  return note.replace(/\bdaily pick(\s+\d{1,2}-\d{1,2})?\s*;?\s*/ig,'').replace(/^;\s*|;\s*$/g,'').trim();
+}
+const DF_SLEUTEL = 'jbb_dailyfilter';
+let DF = (()=>{ try{ return sessionStorage.getItem(DF_SLEUTEL)||'alle'; }catch(e){ return 'alle'; } })();
+function dfPass(b){ return DF==='alle' || (DF==='daily' ? isDaily(b) : !isDaily(b)); }
+function dailyFilterHTML(){
+  const n=BETS.filter(isDaily).length;
+  const opties=[['alle','Alle bets'],['daily','★ Alleen daily picks'],['zonder','Zonder daily picks']];
+  return `<div class="dfbar"><div class="seg" role="group" aria-label="Filter daily picks">${opties.map(([k,l])=>
+    `<button type="button" data-df="${k}" class="${DF===k?'on':''}" aria-pressed="${DF===k}">${l}${k==='daily'?`<span class="n">${n}</span>`:''}</button>`).join('')}</div>
+    ${DF!=='alle'?`<span class="uitleg">filter geldt voor de weergave; export bevat altijd alles</span>`:''}</div>`;
+}
+function koppelDf(root){
+  root.querySelectorAll('[data-df]').forEach(bt=>bt.onclick=()=>{
+    DF=bt.dataset.df; try{ sessionStorage.setItem(DF_SLEUTEL,DF); }catch(e){}
+    activeTab=0; render();
+  });
+}
 
 const EDIT = location.hash.toLowerCase().includes('edit');
 if (EDIT) document.body.classList.add('edit-mode');
@@ -319,20 +367,25 @@ function render(){
   updateFilebar();
   if(!BETS.length){ renderEmpty(); return; }
 
-  const T=totals(BETS);
+  const VIEW=BETS.filter(dfPass);
+  const T=totals(VIEW);
   const sign=T.wl>=0?'+':'';
-  let html=`
+  let html=dailyFilterHTML()+`
     <div class="totals">
       <div class="stat"><div class="label">Totaal W/V</div><div class="value ${T.wl>=0?'pos':'neg'}">${sign}€${T.wl.toFixed(2)}</div><div class="sub">over ${T.plays} plays</div></div>
       <div class="stat"><div class="label">Totale inzet</div><div class="value">€${T.stake.toFixed(2)}</div></div>
       <div class="stat"><div class="label">ROI</div><div class="value ${T.roi>=0?'pos':'neg'}">${sign}${T.roi.toFixed(2)}%</div></div>
       <div class="stat"><div class="label">Trefkans</div><div class="value">${T.hit.toFixed(0)}%</div><div class="sub">${T.wins} G · ${T.losses} F</div></div>
     </div>
-    <div class="totals-note">Cumulatief over de gehele geregistreerde periode. Fictieve bets (X) tellen niet mee in de totalen.</div>`;
+    <div class="totals-note">Cumulatief over de gehele geregistreerde periode${DF==='daily'?', alleen daily picks':DF==='zonder'?', zonder daily picks':''}. Fictieve bets (X) tellen niet mee in de totalen.</div>`;
 
+  if(!VIEW.length){
+    main.innerHTML=html+`<div class="empty"><h2>Geen bets met dit filter</h2><p>Nog geen bets met "Daily pick" in de notitie.</p></div>`;
+    koppelDf(main); return;
+  }
   // maand-tabbladen
   const byMonth={};
-  BETS.forEach(b=>{ const k=monthKey(b.date); (byMonth[k]=byMonth[k]||[]).push(b); });
+  VIEW.forEach(b=>{ const k=monthKey(b.date); (byMonth[k]=byMonth[k]||[]).push(b); });
   const months=Object.keys(byMonth).sort();
   if(activeTab>=months.length) activeTab=0;
 
@@ -380,7 +433,7 @@ function render(){
       const wl=b.winloss!=null?`<span class="${b.winloss>=0?'pos':'neg'}">${b.winloss>=0?'+':''}${b.winloss.toFixed(2)}</span>`:'—';
       html+=`<tr class="${fic?'fictief':''}">
         <td class="l">${b.matchup?b.matchup:'<span class="matchup-empty">—</span>'}</td>
-        <td class="l">${b.market}</td>
+        <td class="l">${b.market}${isDaily(b)?'<span class="dstar" title="Daily pick">★ daily</span>':''}</td>
         <td>${b.fair!=null?b.fair.toFixed(2):'—'}</td>
         <td>${b.bookie!=null?b.bookie.toFixed(2):'—'}</td>
         <td>${b.edge!=null?b.edge.toFixed(1)+'%':'—'}</td>
@@ -399,6 +452,7 @@ function render(){
   main.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{activeTab=+t.getAttribute('data-tab');render();});
   main.querySelectorAll('[data-del]').forEach(x=>x.onclick=()=>deleteBet(+x.getAttribute('data-del')));
   main.querySelectorAll('[data-edit]').forEach(x=>x.onclick=()=>openBetModal(+x.getAttribute('data-edit')));
+  koppelDf(main);
 }
 
 function updateFilebar(){
@@ -436,7 +490,8 @@ function openBetModal(idx){
   document.getElementById('f-gf').value=b.gf||'';
   document.getElementById('f-bet').value=b.bet??'';
   document.getElementById('f-winloss').value=b.winloss??'';
-  document.getElementById('f-note').value=b.note||'';
+  document.getElementById('f-note').value=zetDaily(b.note||'', false);
+  document.getElementById('f-daily').checked = idx!=null ? isDaily(b) : DF==='daily';
   document.getElementById('bet-modal').showModal();
 }
 async function saveBet(){
@@ -444,7 +499,7 @@ async function saveBet(){
   const obj={ date:g('f-date'), matchup:g('f-matchup'), market:g('f-market'),
     fair:toNum(g('f-fair')), bookie:toNum(g('f-bookie')), edge:toNum(g('f-edge')),
     score:g('f-score'), gf:g('f-gf'), result:'', bet:toNum(g('f-bet')),
-    winloss:toNum(g('f-winloss')), note:g('f-note'), source:'handmatig' };
+    winloss:toNum(g('f-winloss')), note:zetDaily(g('f-note'), document.getElementById('f-daily').checked), source:'handmatig' };
   obj.result = obj.gf==='G'?'1':(obj.gf==='F'?'0':'');
   if(!obj.market){ alert('Vul minstens de bet (market) in.'); return; }
   if(editIndex!=null){
@@ -635,5 +690,6 @@ document.getElementById('manage-close').onclick=()=>document.getElementById('man
   render();
 })();
 </script>
+<script src="../assets/site.js" defer></script>
 </body>
 </html>

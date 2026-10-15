@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>John's Picks — Deze week</title>
+<title>John's Picks — Daily picks &amp; deze week</title>
+<link rel="icon" type="image/png" sizes="64x64" href="../assets/favicon-64.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
 <style>
   :root {
     --bg:#0e1116; --panel:#161b22; --panel-2:#1c232d; --line:#29313c; --line-soft:#202832;
@@ -174,6 +176,95 @@
   .handmatig { font-family:var(--mono); font-size:9.5px; color:var(--ink-faint); border:1px dashed var(--line); padding:1px 7px; border-radius:20px; white-space:nowrap; }
   .f-fout { color:var(--neg); font-size:12.5px; }
   .f-fout:empty { display:none; }
+
+  /* ── logo in de kop ─────────────────────────────────────────────────── */
+  .brand-wrap { display:flex; align-items:center; gap:16px; }
+  .brand-logo { width:58px; height:58px; border-radius:50%; flex:none; box-shadow:0 0 0 1px var(--line); }
+  @media (max-width:560px) { .brand-logo { width:46px; height:46px; } .brand-wrap { gap:12px; } }
+
+  /* ── hoofdtabbladen: Daily picks | Deze week ────────────────────────── */
+  .hoofdtabs { display:flex; gap:6px; margin-bottom:22px; background:var(--panel); border:1px solid var(--line);
+               border-radius:12px; padding:5px; width:fit-content; max-width:100%; }
+  .hoofdtab { background:none; border:none; cursor:pointer; color:var(--ink-dim); font-family:var(--sans); font-size:14px;
+              font-weight:700; padding:9px 16px; border-radius:8px; display:flex; align-items:center; gap:8px; white-space:nowrap; }
+  .hoofdtab:hover { color:var(--ink); }
+  .hoofdtab.active { background:var(--panel-2); color:var(--ink); box-shadow:inset 0 0 0 1px var(--line); }
+  .hoofdtab.active .ster { color:var(--signal); }
+  .hoofdtab .cnt { font-family:var(--mono); font-size:11px; background:var(--bg); color:var(--ink-dim); padding:1px 7px; border-radius:10px; }
+  .hoofdtab.active .cnt { background:var(--signal); color:#06231a; }
+
+  /* ── daily picks ────────────────────────────────────────────────────── */
+  .dagnav { display:flex; align-items:center; gap:10px; margin-bottom:14px; flex-wrap:wrap; }
+  .dagnav button { background:var(--panel); color:var(--ink-dim); border:1px solid var(--line); border-radius:8px; width:34px; height:34px;
+                   font-size:16px; cursor:pointer; font-family:var(--sans); }
+  .dagnav button:hover:not(:disabled) { color:var(--signal); border-color:var(--signal); }
+  .dagnav button:disabled { opacity:.35; cursor:default; }
+  .dagnav .dagtitel { font-weight:700; font-size:15px; }
+  .dagnav .dagtitel small { font-family:var(--mono); font-size:11px; color:var(--ink-faint); font-weight:500; margin-left:8px; }
+
+  .dkaart { background:var(--panel); border:1px solid var(--line); border-radius:16px; overflow:hidden; max-width:720px;
+            background-image:radial-gradient(600px 200px at 0% 0%, rgba(41,224,160,.07), transparent 70%); }
+  .dk-kop { display:flex; align-items:center; gap:14px; padding:18px 20px 14px; border-bottom:1px solid var(--line-soft); }
+  .dk-kop img { width:46px; height:46px; border-radius:50%; flex:none; box-shadow:0 0 0 1px var(--line); }
+  .dk-kop .t1 { font-size:20px; font-weight:800; letter-spacing:-0.4px; line-height:1.15; }
+  .dk-kop .t1 span { color:var(--signal); }
+  .dk-kop .t2 { font-family:var(--mono); font-size:11.5px; color:var(--ink-dim); margin-top:2px; }
+  .dk-kop .stand { margin-left:auto; text-align:right; font-family:var(--mono); }
+  .dk-kop .stand b { display:block; font-size:18px; font-weight:800; }
+  .dk-kop .stand small { font-size:10.5px; color:var(--ink-faint); }
+  .dk-pick { display:grid; grid-template-columns:30px 1fr auto; gap:14px; padding:14px 20px; border-top:1px solid var(--line-soft); align-items:center; }
+  .dk-pick:first-of-type { border-top:none; }
+  .dk-pick .nr { font-family:var(--mono); font-size:12px; color:var(--ink-faint); width:26px; height:26px; border-radius:50%;
+                 border:1px solid var(--line); display:flex; align-items:center; justify-content:center; }
+  .dk-pick.goed .nr { border-color:var(--signal); color:var(--signal); }
+  .dk-pick.fout .nr { border-color:var(--neg); color:var(--neg); }
+  .dk-pick .meta { font-family:var(--mono); font-size:10.5px; color:var(--ink-faint); display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+  .dk-pick .wed { font-size:15.5px; font-weight:700; letter-spacing:-0.2px; margin-top:3px; }
+  .dk-pick .wed .vs { color:var(--ink-faint); font-weight:400; margin:0 6px; }
+  .dk-pick .markt { margin-top:5px; display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+  .dk-pick .markt .pick-name { font-size:14px; }
+  .dk-pick .toel { font-size:12.5px; color:var(--ink-dim); margin-top:6px; font-style:italic; }
+  .dk-pick .rechts { text-align:right; font-family:var(--mono); white-space:nowrap; }
+  .dk-pick .rechts .odd { font-size:20px; font-weight:800; color:var(--ink); letter-spacing:-0.3px; }
+  .dk-pick .rechts .sub { font-size:10.5px; color:var(--ink-faint); display:block; }
+  .dk-pick .rechts .sub .ev { color:var(--signal); }
+  .dk-pick .rechts .uit { font-size:13px; font-weight:700; display:block; margin-top:3px; }
+  .dk-pick .rechts .uit.plus { color:var(--signal); } .dk-pick .rechts .uit.min { color:var(--neg); } .dk-pick .rechts .uit.nul { color:var(--ink-dim); }
+  .dailytag { font-family:var(--mono); font-size:9.5px; letter-spacing:0.5px; text-transform:uppercase; color:var(--signal); border:1px solid rgba(41,224,160,.4); padding:2px 8px; border-radius:20px; white-space:nowrap; }
+  .papier { font-family:var(--mono); font-size:9.5px; color:var(--ink-faint); border:1px dashed var(--line); padding:1px 7px; border-radius:20px; }
+  .dk-voet { display:flex; justify-content:space-between; gap:10px; padding:10px 20px; border-top:1px solid var(--line-soft);
+             font-family:var(--mono); font-size:10.5px; color:var(--ink-faint); flex-wrap:wrap; }
+
+  .daily-grid { display:grid; grid-template-columns:minmax(0,720px) minmax(220px,1fr); gap:18px; align-items:start; }
+  .zijblok { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin-bottom:14px; }
+  .zijblok h3 { font-family:var(--mono); font-size:10.5px; letter-spacing:0.6px; text-transform:uppercase; color:var(--ink-faint); font-weight:600; margin-bottom:10px; }
+  .zijblok .groot { font-size:24px; font-weight:800; letter-spacing:-0.5px; font-variant-numeric:tabular-nums; }
+  .zijblok .groot.plus { color:var(--signal); } .zijblok .groot.min { color:var(--neg); }
+  .zijblok .klein { font-family:var(--mono); font-size:11.5px; color:var(--ink-dim); margin-top:4px; }
+  .recap-rij { display:flex; justify-content:space-between; gap:10px; font-size:12.5px; padding:6px 0; border-top:1px solid var(--line-soft); }
+  .recap-rij:first-of-type { border-top:none; }
+  .recap-rij .w { color:var(--ink-dim); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .recap-rij .w b { color:var(--ink); font-weight:600; }
+  .recap-rij .u { font-family:var(--mono); font-weight:700; white-space:nowrap; }
+  .recap-rij .u.goed { color:var(--signal); } .recap-rij .u.fout { color:var(--neg); } .recap-rij .u.open { color:var(--ink-faint); font-weight:500; }
+  .linkknop { background:none; border:none; color:var(--signal); font-family:var(--mono); font-size:11.5px; cursor:pointer; padding:0; margin-top:10px; }
+  .linkknop:hover { text-decoration:underline; }
+  @media (max-width:860px) { .daily-grid { grid-template-columns:1fr; } }
+  @media (max-width:560px) {
+    .dk-pick { grid-template-columns:24px 1fr auto; gap:10px; padding:13px 14px; }
+    .dk-kop { padding:14px; } .dk-voet { padding:10px 14px; }
+    .dk-pick .rechts .odd { font-size:17px; }
+    .dk-pick .rechts .sub .fair { display:none; }
+    .hoofdtab { padding:8px 12px; font-size:13.5px; }
+  }
+
+  /* ── kaart-modus (?kaart=JJJJ-MM-DD): alleen de kaart, voor een screenshot ── */
+  body.kaart-modus { padding:24px; background:var(--bg); }
+  body.kaart-modus > nav, body.kaart-modus > header, body.kaart-modus .hoofdtabs, body.kaart-modus .dagnav,
+  body.kaart-modus .zijkolom, body.kaart-modus .beheer-bar { display:none !important; }
+  body.kaart-modus main { padding:0; max-width:none; }
+  body.kaart-modus .daily-grid { display:block; }
+  body.kaart-modus .dkaart { width:640px; max-width:none; }
 </style>
 </head>
 <body>
@@ -189,13 +280,19 @@
 </nav>
 
   <header>
-    <div class="brand">
-      <h1>John's Picks</h1>
-      <span class="sub">● deze week</span>
+    <div class="brand-wrap">
+      <img class="brand-logo" src="../assets/logo-192.png" alt="" width="58" height="58">
+      <div>
+        <div class="brand">
+          <h1>John's Picks</h1>
+          <span class="sub" id="sub-label">● deze week</span>
+        </div>
+      </div>
     </div>
     <p class="tagline">
-      De bets die deze week gespeeld worden, met de gekozen inzet. Puur ter info —
-      speel altijd verantwoord en met je eigen oordeel.
+      Elke dag maximaal vier uitgelichte wedstrijden, plus alle bets die deze week
+      gespeeld worden met de gekozen inzet. Puur ter info — speel altijd verantwoord
+      en met je eigen oordeel.
     </p>
     <div class="meta-row">
       <span><b>bijgewerkt:</b> <span id="upd">—</span></span>
@@ -764,6 +861,7 @@ function betCardHTML(b, opts) {
           <span class="mkt-type">${typ}</span>
           <span class="pick-name">${label}</span>
           ${b.manual ? '<span class="eigen">eigen pick</span>' : ''}
+          ${isDailyPick(b) ? '<span class="dailytag" title="Ook een daily pick">★ daily pick</span>' : ''}
           ${BEHEER && b.result_override ? '<span class="handmatig" title="Resultaat handmatig vastgezet">handmatig</span>' : ''}
           ${uitkomst}
         </div>
@@ -1478,7 +1576,255 @@ if (BEHEER) {
   window.addEventListener('beforeunload', e => { if (DIRTY) { e.preventDefault(); e.returnValue = ''; } });
 }
 
+// ═════════════════════════════════════════════════════════════════════════
+//  DAILY PICKS — hoofdtabblad naast 'Deze week'
+// ═════════════════════════════════════════════════════════════════════════
+// Bron: daily_picks.json in deze map. De server zet hem neer zodra je in de
+// app (⭐ Daily picks) een dag publiceert, en vult de uitslagen in na afloop.
+// Nog niet afgerekend door de server? Dan wordt de uitslag uit de historie-CSV
+// van deze week getoond (zelfde koppeling als de week-picks).
+const QS = new URLSearchParams(location.search);
+const KAART = QS.has('kaart');                       // ?kaart=2026-10-17 → alleen de kaart (screenshot)
+let DAILY = null;                                    // inhoud van daily_picks.json
+let DAILY_DAG = null;                                // getoonde dag (JJJJ-MM-DD)
+let HOOFDTAB = null;                                 // 'daily' | 'week'
+const HOOFDTAB_SLEUTEL = 'jbb_hoofdtab';
+if (KAART) document.body.classList.add('kaart-modus');
+
+function vandaagIso() {
+  const d = new Date();
+  return new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+}
+function dailyDagen() {
+  return ((DAILY && DAILY.dagen) || []).filter(d => d.picks && d.picks.length)
+    .sort((a, b) => a.datum < b.datum ? -1 : a.datum > b.datum ? 1 : 0);
+}
+function standaardDag() {
+  const dagen = dailyDagen(), v = vandaagIso();
+  const d = dagen.find(x => x.datum === v) || dagen.find(x => x.datum > v) || dagen[dagen.length - 1];
+  return d ? d.datum : null;
+}
+function fmtDagLang(iso) {
+  return new Date(iso + 'T12:00:00').toLocaleDateString('nl-NL', { weekday:'long', day:'numeric', month:'long' });
+}
+function fmtDagKort(iso) {
+  return new Date(iso + 'T12:00:00').toLocaleDateString('nl-NL', { weekday:'short', day:'numeric', month:'short' });
+}
+function relatief(iso) {
+  const v = vandaagIso();
+  const dag = 864e5, verschil = Math.round((Date.parse(iso) - Date.parse(v)) / dag);
+  return verschil === 0 ? 'vandaag' : verschil === -1 ? 'gisteren' : verschil === 1 ? 'morgen' : '';
+}
+
+async function laadDaily() {
+  const t = await haalTekst('daily_picks.json');
+  if (!t) return;
+  try { DAILY = JSON.parse(t); } catch(e) { return; }
+}
+
+// Uitslag van een daily pick: eerst wat de server heeft vastgelegd, anders de CSV
+// Staat deze week-pick ook als daily pick in daily_picks.json?
+function isDailyPick(b) {
+  if (!DAILY) return false;
+  const k = sleutelUitPick(b), t = kickoffMs(b);
+  return dailyDagen().some(d => d.picks.some(p => sleutelUitPick(p) === k &&
+    (t === GEEN_DATUM || Math.abs(Date.parse(p.match_date) - t) < 3 * 864e5)));
+}
+
+function dailyResultaat(p) {
+  const r = p.resultaat;
+  if (r && r.gf) {
+    const uitkomst = r.gf === 'G' ? 'goed' : r.gf === 'F' ? 'fout' : 'push';
+    return { uitkomst, uitslag: r.uitslag || '', winst: +r.winst || 0, inzet: r.inzet != null ? +r.inzet : (+p.stake || 0) };
+  }
+  const c = resultaatVan(p);
+  return c ? { uitkomst: c.uitkomst, uitslag: c.uitslag, winst: c.winst, inzet: c.inzet != null ? c.inzet : (+p.stake || 0) } : null;
+}
+
+function dagStand(dag) {
+  let goed = 0, fout = 0, push = 0, netto = 0, inzet = 0, af = 0;
+  (dag.picks || []).forEach(p => {
+    const r = dailyResultaat(p); if (!r) return;
+    af++; netto += r.winst; inzet += r.inzet || 0;
+    if (r.uitkomst === 'goed') goed++; else if (r.uitkomst === 'fout') fout++; else push++;
+  });
+  return { goed, fout, push, netto, inzet, af, totaal: (dag.picks || []).length };
+}
+
+function kiesHoofdtab() {
+  if (KAART) return 'daily';
+  if (location.hash.toLowerCase().includes('daily')) return 'daily';
+  if (location.hash.toLowerCase().includes('week')) return 'week';
+  if (BEHEER) return 'week';
+  let bewaard = null; try { bewaard = sessionStorage.getItem(HOOFDTAB_SLEUTEL); } catch(e) {}
+  if (bewaard === 'daily' || bewaard === 'week') return bewaard;
+  const v = vandaagIso();
+  return dailyDagen().some(d => d.datum >= v) ? 'daily' : 'week';
+}
+
+function hoofdtabsHTML() {
+  const toon = DAILY_DAG || standaardDag();
+  const nDaily = (dailyDagen().find(d => d.datum === toon) || { picks: [] }).picks.length;
+  const nWeek = (DATA && DATA.bets) ? DATA.bets.length : 0;
+  return `<nav class="hoofdtabs" aria-label="Weergave">
+      <button class="hoofdtab ${HOOFDTAB === 'daily' ? 'active' : ''}" data-hoofdtab="daily" type="button"><span class="ster">★</span> Daily picks<span class="cnt">${nDaily}</span></button>
+      <button class="hoofdtab ${HOOFDTAB === 'week' ? 'active' : ''}" data-hoofdtab="week" type="button">Deze week<span class="cnt">${nWeek}</span></button>
+    </nav>`;
+}
+function koppelHoofdtabs() {
+  document.querySelectorAll('.hoofdtab').forEach(b => {
+    b.onclick = () => {
+      HOOFDTAB = b.getAttribute('data-hoofdtab');
+      try { sessionStorage.setItem(HOOFDTAB_SLEUTEL, HOOFDTAB); } catch(e) {}
+      history.replaceState(null, '', location.pathname + location.search + (BEHEER ? location.hash : '#' + HOOFDTAB));
+      tekenAlles();
+    };
+  });
+  const sub = document.getElementById('sub-label');
+  if (sub) sub.textContent = HOOFDTAB === 'daily' ? '● daily picks' : '● deze week';
+}
+function tekenAlles() {
+  if (HOOFDTAB === 'daily') renderDaily();
+  else if (DATA && DATA.bets && DATA.bets.length) render();
+  else renderEmpty();
+}
+
+function dailyPickHTML(p, i) {
+  const r = dailyResultaat(p);
+  const typ = (p.type === 'O/U' || /^O\/U/i.test(p.market || '')) ? 'O/U' : '1X2';
+  const label = String(p.market || '').replace(/^1X2 |^O\/U /, '');
+  const ev = parseFloat(p.ev_pct);
+  const fair = +p.fair_odd > 0 ? `<span class="fair">fair ${(+p.fair_odd).toFixed(2)} · </span>` : '';
+  const evTxt = isFinite(ev) ? `<span class="ev">${ev < 0 ? '−' : '+'}${Math.abs(ev).toFixed(1)}%</span>` : '';
+  const uitkomst = r ? `<span class="uitkomst ${r.uitkomst}">${r.uitkomst === 'goed' ? 'gewonnen' : r.uitkomst === 'fout' ? 'verloren' : 'push'}${r.uitslag ? ' · ' + esc(r.uitslag) : ''}</span>` : '';
+  const uitBedrag = r ? `<span class="uit ${plClass(r.winst)}">${fmtPL(r.winst)}</span>` : '';
+  return `<div class="dk-pick ${r ? r.uitkomst : ''}">
+      <span class="nr">${r ? (r.uitkomst === 'goed' ? '✓' : r.uitkomst === 'fout' ? '✗' : '=') : i + 1}</span>
+      <div style="min-width:0">
+        <div class="meta"><span class="lg-badge">${esc(p.league_label || p.league || '')}</span><span>${fmtTime(p.match_date)}</span>
+          ${p.gespeeld === false ? '<span class="papier" title="Niet zelf gespeeld; resultaat met de inzet die de radar voorstelde">radar-pick</span>' : ''}</div>
+        <div class="wed">${esc(p.home)}<span class="vs">vs</span>${esc(p.away)}</div>
+        <div class="markt"><span class="mkt-type">${typ}</span><span class="pick-name">${esc(label)}</span>${uitkomst}</div>
+        ${p.toelichting ? `<div class="toel">“${esc(p.toelichting)}”</div>` : ''}
+      </div>
+      <div class="rechts">
+        <span class="odd">${+p.book_odd > 0 ? (+p.book_odd).toFixed(2) : '—'}</span>
+        <span class="sub">${fair}${evTxt}</span>
+        ${uitBedrag}
+      </div>
+    </div>`;
+}
+
+function renderDaily() {
+  const main = document.getElementById('main');
+  const dagen = dailyDagen();
+  if (!DAILY_DAG || !dagen.some(d => d.datum === DAILY_DAG)) DAILY_DAG = standaardDag();
+  let html = (KAART ? '' : beheerBarHTML()) + hoofdtabsHTML();
+  if (!dagen.length) {
+    main.innerHTML = html + `<div class="empty"><h2>Nog geen daily picks</h2>
+      <p>Elke dag lichten we hier (maximaal) vier wedstrijden uit. Zodra ze gepubliceerd zijn, verschijnen ze hier automatisch.</p></div>`;
+    koppelHoofdtabs(); koppelBeheer(); return;
+  }
+  const idx = dagen.findIndex(d => d.datum === DAILY_DAG);
+  const dag = dagen[idx];
+  const st = dagStand(dag);
+  const rel = relatief(dag.datum);
+
+  html += `<div class="dagnav">
+      <button type="button" id="dag-vorige" aria-label="Vorige dag" ${idx <= 0 ? 'disabled' : ''}>‹</button>
+      <button type="button" id="dag-volgende" aria-label="Volgende dag" ${idx >= dagen.length - 1 ? 'disabled' : ''}>›</button>
+      <span class="dagtitel">${fmtDagLang(dag.datum)}${rel ? `<small>${rel}</small>` : ''}</span>
+    </div>`;
+
+  const standHtml = st.af
+    ? `<div class="stand"><b style="color:var(--${st.netto > 0 ? 'signal' : st.netto < 0 ? 'neg' : 'ink-dim'})">${fmtPL(st.netto)}</b><small>${st.goed}/${st.af} goed${st.af < st.totaal ? ` · ${st.totaal - st.af} open` : ''}</small></div>`
+    : `<div class="stand"><b>${st.totaal}</b><small>pick${st.totaal === 1 ? '' : 's'}</small></div>`;
+  const kaart = `<div class="dkaart" id="daily-kaart">
+      <div class="dk-kop">
+        <img src="../assets/mark.png" alt="" width="46" height="46">
+        <div><div class="t1">Daily <span>Picks</span></div><div class="t2">${fmtDagLang(dag.datum)}</div></div>
+        ${standHtml}
+      </div>
+      ${dag.picks.map(dailyPickHTML).join('')}
+      <div class="dk-voet"><span>johnsballiebets · data analysis × football betting</span><span>18+ · speel verantwoord</span></div>
+    </div>`;
+
+  // zijkolom: vorige dag + totaal
+  const vorige = dagen.slice(0, idx).reverse().find(d => dagStand(d).af) || (idx > 0 ? dagen[idx - 1] : null);
+  let zij = '';
+  if (vorige) {
+    const vs = dagStand(vorige);
+    zij += `<div class="zijblok"><h3>Vorige daily picks · ${fmtDagKort(vorige.datum)}</h3>
+      ${vs.af ? `<div class="groot ${plClass(vs.netto)}">${fmtPL(vs.netto)}</div><div class="klein">${vs.goed} van ${vs.af} goed${vs.af < vs.totaal ? ` · ${vs.totaal - vs.af} nog open` : ''}</div>` : '<div class="klein">nog niets afgerond</div>'}
+      <div style="margin-top:10px">${vorige.picks.map(p => {
+        const r = dailyResultaat(p);
+        const u = r ? `<span class="u ${r.uitkomst === 'push' ? '' : r.uitkomst}">${r.uitkomst === 'goed' ? '✓' : r.uitkomst === 'fout' ? '✗' : '='} ${esc(r.uitslag || '')}</span>` : '<span class="u open">open</span>';
+        return `<div class="recap-rij"><span class="w"><b>${esc(p.home)} – ${esc(p.away)}</b> · ${esc(String(p.market || '').replace(/^1X2 |^O\/U /, ''))}</span>${u}</div>`;
+      }).join('')}</div>
+      <button class="linkknop" type="button" data-naar="${vorige.datum}">bekijk die dag →</button></div>`;
+  }
+  let g = 0, f = 0, n = 0, inz = 0, af = 0;
+  dagen.forEach(d => { const s = dagStand(d); g += s.goed; f += s.fout; n += s.netto; inz += s.inzet; af += s.af; });
+  if (af) {
+    zij += `<div class="zijblok"><h3>Daily picks totaal</h3>
+      <div class="groot ${plClass(n)}">${fmtPL(n)}</div>
+      <div class="klein">${g} goed · ${f} fout${af - g - f ? ` · ${af - g - f} push` : ''}</div>
+      <div class="klein">trefkans ${(g / Math.max(1, g + f) * 100).toFixed(0)}% · rendement ${inz ? ((n >= 0 ? '+' : '−') + Math.abs(n / inz * 100).toFixed(1) + '%') : '—'}</div>
+      <div class="klein" style="color:var(--ink-faint);margin-top:8px">over ${dagen.filter(d => dagStand(d).af).length} dag(en)</div></div>`;
+  }
+
+  html += `<div class="daily-grid"><div>${kaart}</div><div class="zijkolom">${zij}</div></div>`;
+  main.innerHTML = html;
+  document.getElementById('upd').textContent = fmtUpd(DAILY.bijgewerkt);
+  document.getElementById('cnt').textContent = dag.picks.length;
+
+  const naar = d => { DAILY_DAG = d; renderDaily(); };
+  const vb = document.getElementById('dag-vorige'), nb = document.getElementById('dag-volgende');
+  if (vb) vb.onclick = () => idx > 0 && naar(dagen[idx - 1].datum);
+  if (nb) nb.onclick = () => idx < dagen.length - 1 && naar(dagen[idx + 1].datum);
+  document.querySelectorAll('[data-naar]').forEach(b => b.onclick = () => naar(b.getAttribute('data-naar')));
+  koppelHoofdtabs();
+  koppelBeheer();
+  if (KAART) document.body.setAttribute('data-kaart-klaar', '1');   // signaal voor een screenshot-script
+}
+
+// render() en renderEmpty() van de week-weergave kennen het hoofdtabblad niet;
+// hier krijgen ze het erbij, zonder de bestaande code te veranderen.
+const _renderWeek = render, _renderLeeg = renderEmpty;
+render = function () {
+  if (HOOFDTAB === 'daily') { renderDaily(); return; }
+  _renderWeek();
+  voegHoofdtabsToe();
+};
+renderEmpty = function () {
+  if (HOOFDTAB === 'daily') { renderDaily(); return; }
+  _renderLeeg();
+  voegHoofdtabsToe();
+};
+function voegHoofdtabsToe() {
+  if (HOOFDTAB === null) return;            // nog aan het opstarten
+  const main = document.getElementById('main');
+  main.querySelectorAll('.hoofdtabs').forEach(n => n.remove());
+  const bar = main.querySelector('.beheer-bar');
+  const tmp = document.createElement('div'); tmp.innerHTML = hoofdtabsHTML();
+  if (bar) bar.after(tmp.firstElementChild); else main.prepend(tmp.firstElementChild);
+  koppelHoofdtabs();
+}
+
+// Opstarten: daily-bestand en week-picks tegelijk laden
+(async function startDaily() {
+  if (KAART) {
+    const d = QS.get('kaart'); if (/^\d{4}-\d{2}-\d{2}$/.test(d || '')) DAILY_DAG = d;
+  }
+  await laadDaily();
+  if (KAART && QS.get('kaart') && !/^\d{4}-\d{2}-\d{2}$/.test(QS.get('kaart'))) DAILY_DAG = null;
+  HOOFDTAB = kiesHoofdtab();
+  tekenAlles();
+  setInterval(async () => { await laadDaily(); if (HOOFDTAB === 'daily') renderDaily(); }, VERVERS_SECONDEN * 1000);
+})();
+
 boot();
 </script>
+<script src="../assets/site.js" defer></script>
 </body>
 </html>

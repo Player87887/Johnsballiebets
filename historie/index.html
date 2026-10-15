@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>John's Picks — Resultaten &amp; Historie</title>
+<link rel="icon" type="image/png" sizes="64x64" href="../assets/favicon-64.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
 <style>
   :root {
     --bg:#0e1116; --panel:#161b22; --panel-2:#1c232d; --line:#29313c; --line-soft:#202832;
@@ -130,6 +132,20 @@
     .an-row > .k { padding-top:0; }
     .chartbox, .chartbox.tall { height:250px; }
   }
+
+  /* ── logo in de kop ── */
+  .brand-wrap { display:flex; align-items:center; gap:14px; }
+  .brand-logo { width:52px; height:52px; border-radius:50%; flex:none; box-shadow:0 0 0 1px var(--line); }
+  /* ── daily-picks-filter en kenmerk ── */
+  .dfbar { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:16px; }
+  .dfbar .seg { display:inline-flex; border:1px solid var(--line); border-radius:8px; overflow:hidden; }
+  .dfbar .seg button { background:var(--panel-2); color:var(--ink-dim); border:none; padding:7px 13px; font-size:12.5px; font-weight:600; cursor:pointer; font-family:var(--sans); display:inline-flex; gap:6px; align-items:center; }
+  .dfbar .seg button + button { border-left:1px solid var(--line); }
+  .dfbar .seg button.on { background:rgba(41,224,160,0.13); color:var(--signal); }
+  .dfbar .seg button:focus-visible { outline:2px solid var(--signal); outline-offset:2px; }
+  .dfbar .seg .n { font-family:var(--mono); font-size:10px; opacity:.75; }
+  .dfbar .uitleg { font-family:var(--mono); font-size:11px; color:var(--ink-faint); }
+  .dstar { display:inline-block; font-family:var(--mono); font-size:9.5px; font-weight:700; color:var(--signal); border:1px solid rgba(41,224,160,.4); padding:0 6px; border-radius:9px; margin-left:7px; vertical-align:1px; white-space:nowrap; }
 </style>
 </head>
 <body>
@@ -145,9 +161,12 @@
 </nav>
 
   <header>
+    <div class="brand-wrap">
+    <img class="brand-logo" src="../assets/logo-192.png" alt="" width="52" height="52">
     <div class="brand">
       <h1>John's Picks</h1>
       <span class="sub">● resultaten &amp; historie</span>
+    </div>
     </div>
     <p class="tagline">
       Volledige registratie van alle geplaatste bets, met dag- en totaaloverzichten.
@@ -178,6 +197,24 @@
 // ═══════════════════════════════════════════════════════════════════════════
 let BETS = [];
 let activeTab = 0;
+
+// ── Daily picks ────────────────────────────────────────────────────────────
+// Een bet is daily pick als er "Daily pick" in de notitie staat (dat zet de
+// server erin). Niet-gespeelde daily picks (radar-picks, papieren inzet) staan
+// niet in historie.csv maar in ../picks/daily_historie.csv; die tellen alleen
+// mee in de analyse als je dat aanzet, nooit in de bankroll.
+function isDaily(b){ return /\bdaily pick/i.test(b && b.note || ''); }
+let PAPER = [];                       // niet-gespeelde daily picks
+const DF_SLEUTEL = 'jbb_dailyfilter';
+let DF = (()=>{ try{ return sessionStorage.getItem(DF_SLEUTEL)||'alle'; }catch(e){ return 'alle'; } })();
+function dfPass(b){ return DF==='alle' || (DF==='daily' ? isDaily(b) : !isDaily(b)); }
+function dailyFilterHTML(){
+  const n=played(BETS).filter(isDaily).length;
+  const opties=[['alle','Alle bets'],['daily','★ Alleen daily picks'],['zonder','Zonder daily picks']];
+  return `<div class="dfbar"><div class="seg" role="group" aria-label="Filter daily picks">${opties.map(([k,l])=>
+    `<button type="button" data-df="${k}" class="${DF===k?'on':''}" aria-pressed="${DF===k}">${l}${k==='daily'?`<span class="n">${n}</span>`:''}</button>`).join('')}</div>
+    ${DF!=='alle'?`<span class="uitleg">bankroll blijft over alle bets</span>`:''}</div>`;
+}
 
 // ── Instellingen ───────────────────────────────────────────────────────────
 // De stack waarmee je begonnen bent. Alle bankroll-cijfers rekenen hier vanaf.
@@ -254,21 +291,24 @@ function render(){
   document.getElementById('filebar').textContent = `${played(BETS).length} plays geregistreerd`;
   if(!BETS.length){ renderEmpty(); return; }
 
-  const T=totals(BETS);
-  let html=`
+  const TA=totals(BETS);                 // bankroll: altijd over alle bets
+  const VIEW=BETS.filter(dfPass);
+  const T=totals(VIEW);
+  const filterTxt=DF==='daily'?' (alleen daily picks)':DF==='zonder'?' (zonder daily picks)':'';
+  let html=dailyFilterHTML()+`
     <div class="totals">
       <div class="stat hero">
         <div class="label">Bankroll</div>
-        <div class="value ${T.wl>=0?'pos':'neg'}">${eur(T.bankroll)}</div>
-        <div class="sub">start ${eur(START_BANKROLL)} · ${eurSigned(T.wl)}</div>
+        <div class="value ${TA.wl>=0?'pos':'neg'}">${eur(TA.bankroll)}</div>
+        <div class="sub">start ${eur(START_BANKROLL)} · ${eurSigned(TA.wl)}</div>
       </div>
       <div class="stat">
         <div class="label">Rendement op stack</div>
-        <div class="value ${T.growth>=0?'pos':'neg'}">${pct(T.growth)}</div>
+        <div class="value ${TA.growth>=0?'pos':'neg'}">${pct(TA.growth)}</div>
         <div class="sub">groei sinds start</div>
       </div>
       <div class="stat">
-        <div class="label">Totaal W/V</div>
+        <div class="label">Totaal W/V${DF==='daily'?' · daily':''}</div>
         <div class="value ${T.wl>=0?'pos':'neg'}">${eurSigned(T.wl)}</div>
         <div class="sub">over ${T.plays} plays</div>
       </div>
@@ -288,10 +328,14 @@ function render(){
         <div class="sub">${T.wins} G · ${T.losses} F</div>
       </div>
     </div>
-    <div class="totals-note">Cumulatief over de gehele geregistreerde periode, vanaf een startstack van ${eur(START_BANKROLL)}. Fictieve bets (X) tellen niet mee.</div>`;
+    <div class="totals-note">Cumulatief over de gehele geregistreerde periode, vanaf een startstack van ${eur(START_BANKROLL)}. Fictieve bets (X) tellen niet mee.${filterTxt?` W/V, inzet, ROI en trefkans${filterTxt}.`:''}</div>`;
 
+  if(!VIEW.length){
+    main.innerHTML=html+`<div class="empty"><h2>Geen bets met dit filter</h2><p>Nog geen daily picks afgerond in de historie.</p></div>`;
+    koppelDf(main); return;
+  }
   const byMonth={};
-  BETS.forEach(b=>{ const k=monthKey(b.date); (byMonth[k]=byMonth[k]||[]).push(b); });
+  VIEW.forEach(b=>{ const k=monthKey(b.date); (byMonth[k]=byMonth[k]||[]).push(b); });
   const months=Object.keys(byMonth).sort();
   if(activeTab>=months.length) activeTab=0;
 
@@ -334,7 +378,7 @@ function render(){
       const wl=b.winloss!=null?`<span class="${b.winloss>=0?'pos':'neg'}">${b.winloss>=0?'+':'−'}${num(Math.abs(b.winloss),2)}</span>`:'—';
       html+=`<tr class="${fic?'fictief':''}">
         <td class="l">${b.matchup?b.matchup:'<span class="matchup-empty">—</span>'}</td>
-        <td class="l">${b.market}</td>
+        <td class="l">${b.market}${isDaily(b)?'<span class="dstar" title="Daily pick">★ daily</span>':''}</td>
         <td>${b.fair!=null?num(b.fair,2):'—'}</td>
         <td>${b.bookie!=null?num(b.bookie,2):'—'}</td>
         <td>${b.edge!=null?num(b.edge,1)+'%':'—'}</td>
@@ -349,6 +393,13 @@ function render(){
 
   main.innerHTML=html;
   main.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{activeTab=+t.getAttribute('data-tab');render();});
+  koppelDf(main);
+}
+function koppelDf(root){
+  root.querySelectorAll('[data-df]').forEach(bt=>bt.onclick=()=>{
+    DF=bt.dataset.df; try{ sessionStorage.setItem(DF_SLEUTEL,DF); }catch(e){}
+    activeTab=0; render();
+  });
 }
 
 function renderEmpty(){
@@ -469,7 +520,8 @@ const DOW=['maandag','dinsdag','woensdag','donderdag','vrijdag','zaterdag','zond
 // ── Data voorbereiden ──────────────────────────────────────────────────────
 let ANA=[];
 function prepareAnalyse(){
-  ANA=played(BETS).filter(b=>b.bet>0).map((b,i)=>{
+  const bron=played(BETS).concat(F.paper?PAPER:[]);
+  ANA=bron.filter(b=>b.bet>0).map((b,i)=>{
     const mk=parseMarket(b.market);
     const comp=(b.comp&&b.comp.trim()) || guessComp(b.matchup) || guessComp(mk.team) || guessComp(b.market) || 'Onbekend';
     const edge=b.edge!=null?b.edge:(b.fair&&b.bookie?(b.bookie/b.fair-1)*100:null);
@@ -481,12 +533,15 @@ function prepareAnalyse(){
 // ── Filterstatus ───────────────────────────────────────────────────────────
 const F={ types:new Set(), lines:new Set(), comps:new Set(), stakes:new Set(),
   edgeMin:'', edgeMax:'', fairMin:'', fairMax:'', bookMin:'', bookMax:'', from:'', to:'',
-  unit:'eur', by:'market', metric:'roi' };
-function resetFilters(){ ['types','lines','comps','stakes'].forEach(k=>F[k].clear());
+  unit:'eur', by:'market', metric:'roi', daily:'alle', paper:false };
+function resetFilters(){ ['types','lines','comps','stakes'].forEach(k=>F[k].clear()); F.daily='alle';
+  if(F.paper){ F.paper=false; prepareAnalyse(); }
   ['edgeMin','edgeMax','fairMin','fairMax','bookMin','bookMax','from','to'].forEach(k=>F[k]=''); }
 
 function inRange(v,lo,hi){ const a=toNum(lo), b=toNum(hi); if(a==null&&b==null) return true; if(v==null) return false; return (a==null||v>=a)&&(b==null||v<=b); }
 function passes(b){
+  if(F.daily==='daily' && !isDaily(b)) return false;
+  if(F.daily==='zonder' && isDaily(b)) return false;
   const isOU=b.mk.type==='Over'||b.mk.type==='Under';
   // Goal-lijn geldt alleen voor Over/Under. Met een lijn gekozen tellen andere
   // markten alleen mee als je ze ook expliciet als markt hebt aangeklikt.
@@ -537,6 +592,7 @@ const DIMS={
   market:{label:'Markt',        key:b=>({k:b.mlabel,s:b.msort})},
   type:  {label:'Markttype',    key:b=>({k:b.mk.type,s:TYPE_ORDER.indexOf(b.mk.type)})},
   comp:  {label:'Competitie',   key:b=>({k:b.comp,s:b.comp==='Onbekend'?'~':b.comp})},
+  daily: {label:'Daily pick',   key:b=>b.paper?{k:'Daily pick (niet gespeeld)',s:2}:isDaily(b)?{k:'Daily pick',s:1}:{k:'Overige bets',s:0}},
   edge:  {label:'Edge (EV)',    key:b=>bucket(b.edgeC,EDGE_B)},
   stake: {label:'Inzet',        key:b=>({k:eur(b.bet),s:b.bet})},
   fair:  {label:'Fair odd',     key:b=>bucket(b.fair,ODD_B)},
@@ -588,7 +644,16 @@ function renderAnalyseFilters(){
   const rng=(lbl,a,b,step,unit)=>`<label class="rng"><span class="lbl">${lbl}</span>
       <input class="an-in" data-r="${a}" type="number" step="${step}" placeholder="min" value="${escH(F[a])}" aria-label="${lbl} minimum">
       <span>–</span><input class="an-in" data-r="${b}" type="number" step="${step}" placeholder="max" value="${escH(F[b])}" aria-label="${lbl} maximum">${unit||''}</label>`;
+  const nDaily=ANA.filter(b=>isDaily(b)&&!b.paper).length;
   el.innerHTML=`
+    <div class="an-row"><div class="k">Daily picks<small>★ in de notitie</small></div><div class="chips">
+      <div class="seg" role="group" aria-label="Daily picks">
+        <button data-daily="alle" class="${F.daily==='alle'?'on':''}">Alle bets</button>
+        <button data-daily="daily" class="${F.daily==='daily'?'on':''}">★ Alleen daily picks (${nDaily})</button>
+        <button data-daily="zonder" class="${F.daily==='zonder'?'on':''}">Zonder daily picks</button>
+      </div>
+      ${PAPER.length?`<button class="chip ${F.paper?'on':''}" id="an-paper" title="Daily picks die je niet zelf speelde (radar-picks), met de inzet die de radar voorstelde. Tellen nooit mee in de bankroll.">+ niet-gespeelde daily picks<span class="n">${PAPER.length}</span></button>`:''}
+    </div></div>
     <div class="an-row"><div class="k">Markt</div><div class="chips">${chipRow('types',types)}</div></div>
     <div class="an-row"><div class="k">Goal-lijn<small>alleen Over/Under</small></div><div class="chips">${chipRow('lines',lines,v=>num(v,1))}</div></div>
     <div class="an-row"><div class="k">Competitie</div><div>
@@ -615,6 +680,9 @@ function renderAnalyseFilters(){
   el.querySelectorAll('.chip[data-f]').forEach(c=>c.onclick=()=>{
     const s=F[c.dataset.f], v=c.dataset.v; s.has(v)?s.delete(v):s.add(v); c.classList.toggle('on'); renderAnalyseResults(); });
   el.querySelectorAll('.an-in[data-r]').forEach(i=>i.oninput=()=>{ F[i.dataset.r]=i.value; renderAnalyseResults(); });
+  el.querySelectorAll('.seg button[data-daily]').forEach(bt=>bt.onclick=()=>{ F.daily=bt.dataset.daily; renderAnalyseFilters(); renderAnalyseResults(); });
+  const pap=document.getElementById('an-paper');
+  if(pap) pap.onclick=()=>{ F.paper=!F.paper; if(F.paper&&F.daily==='zonder') F.daily='daily'; prepareAnalyse(); renderAnalyseFilters(); renderAnalyseResults(); };
   el.querySelectorAll('.seg button[data-unit]').forEach(bt=>bt.onclick=()=>{ F.unit=bt.dataset.unit; renderAnalyseFilters(); renderAnalyseResults(); });
   document.getElementById('an-reset').onclick=()=>{ resetFilters(); renderAnalyseFilters(); renderAnalyseResults(); };
 }
@@ -623,7 +691,8 @@ function renderAnalyseFilters(){
 function renderAnalyseResults(){
   const list=ANA.filter(passes);
   const S=stats(list);
-  document.getElementById('an-count').innerHTML=`<b>${list.length}</b> van ${ANA.length} gespeelde bets geselecteerd`;
+  const nPap=list.filter(b=>b.paper).length;
+  document.getElementById('an-count').innerHTML=`<b>${list.length}</b> van ${ANA.length} bets geselecteerd${nPap?` · waarvan ${nPap} niet gespeeld (papier)`:''}`;
   const out=document.getElementById('an-results');
 
   if(!list.length){
@@ -766,9 +835,19 @@ window.addEventListener('hashchange',renderView);
     const res=await fetch('historie.csv',{cache:'no-store'});
     if(res.ok){ ingestHistorieCSV(await res.text()); }
   }catch(e){}
+  try{                                   // niet-gespeelde daily picks (alleen voor de analyse)
+    const res=await fetch('../picks/daily_historie.csv',{cache:'no-store'});
+    if(res.ok){
+      const echt=BETS; BETS=[];
+      ingestHistorieCSV(await res.text());
+      PAPER=BETS.filter(b=>/niet gespeeld/i.test(b.note)).map(b=>({...b,paper:true,note:/daily pick/i.test(b.note)?b.note:'Daily pick; '+b.note}));
+      BETS=echt;
+    }
+  }catch(e){}
   prepareAnalyse();
   renderView();
 })();
 </script>
+<script src="../assets/site.js" defer></script>
 </body>
 </html>
