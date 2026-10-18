@@ -1,7 +1,7 @@
 {
   "versie": 1,
   "max_per_dag": 4,
-  "bijgewerkt": "2026-10-18T18:07:59.833411+00:00",
+  "bijgewerkt": "2026-10-18T21:45:02.289681+00:00",
   "dagen": [
     {
       "datum": "2026-10-16",
@@ -321,11 +321,95 @@
           "bron": "picks",
           "gespeeld": true,
           "eigen_pick": false,
-          "toegevoegd": "2026-10-17T10:26:06.131798+00:00"
+          "toegevoegd": "2026-10-17T10:26:06.131798+00:00",
+          "resultaat": {
+            "uitslag": "2-1",
+            "gf": "G",
+            "inzet": 15.0,
+            "winst": 10.2,
+            "bron": "historie",
+            "bestand": "history027.csv",
+            "afgerekend": "2026-10-18T21:45:02.208009+00:00"
+          }
         }
       ],
       "gepubliceerd": "2026-10-17T10:26:06.131810+00:00",
       "gewijzigd": "2026-10-17T10:26:06.131813+00:00"
+    },
+    {
+      "datum": "2026-10-19",
+      "picks": [
+        {
+          "home": "AC Monza",
+          "away": "Cagliari Calcio",
+          "match_date": "2026-10-19T16:30:00Z",
+          "league": "serie_a",
+          "league_label": "Serie A",
+          "type": "1X2",
+          "market": "1X2 Cagliari Calcio",
+          "book_odd": 3.23,
+          "fair_odd": 1.96,
+          "ev_pct": 64.8269,
+          "stake": 5.0,
+          "bron": "picks",
+          "gespeeld": true,
+          "eigen_pick": false,
+          "toegevoegd": "2026-10-18T21:45:02.188264+00:00"
+        },
+        {
+          "home": "Getafe CF",
+          "away": "Rayo Vallecano de Madrid",
+          "match_date": "2026-10-19T19:00:00Z",
+          "league": "la_liga",
+          "league_label": "La Liga",
+          "type": "1X2",
+          "market": "1X2 Gelijkspel",
+          "book_odd": 3.07,
+          "fair_odd": 2.654,
+          "ev_pct": 15.677600000000002,
+          "stake": 5.0,
+          "bron": "picks",
+          "gespeeld": true,
+          "eigen_pick": false,
+          "toegevoegd": "2026-10-18T21:45:02.188307+00:00"
+        },
+        {
+          "home": "Getafe CF",
+          "away": "Rayo Vallecano de Madrid",
+          "match_date": "2026-10-19T19:00:00Z",
+          "league": "la_liga",
+          "league_label": "La Liga",
+          "type": "1X2",
+          "market": "1X2 Rayo Vallecano de Madrid",
+          "book_odd": 2.74,
+          "fair_odd": 2.542,
+          "ev_pct": 7.79,
+          "stake": 5.0,
+          "bron": "picks",
+          "gespeeld": true,
+          "eigen_pick": false,
+          "toegevoegd": "2026-10-18T21:45:02.188336+00:00"
+        },
+        {
+          "home": "Sporting Clube de Braga",
+          "away": "Gil Vicente FC",
+          "match_date": "2026-10-19T19:15:00Z",
+          "league": "primeira_liga",
+          "league_label": "Primeira Liga",
+          "type": "O/U",
+          "market": "O/U 2.5 Under",
+          "book_odd": 1.76,
+          "fair_odd": 1.582,
+          "ev_pct": 11.267199999999988,
+          "stake": 12.5,
+          "bron": "picks",
+          "gespeeld": true,
+          "eigen_pick": false,
+          "toegevoegd": "2026-10-18T21:45:02.188362+00:00"
+        }
+      ],
+      "gepubliceerd": "2026-10-18T21:45:02.188372+00:00",
+      "gewijzigd": "2026-10-18T21:45:02.188375+00:00"
     }
   ]
 }
