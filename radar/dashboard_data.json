@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T10:10:16.702085+00:00",
+  "generated_at": "2026-10-18T14:09:26.620237+00:00",
   "ev_threshold_pct": 5.0,
   "odds_updated": {
     "bundesliga": "2026-10-18T07:30:13.324537+00:00",
@@ -1872,27 +1872,28 @@
             },
             "league_avg_total": 3.711,
             "check_ok": true
-          }
+          },
+          "frozen": true
         },
         {
           "home": "Borussia Mönchengladbach",
           "away": "TSG 1899 Hoffenheim",
           "date": "2026-10-18T15:30:00Z",
-          "lambda_home": 1.505,
-          "lambda_away": 1.812,
-          "prob_home": 0.3104,
-          "prob_draw": 0.2506,
-          "prob_away": 0.439,
+          "lambda_home": 1.504,
+          "lambda_away": 1.821,
+          "prob_home": 0.3087,
+          "prob_draw": 0.2501,
+          "prob_away": 0.4412,
           "bookmaker": "onexbet",
           "has_odds": true,
           "bets": [
             {
               "market": "1X2 Borussia Mönchengladbach",
               "type": "1X2",
-              "model_prob": 0.3104,
-              "fair_odd": 3.222,
+              "model_prob": 0.3087,
+              "fair_odd": 3.239,
               "book_odd": 3.21,
-              "ev_pct": -0.36,
+              "ev_pct": -0.89,
               "stake": 5,
               "recommended": false,
               "needs_odd": false
@@ -1900,10 +1901,10 @@
             {
               "market": "1X2 Gelijkspel",
               "type": "1X2",
-              "model_prob": 0.2506,
-              "fair_odd": 3.991,
+              "model_prob": 0.2501,
+              "fair_odd": 3.999,
               "book_odd": 4.21,
-              "ev_pct": 5.5,
+              "ev_pct": 5.27,
               "stake": 5,
               "recommended": true,
               "needs_odd": false
@@ -1911,10 +1912,10 @@
             {
               "market": "1X2 TSG 1899 Hoffenheim",
               "type": "1X2",
-              "model_prob": 0.439,
-              "fair_odd": 2.278,
+              "model_prob": 0.4412,
+              "fair_odd": 2.267,
               "book_odd": 2.15,
-              "ev_pct": -5.61,
+              "ev_pct": -5.14,
               "stake": 10,
               "recommended": false,
               "needs_odd": false
@@ -1922,8 +1923,8 @@
             {
               "market": "O/U 1.5 Under",
               "type": "O/U",
-              "model_prob": 0.1446,
-              "fair_odd": 6.915,
+              "model_prob": 0.1437,
+              "fair_odd": 6.957,
               "book_odd": null,
               "ev_pct": null,
               "stake": 2.5,
@@ -1933,8 +1934,8 @@
             {
               "market": "O/U 2.5 Under",
               "type": "O/U",
-              "model_prob": 0.3559,
-              "fair_odd": 2.81,
+              "model_prob": 0.3544,
+              "fair_odd": 2.822,
               "book_odd": null,
               "ev_pct": null,
               "stake": 5,
@@ -1944,10 +1945,10 @@
             {
               "market": "O/U 3.5 Under",
               "type": "O/U",
-              "model_prob": 0.5765,
-              "fair_odd": 1.735,
+              "model_prob": 0.5748,
+              "fair_odd": 1.74,
               "book_odd": 1.89,
-              "ev_pct": 8.95,
+              "ev_pct": 8.63,
               "stake": 15,
               "recommended": true,
               "needs_odd": false
@@ -1955,8 +1956,8 @@
             {
               "market": "O/U 4.5 Under",
               "type": "O/U",
-              "model_prob": 0.7594,
-              "fair_odd": 1.317,
+              "model_prob": 0.758,
+              "fair_odd": 1.319,
               "book_odd": null,
               "ev_pct": null,
               "stake": 20,
@@ -1966,8 +1967,8 @@
             {
               "market": "O/U 5.5 Under",
               "type": "O/U",
-              "model_prob": 0.8808,
-              "fair_odd": 1.135,
+              "model_prob": 0.8798,
+              "fair_odd": 1.137,
               "book_odd": null,
               "ev_pct": null,
               "stake": 20,
@@ -2026,7 +2027,7 @@
                 {
                   "key": "absences",
                   "label": "Aan-/afwezigen",
-                  "mult": 0.9811,
+                  "mult": 0.9804,
                   "detail": "aanval Borussia Mönchengladbach -0.10 · verdediging TSG 1899 Hoffenheim +0.07"
                 },
                 {
@@ -2087,8 +2088,8 @@
                 {
                   "key": "absences",
                   "label": "Aan-/afwezigen",
-                  "mult": 0.9979,
-                  "detail": "aanval TSG 1899 Hoffenheim -0.07 · verdediging Borussia Mönchengladbach +0.06"
+                  "mult": 1.0026,
+                  "detail": "aanval TSG 1899 Hoffenheim -0.06 · verdediging Borussia Mönchengladbach +0.06"
                 },
                 {
                   "key": "fatigue",
@@ -3203,7 +3204,8 @@
             },
             "league_avg_total": 3.789,
             "check_ok": true
-          }
+          },
+          "frozen": true
         },
         {
           "home": "SC Cambuur-Leeuwarden",
@@ -3430,27 +3432,28 @@
             },
             "league_avg_total": 3.789,
             "check_ok": true
-          }
+          },
+          "frozen": true
         },
         {
           "home": "FC Groningen",
           "away": "AFC Ajax",
           "date": "2026-10-18T14:45:00Z",
-          "lambda_home": 1.972,
-          "lambda_away": 1.454,
-          "prob_home": 0.488,
-          "prob_draw": 0.2368,
-          "prob_away": 0.2752,
+          "lambda_home": 1.964,
+          "lambda_away": 1.447,
+          "prob_home": 0.4874,
+          "prob_draw": 0.2375,
+          "prob_away": 0.2751,
           "bookmaker": "onexbet",
           "has_odds": true,
           "bets": [
             {
               "market": "1X2 FC Groningen",
               "type": "1X2",
-              "model_prob": 0.488,
-              "fair_odd": 2.049,
+              "model_prob": 0.4874,
+              "fair_odd": 2.052,
               "book_odd": 3.6,
-              "ev_pct": 75.68,
+              "ev_pct": 75.46,
               "stake": 10,
               "recommended": true,
               "needs_odd": false
@@ -3458,10 +3461,10 @@
             {
               "market": "1X2 Gelijkspel",
               "type": "1X2",
-              "model_prob": 0.2368,
-              "fair_odd": 4.223,
+              "model_prob": 0.2375,
+              "fair_odd": 4.211,
               "book_odd": 4.17,
-              "ev_pct": -1.25,
+              "ev_pct": -0.96,
               "stake": 5,
               "recommended": false,
               "needs_odd": false
@@ -3469,8 +3472,8 @@
             {
               "market": "O/U 1.5 Under",
               "type": "O/U",
-              "model_prob": 0.1346,
-              "fair_odd": 7.428,
+              "model_prob": 0.1363,
+              "fair_odd": 7.339,
               "book_odd": null,
               "ev_pct": null,
               "stake": 2.5,
@@ -3480,8 +3483,8 @@
             {
               "market": "O/U 2.5 Under",
               "type": "O/U",
-              "model_prob": 0.3348,
-              "fair_odd": 2.987,
+              "model_prob": 0.3377,
+              "fair_odd": 2.961,
               "book_odd": null,
               "ev_pct": null,
               "stake": 5,
@@ -3491,19 +3494,19 @@
             {
               "market": "O/U 3.5 Under",
               "type": "O/U",
-              "model_prob": 0.5528,
-              "fair_odd": 1.809,
+              "model_prob": 0.556,
+              "fair_odd": 1.798,
               "book_odd": 1.89,
-              "ev_pct": 4.47,
+              "ev_pct": 5.09,
               "stake": 15,
-              "recommended": false,
+              "recommended": true,
               "needs_odd": false
             },
             {
               "market": "O/U 4.5 Under",
               "type": "O/U",
-              "model_prob": 0.7394,
-              "fair_odd": 1.352,
+              "model_prob": 0.7422,
+              "fair_odd": 1.347,
               "book_odd": null,
               "ev_pct": null,
               "stake": 20,
@@ -3513,8 +3516,8 @@
             {
               "market": "O/U 5.5 Under",
               "type": "O/U",
-              "model_prob": 0.8673,
-              "fair_odd": 1.153,
+              "model_prob": 0.8692,
+              "fair_odd": 1.15,
               "book_odd": null,
               "ev_pct": null,
               "stake": 20,
@@ -3528,19 +3531,19 @@
           ],
           "lambda_factors": {
             "home": {
-              "base": 2.084,
+              "base": 2.093,
               "factors": [
                 {
                   "key": "attack",
                   "label": "Aanval FC Groningen",
-                  "mult": 1.0432,
-                  "detail": "scoort thuis 2.17 per duel (comp.-gem. 2.08)"
+                  "mult": 1.0387,
+                  "detail": "scoort thuis 2.17 per duel (comp.-gem. 2.09)"
                 },
                 {
                   "key": "opp_defense",
                   "label": "Verdediging AFC Ajax",
-                  "mult": 0.7303,
-                  "detail": "incasseert uit 1.52 per duel (comp.-gem. 2.08)"
+                  "mult": 0.7272,
+                  "detail": "incasseert uit 1.52 per duel (comp.-gem. 2.09)"
                 },
                 {
                   "key": "home_adv",
@@ -3575,7 +3578,7 @@
                 {
                   "key": "absences",
                   "label": "Aan-/afwezigen",
-                  "mult": 1.0968,
+                  "mult": 1.0966,
                   "detail": "aanval FC Groningen -0.01 · verdediging AFC Ajax +0.18"
                 },
                 {
@@ -3595,18 +3598,18 @@
               }
             },
             "away": {
-              "base": 1.705,
+              "base": 1.712,
               "factors": [
                 {
                   "key": "attack",
                   "label": "Aanval AFC Ajax",
-                  "mult": 1.2968,
+                  "mult": 1.2915,
                   "detail": "scoort uit 2.21 per duel (comp.-gem. 1.71)"
                 },
                 {
                   "key": "opp_defense",
                   "label": "Verdediging FC Groningen",
-                  "mult": 0.6528,
+                  "mult": 0.6501,
                   "detail": "incasseert thuis 1.11 per duel (comp.-gem. 1.71)"
                 },
                 {
@@ -3636,7 +3639,7 @@
                 {
                   "key": "absences",
                   "label": "Aan-/afwezigen",
-                  "mult": 0.9497,
+                  "mult": 0.9495,
                   "detail": "aanval AFC Ajax -0.11 · verdediging FC Groningen +0.03"
                 },
                 {
@@ -3655,7 +3658,7 @@
                 "explanation": "Niveau: dit seizoen weegt 50% na 8 duels (thuis + uit samen), 50% 2 seizoenen. Thuis/uit-verschil komt uit 2 seizoenen."
               }
             },
-            "league_avg_total": 3.789,
+            "league_avg_total": 3.805,
             "check_ok": true
           }
         },
@@ -3663,21 +3666,21 @@
           "home": "FC Twente '65",
           "away": "FC Utrecht",
           "date": "2026-10-18T18:00:00Z",
-          "lambda_home": 2.757,
-          "lambda_away": 1.032,
-          "prob_home": 0.728,
-          "prob_draw": 0.163,
-          "prob_away": 0.109,
+          "lambda_home": 2.745,
+          "lambda_away": 1.03,
+          "prob_home": 0.7266,
+          "prob_draw": 0.1639,
+          "prob_away": 0.1095,
           "bookmaker": "onexbet",
           "has_odds": true,
           "bets": [
             {
               "market": "1X2 FC Twente '65",
               "type": "1X2",
-              "model_prob": 0.728,
-              "fair_odd": 1.374,
+              "model_prob": 0.7266,
+              "fair_odd": 1.376,
               "book_odd": 1.36,
-              "ev_pct": -0.99,
+              "ev_pct": -1.18,
               "stake": 20,
               "recommended": false,
               "needs_odd": false
@@ -3685,10 +3688,10 @@
             {
               "market": "1X2 Gelijkspel",
               "type": "1X2",
-              "model_prob": 0.163,
-              "fair_odd": 6.135,
+              "model_prob": 0.1639,
+              "fair_odd": 6.102,
               "book_odd": 5.62,
-              "ev_pct": -8.4,
+              "ev_pct": -7.89,
               "stake": 2.5,
               "recommended": false,
               "needs_odd": false
@@ -3696,8 +3699,8 @@
             {
               "market": "O/U 1.5 Over",
               "type": "O/U",
-              "model_prob": 0.8982,
-              "fair_odd": 1.113,
+              "model_prob": 0.8969,
+              "fair_odd": 1.115,
               "book_odd": null,
               "ev_pct": null,
               "stake": 20,
@@ -3707,8 +3710,8 @@
             {
               "market": "O/U 2.5 Over",
               "type": "O/U",
-              "model_prob": 0.7294,
-              "fair_odd": 1.371,
+              "model_prob": 0.7269,
+              "fair_odd": 1.376,
               "book_odd": null,
               "ev_pct": null,
               "stake": 20,
@@ -3718,10 +3721,10 @@
             {
               "market": "O/U 3.5 Over",
               "type": "O/U",
-              "model_prob": 0.5244,
-              "fair_odd": 1.907,
+              "model_prob": 0.5212,
+              "fair_odd": 1.919,
               "book_odd": 1.93,
-              "ev_pct": 1.21,
+              "ev_pct": 0.59,
               "stake": 10,
               "recommended": false,
               "needs_odd": false
@@ -3729,8 +3732,8 @@
             {
               "market": "O/U 4.5 Over",
               "type": "O/U",
-              "model_prob": 0.3301,
-              "fair_odd": 3.029,
+              "model_prob": 0.3271,
+              "fair_odd": 3.057,
               "book_odd": null,
               "ev_pct": null,
               "stake": 5,
@@ -3740,8 +3743,8 @@
             {
               "market": "O/U 1.5 Under",
               "type": "O/U",
-              "model_prob": 0.1018,
-              "fair_odd": 9.821,
+              "model_prob": 0.1031,
+              "fair_odd": 9.698,
               "book_odd": null,
               "ev_pct": null,
               "stake": 2.5,
@@ -3751,8 +3754,8 @@
             {
               "market": "O/U 2.5 Under",
               "type": "O/U",
-              "model_prob": 0.2706,
-              "fair_odd": 3.696,
+              "model_prob": 0.2731,
+              "fair_odd": 3.662,
               "book_odd": null,
               "ev_pct": null,
               "stake": 5,
@@ -3762,10 +3765,10 @@
             {
               "market": "O/U 3.5 Under",
               "type": "O/U",
-              "model_prob": 0.4756,
-              "fair_odd": 2.103,
+              "model_prob": 0.4788,
+              "fair_odd": 2.088,
               "book_odd": 1.91,
-              "ev_pct": -9.16,
+              "ev_pct": -8.54,
               "stake": 10,
               "recommended": false,
               "needs_odd": false
@@ -3773,8 +3776,8 @@
             {
               "market": "O/U 4.5 Under",
               "type": "O/U",
-              "model_prob": 0.6699,
-              "fair_odd": 1.493,
+              "model_prob": 0.6729,
+              "fair_odd": 1.486,
               "book_odd": null,
               "ev_pct": null,
               "stake": 20,
@@ -3784,8 +3787,8 @@
             {
               "market": "O/U 5.5 Under",
               "type": "O/U",
-              "model_prob": 0.8172,
-              "fair_odd": 1.224,
+              "model_prob": 0.8195,
+              "fair_odd": 1.22,
               "book_odd": null,
               "ev_pct": null,
               "stake": 20,
@@ -3797,19 +3800,19 @@
           "notes": [],
           "lambda_factors": {
             "home": {
-              "base": 2.084,
+              "base": 2.093,
               "factors": [
                 {
                   "key": "attack",
                   "label": "Aanval FC Twente '65",
-                  "mult": 1.001,
-                  "detail": "scoort thuis 2.09 per duel (comp.-gem. 2.08)"
+                  "mult": 0.9967,
+                  "detail": "scoort thuis 2.09 per duel (comp.-gem. 2.09)"
                 },
                 {
                   "key": "opp_defense",
                   "label": "Verdediging FC Utrecht",
-                  "mult": 1.1425,
-                  "detail": "incasseert uit 2.38 per duel (comp.-gem. 2.08)"
+                  "mult": 1.1376,
+                  "detail": "incasseert uit 2.38 per duel (comp.-gem. 2.09)"
                 },
                 {
                   "key": "home_adv",
@@ -3844,7 +3847,7 @@
                 {
                   "key": "absences",
                   "label": "Aan-/afwezigen",
-                  "mult": 1.0024,
+                  "mult": 1.0021,
                   "detail": "aanval FC Twente '65 -0.01 · verdediging FC Utrecht +0.02"
                 },
                 {
@@ -3864,18 +3867,18 @@
               }
             },
             "away": {
-              "base": 1.705,
+              "base": 1.712,
               "factors": [
                 {
                   "key": "attack",
                   "label": "Aanval FC Utrecht",
-                  "mult": 0.9402,
+                  "mult": 0.9363,
                   "detail": "scoort uit 1.60 per duel (comp.-gem. 1.71)"
                 },
                 {
                   "key": "opp_defense",
                   "label": "Verdediging FC Twente '65",
-                  "mult": 0.5496,
+                  "mult": 0.5473,
                   "detail": "incasseert thuis 0.94 per duel (comp.-gem. 1.71)"
                 },
                 {
@@ -3905,7 +3908,7 @@
                 {
                   "key": "absences",
                   "label": "Aan-/afwezigen",
-                  "mult": 1.1328,
+                  "mult": 1.1344,
                   "detail": "aanval FC Utrecht -0.07 · verdediging FC Twente '65 +0.19"
                 },
                 {
@@ -3924,7 +3927,7 @@
                 "explanation": "Niveau: dit seizoen weegt 50% na 8 duels (thuis + uit samen), 50% 2 seizoenen. Thuis/uit-verschil komt uit 2 seizoenen."
               }
             },
-            "league_avg_total": 3.789,
+            "league_avg_total": 3.805,
             "check_ok": true
           }
         },
@@ -3932,21 +3935,21 @@
           "home": "NEC",
           "away": "Fortuna Sittard",
           "date": "2026-10-18T18:00:00Z",
-          "lambda_home": 2.181,
-          "lambda_away": 1.228,
-          "prob_home": 0.5816,
-          "prob_draw": 0.2197,
-          "prob_away": 0.1987,
+          "lambda_home": 2.183,
+          "lambda_away": 1.22,
+          "prob_home": 0.5839,
+          "prob_draw": 0.2193,
+          "prob_away": 0.1968,
           "bookmaker": "onexbet",
           "has_odds": true,
           "bets": [
             {
               "market": "1X2 NEC",
               "type": "1X2",
-              "model_prob": 0.5816,
-              "fair_odd": 1.719,
+              "model_prob": 0.5839,
+              "fair_odd": 1.713,
               "book_odd": 1.7,
-              "ev_pct": -1.12,
+              "ev_pct": -0.73,
               "stake": 15,
               "recommended": false,
               "needs_odd": false
@@ -3954,10 +3957,10 @@
             {
               "market": "1X2 Gelijkspel",
               "type": "1X2",
-              "model_prob": 0.2197,
-              "fair_odd": 4.552,
+              "model_prob": 0.2193,
+              "fair_odd": 4.56,
               "book_odd": 4.23,
-              "ev_pct": -7.08,
+              "ev_pct": -7.24,
               "stake": 5,
               "recommended": false,
               "needs_odd": false
@@ -3965,10 +3968,10 @@
             {
               "market": "1X2 Fortuna Sittard",
               "type": "1X2",
-              "model_prob": 0.1987,
-              "fair_odd": 5.032,
+              "model_prob": 0.1968,
+              "fair_odd": 5.081,
               "book_odd": 4.59,
-              "ev_pct": -8.79,
+              "ev_pct": -9.67,
               "stake": 2.5,
               "recommended": false,
               "needs_odd": false
@@ -3976,7 +3979,7 @@
             {
               "market": "O/U 1.5 Over",
               "type": "O/U",
-              "model_prob": 0.863,
+              "model_prob": 0.8624,
               "fair_odd": 1.159,
               "book_odd": null,
               "ev_pct": null,
@@ -3987,8 +3990,8 @@
             {
               "market": "O/U 2.5 Over",
               "type": "O/U",
-              "model_prob": 0.6619,
-              "fair_odd": 1.511,
+              "model_prob": 0.661,
+              "fair_odd": 1.513,
               "book_odd": null,
               "ev_pct": null,
               "stake": 15,
@@ -3998,10 +4001,10 @@
             {
               "market": "O/U 3.5 Over",
               "type": "O/U",
-              "model_prob": 0.4436,
-              "fair_odd": 2.255,
+              "model_prob": 0.4425,
+              "fair_odd": 2.26,
               "book_odd": 2.17,
-              "ev_pct": -3.75,
+              "ev_pct": -3.99,
               "stake": 10,
               "recommended": false,
               "needs_odd": false
@@ -4009,8 +4012,8 @@
             {
               "market": "O/U 4.5 Over",
               "type": "O/U",
-              "model_prob": 0.2574,
-              "fair_odd": 3.884,
+              "model_prob": 0.2565,
+              "fair_odd": 3.898,
               "book_odd": null,
               "ev_pct": null,
               "stake": 5,
@@ -4020,8 +4023,8 @@
             {
               "market": "O/U 1.5 Under",
               "type": "O/U",
-              "model_prob": 0.137,
-              "fair_odd": 7.3,
+              "model_prob": 0.1376,
+              "fair_odd": 7.27,
               "book_odd": null,
               "ev_pct": null,
               "stake": 2.5,
@@ -4031,8 +4034,8 @@
             {
               "market": "O/U 2.5 Under",
               "type": "O/U",
-              "model_prob": 0.3381,
-              "fair_odd": 2.958,
+              "model_prob": 0.339,
+              "fair_odd": 2.95,
               "book_odd": null,
               "ev_pct": null,
               "stake": 5,
@@ -4042,10 +4045,10 @@
             {
               "market": "O/U 3.5 Under",
               "type": "O/U",
-              "model_prob": 0.5564,
-              "fair_odd": 1.797,
+              "model_prob": 0.5575,
+              "fair_odd": 1.794,
               "book_odd": 1.72,
-              "ev_pct": -4.29,
+              "ev_pct": -4.1,
               "stake": 15,
               "recommended": false,
               "needs_odd": false
@@ -4053,8 +4056,8 @@
             {
               "market": "O/U 4.5 Under",
               "type": "O/U",
-              "model_prob": 0.7426,
-              "fair_odd": 1.347,
+              "model_prob": 0.7435,
+              "fair_odd": 1.345,
               "book_odd": null,
               "ev_pct": null,
               "stake": 20,
@@ -4064,8 +4067,8 @@
             {
               "market": "O/U 5.5 Under",
               "type": "O/U",
-              "model_prob": 0.8694,
-              "fair_odd": 1.15,
+              "model_prob": 0.8701,
+              "fair_odd": 1.149,
               "book_odd": null,
               "ev_pct": null,
               "stake": 20,
@@ -4077,19 +4080,19 @@
           "notes": [],
           "lambda_factors": {
             "home": {
-              "base": 2.084,
+              "base": 2.093,
               "factors": [
                 {
                   "key": "attack",
                   "label": "Aanval NEC",
-                  "mult": 0.9904,
-                  "detail": "scoort thuis 2.06 per duel (comp.-gem. 2.08)"
+                  "mult": 0.9861,
+                  "detail": "scoort thuis 2.06 per duel (comp.-gem. 2.09)"
                 },
                 {
                   "key": "opp_defense",
                   "label": "Verdediging Fortuna Sittard",
-                  "mult": 0.9746,
-                  "detail": "incasseert uit 2.03 per duel (comp.-gem. 2.08)"
+                  "mult": 0.9704,
+                  "detail": "incasseert uit 2.03 per duel (comp.-gem. 2.09)"
                 },
                 {
                   "key": "home_adv",
@@ -4124,8 +4127,8 @@
                 {
                   "key": "absences",
                   "label": "Aan-/afwezigen",
-                  "mult": 0.9766,
-                  "detail": "aanval NEC -0.11 · verdediging Fortuna Sittard +0.05"
+                  "mult": 0.9821,
+                  "detail": "aanval NEC -0.11 · verdediging Fortuna Sittard +0.07"
                 },
                 {
                   "key": "fatigue",
@@ -4144,18 +4147,18 @@
               }
             },
             "away": {
-              "base": 1.705,
+              "base": 1.712,
               "factors": [
                 {
                   "key": "attack",
                   "label": "Aanval Fortuna Sittard",
-                  "mult": 0.7677,
+                  "mult": 0.7646,
                   "detail": "scoort uit 1.31 per duel (comp.-gem. 1.71)"
                 },
                 {
                   "key": "opp_defense",
                   "label": "Verdediging NEC",
-                  "mult": 0.9243,
+                  "mult": 0.9206,
                   "detail": "incasseert thuis 1.58 per duel (comp.-gem. 1.71)"
                 },
                 {
@@ -4185,8 +4188,8 @@
                 {
                   "key": "absences",
                   "label": "Aan-/afwezigen",
-                  "mult": 1.0487,
-                  "detail": "aanval Fortuna Sittard -0.02 · verdediging NEC +0.08"
+                  "mult": 1.0463,
+                  "detail": "aanval Fortuna Sittard -0.03 · verdediging NEC +0.08"
                 },
                 {
                   "key": "fatigue",
@@ -4204,7 +4207,7 @@
                 "explanation": "Niveau: dit seizoen weegt 50% na 8 duels (thuis + uit samen), 50% 2 seizoenen. Thuis/uit-verschil komt uit 2 seizoenen."
               }
             },
-            "league_avg_total": 3.789,
+            "league_avg_total": 3.805,
             "check_ok": true
           }
         }
@@ -5507,27 +5510,28 @@
             },
             "league_avg_total": 3.024,
             "check_ok": true
-          }
+          },
+          "frozen": true
         },
         {
           "home": "RC Celta de Vigo",
           "away": "Deportivo Alavés",
           "date": "2026-10-18T14:15:00Z",
-          "lambda_home": 1.04,
-          "lambda_away": 0.952,
-          "prob_home": 0.351,
-          "prob_draw": 0.344,
-          "prob_away": 0.305,
+          "lambda_home": 1.039,
+          "lambda_away": 0.956,
+          "prob_home": 0.35,
+          "prob_draw": 0.3437,
+          "prob_away": 0.3063,
           "bookmaker": "onexbet",
           "has_odds": true,
           "bets": [
             {
               "market": "1X2 Gelijkspel",
               "type": "1X2",
-              "model_prob": 0.344,
-              "fair_odd": 2.907,
+              "model_prob": 0.3437,
+              "fair_odd": 2.909,
               "book_odd": 3.31,
-              "ev_pct": 13.85,
+              "ev_pct": 13.77,
               "stake": 5,
               "recommended": true,
               "needs_odd": false
@@ -5535,10 +5539,10 @@
             {
               "market": "1X2 Deportivo Alavés",
               "type": "1X2",
-              "model_prob": 0.305,
-              "fair_odd": 3.279,
+              "model_prob": 0.3063,
+              "fair_odd": 3.265,
               "book_odd": 3.52,
-              "ev_pct": 7.36,
+              "ev_pct": 7.8,
               "stake": 5,
               "recommended": true,
               "needs_odd": false
@@ -5546,8 +5550,8 @@
             {
               "market": "O/U 1.5 Under",
               "type": "O/U",
-              "model_prob": 0.3906,
-              "fair_odd": 2.56,
+              "model_prob": 0.3898,
+              "fair_odd": 2.566,
               "book_odd": null,
               "ev_pct": null,
               "stake": 5,
@@ -5557,10 +5561,10 @@
             {
               "market": "O/U 2.5 Under",
               "type": "O/U",
-              "model_prob": 0.6788,
-              "fair_odd": 1.473,
+              "model_prob": 0.678,
+              "fair_odd": 1.475,
               "book_odd": 1.66,
-              "ev_pct": 12.69,
+              "ev_pct": 12.55,
               "stake": 20,
               "recommended": true,
               "needs_odd": false
@@ -5568,7 +5572,7 @@
             {
               "market": "O/U 3.5 Under",
               "type": "O/U",
-              "model_prob": 0.8586,
+              "model_prob": 0.858,
               "fair_odd": 1.165,
               "book_odd": null,
               "ev_pct": null,
@@ -5579,7 +5583,7 @@
             {
               "market": "O/U 4.5 Under",
               "type": "O/U",
-              "model_prob": 0.9481,
+              "model_prob": 0.9478,
               "fair_odd": 1.055,
               "book_odd": null,
               "ev_pct": null,
@@ -5592,18 +5596,18 @@
           "notes": [],
           "lambda_factors": {
             "home": {
-              "base": 1.663,
+              "base": 1.657,
               "factors": [
                 {
                   "key": "attack",
                   "label": "Aanval RC Celta de Vigo",
-                  "mult": 0.7679,
+                  "mult": 0.7707,
                   "detail": "scoort thuis 1.28 per duel (comp.-gem. 1.66)"
                 },
                 {
                   "key": "opp_defense",
                   "label": "Verdediging Deportivo Alavés",
-                  "mult": 0.8491,
+                  "mult": 0.8521,
                   "detail": "incasseert uit 1.41 per duel (comp.-gem. 1.66)"
                 },
                 {
@@ -5621,8 +5625,8 @@
                 {
                   "key": "position",
                   "label": "Stand RC Celta de Vigo",
-                  "mult": 0.9979,
-                  "detail": "11e van 20"
+                  "mult": 0.9937,
+                  "detail": "12e van 20"
                 },
                 {
                   "key": "h2h",
@@ -5659,19 +5663,19 @@
               }
             },
             "away": {
-              "base": 1.361,
+              "base": 1.355,
               "factors": [
                 {
                   "key": "attack",
                   "label": "Aanval Deportivo Alavés",
-                  "mult": 0.903,
-                  "detail": "scoort uit 1.23 per duel (comp.-gem. 1.36)"
+                  "mult": 0.907,
+                  "detail": "scoort uit 1.23 per duel (comp.-gem. 1.35)"
                 },
                 {
                   "key": "opp_defense",
                   "label": "Verdediging RC Celta de Vigo",
-                  "mult": 0.7054,
-                  "detail": "incasseert thuis 0.96 per duel (comp.-gem. 1.36)"
+                  "mult": 0.7085,
+                  "detail": "incasseert thuis 0.96 per duel (comp.-gem. 1.35)"
                 },
                 {
                   "key": "form",
@@ -5700,7 +5704,7 @@
                 {
                   "key": "absences",
                   "label": "Aan-/afwezigen",
-                  "mult": 1.12,
+                  "mult": 1.1195,
                   "detail": "verdediging RC Celta de Vigo +0.10"
                 },
                 {
@@ -5719,7 +5723,7 @@
                 "explanation": "Niveau: dit seizoen weegt 50% na 8 duels (thuis + uit samen), 50% 2 seizoenen. Thuis/uit-verschil komt uit 2 seizoenen."
               }
             },
-            "league_avg_total": 3.024,
+            "league_avg_total": 3.012,
             "check_ok": true
           }
         },
@@ -5727,21 +5731,21 @@
           "home": "Málaga CF",
           "away": "Real Sociedad de Fútbol",
           "date": "2026-10-18T16:30:00Z",
-          "lambda_home": 1.206,
-          "lambda_away": 1.235,
-          "prob_home": 0.3393,
-          "prob_draw": 0.3075,
-          "prob_away": 0.3532,
+          "lambda_home": 1.207,
+          "lambda_away": 1.238,
+          "prob_home": 0.339,
+          "prob_draw": 0.3072,
+          "prob_away": 0.3537,
           "bookmaker": "onexbet",
           "has_odds": true,
           "bets": [
             {
               "market": "1X2 Málaga CF",
               "type": "1X2",
-              "model_prob": 0.3393,
-              "fair_odd": 2.948,
+              "model_prob": 0.339,
+              "fair_odd": 2.95,
               "book_odd": 3.49,
-              "ev_pct": 18.4,
+              "ev_pct": 18.32,
               "stake": 5,
               "recommended": true,
               "needs_odd": false
@@ -5749,10 +5753,10 @@
             {
               "market": "1X2 Gelijkspel",
               "type": "1X2",
-              "model_prob": 0.3075,
-              "fair_odd": 3.252,
+              "model_prob": 0.3072,
+              "fair_odd": 3.255,
               "book_odd": 3.62,
-              "ev_pct": 11.33,
+              "ev_pct": 11.22,
               "stake": 5,
               "recommended": true,
               "needs_odd": false
@@ -5760,8 +5764,8 @@
             {
               "market": "O/U 1.5 Under",
               "type": "O/U",
-              "model_prob": 0.2827,
-              "fair_odd": 3.537,
+              "model_prob": 0.2819,
+              "fair_odd": 3.548,
               "book_odd": null,
               "ev_pct": null,
               "stake": 5,
@@ -5771,10 +5775,10 @@
             {
               "market": "O/U 2.5 Under",
               "type": "O/U",
-              "model_prob": 0.559,
-              "fair_odd": 1.789,
+              "model_prob": 0.5579,
+              "fair_odd": 1.792,
               "book_odd": 2.2,
-              "ev_pct": 22.98,
+              "ev_pct": 22.75,
               "stake": 15,
               "recommended": true,
               "needs_odd": false
@@ -5782,8 +5786,8 @@
             {
               "market": "O/U 3.5 Under",
               "type": "O/U",
-              "model_prob": 0.7701,
-              "fair_odd": 1.299,
+              "model_prob": 0.7692,
+              "fair_odd": 1.3,
               "book_odd": null,
               "ev_pct": null,
               "stake": 20,
@@ -5793,8 +5797,8 @@
             {
               "market": "O/U 4.5 Under",
               "type": "O/U",
-              "model_prob": 0.8989,
-              "fair_odd": 1.112,
+              "model_prob": 0.8984,
+              "fair_odd": 1.113,
               "book_odd": null,
               "ev_pct": null,
               "stake": 20,
@@ -5808,18 +5812,18 @@
           "notes": [],
           "lambda_factors": {
             "home": {
-              "base": 1.663,
+              "base": 1.657,
               "factors": [
                 {
                   "key": "attack",
                   "label": "Aanval Málaga CF",
-                  "mult": 0.6975,
+                  "mult": 0.6982,
                   "detail": "scoort thuis 1.16 per duel (comp.-gem. 1.66)"
                 },
                 {
                   "key": "opp_defense",
                   "label": "Verdediging Real Sociedad de Fútbol",
-                  "mult": 0.9838,
+                  "mult": 0.9873,
                   "detail": "incasseert uit 1.64 per duel (comp.-gem. 1.66)"
                 },
                 {
@@ -5855,7 +5859,7 @@
                 {
                   "key": "absences",
                   "label": "Aan-/afwezigen",
-                  "mult": 1.0894,
+                  "mult": 1.0893,
                   "detail": "aanval Málaga CF -0.02 · verdediging Real Sociedad de Fútbol +0.12"
                 },
                 {
@@ -5875,19 +5879,19 @@
               }
             },
             "away": {
-              "base": 1.361,
+              "base": 1.355,
               "factors": [
                 {
                   "key": "attack",
                   "label": "Aanval Real Sociedad de Fútbol",
-                  "mult": 0.8685,
-                  "detail": "scoort uit 1.18 per duel (comp.-gem. 1.36)"
+                  "mult": 0.8723,
+                  "detail": "scoort uit 1.18 per duel (comp.-gem. 1.35)"
                 },
                 {
                   "key": "opp_defense",
                   "label": "Verdediging Málaga CF",
-                  "mult": 1.0404,
-                  "detail": "incasseert thuis 1.42 per duel (comp.-gem. 1.36)"
+                  "mult": 1.0428,
+                  "detail": "incasseert thuis 1.41 per duel (comp.-gem. 1.35)"
                 },
                 {
                   "key": "form",
@@ -5916,7 +5920,7 @@
                 {
                   "key": "absences",
                   "label": "Aan-/afwezigen",
-                  "mult": 0.9615,
+                  "mult": 0.9616,
                   "detail": "aanval Real Sociedad de Fútbol -0.06 · verdediging Málaga CF +0.01"
                 },
                 {
@@ -5935,7 +5939,7 @@
                 "explanation": "Niveau: dit seizoen weegt 50% na 8 duels (thuis + uit samen), 50% 2 seizoenen. Thuis/uit-verschil komt uit 2 seizoenen."
               }
             },
-            "league_avg_total": 3.024,
+            "league_avg_total": 3.012,
             "check_ok": true
           }
         },
@@ -5943,10 +5947,10 @@
           "home": "Real Madrid CF",
           "away": "Sevilla FC",
           "date": "2026-10-18T19:00:00Z",
-          "lambda_home": 3.22,
-          "lambda_away": 0.709,
-          "prob_home": 0.8469,
-          "prob_draw": 0.1094,
+          "lambda_home": 3.232,
+          "lambda_away": 0.713,
+          "prob_home": 0.8475,
+          "prob_draw": 0.1089,
           "prob_away": 0.0437,
           "bookmaker": "onexbet",
           "has_odds": true,
@@ -5954,10 +5958,10 @@
             {
               "market": "1X2 Real Madrid CF",
               "type": "1X2",
-              "model_prob": 0.8469,
-              "fair_odd": 1.181,
+              "model_prob": 0.8475,
+              "fair_odd": 1.18,
               "book_odd": 1.27,
-              "ev_pct": 7.55,
+              "ev_pct": 7.63,
               "stake": 20,
               "recommended": true,
               "needs_odd": false
@@ -5965,8 +5969,8 @@
             {
               "market": "O/U 1.5 Over",
               "type": "O/U",
-              "model_prob": 0.9089,
-              "fair_odd": 1.1,
+              "model_prob": 0.91,
+              "fair_odd": 1.099,
               "book_odd": null,
               "ev_pct": null,
               "stake": 20,
@@ -5976,8 +5980,8 @@
             {
               "market": "O/U 2.5 Over",
               "type": "O/U",
-              "model_prob": 0.7512,
-              "fair_odd": 1.331,
+              "model_prob": 0.7535,
+              "fair_odd": 1.327,
               "book_odd": null,
               "ev_pct": null,
               "stake": 20,
@@ -5987,10 +5991,10 @@
             {
               "market": "O/U 3.5 Over",
               "type": "O/U",
-              "model_prob": 0.5524,
-              "fair_odd": 1.81,
+              "model_prob": 0.5554,
+              "fair_odd": 1.801,
               "book_odd": 2.12,
-              "ev_pct": 17.1,
+              "ev_pct": 17.74,
               "stake": 15,
               "recommended": true,
               "needs_odd": false
@@ -5998,8 +6002,8 @@
             {
               "market": "O/U 4.5 Over",
               "type": "O/U",
-              "model_prob": 0.357,
-              "fair_odd": 2.801,
+              "model_prob": 0.36,
+              "fair_odd": 2.778,
               "book_odd": null,
               "ev_pct": null,
               "stake": 5,
@@ -6011,18 +6015,18 @@
           "notes": [],
           "lambda_factors": {
             "home": {
-              "base": 1.663,
+              "base": 1.657,
               "factors": [
                 {
                   "key": "attack",
                   "label": "Aanval Real Madrid CF",
-                  "mult": 1.5286,
+                  "mult": 1.5341,
                   "detail": "scoort thuis 2.54 per duel (comp.-gem. 1.66)"
                 },
                 {
                   "key": "opp_defense",
                   "label": "Verdediging Sevilla FC",
-                  "mult": 1.0144,
+                  "mult": 1.0181,
                   "detail": "incasseert uit 1.69 per duel (comp.-gem. 1.66)"
                 },
                 {
@@ -6078,19 +6082,19 @@
               }
             },
             "away": {
-              "base": 1.361,
+              "base": 1.355,
               "factors": [
                 {
                   "key": "attack",
                   "label": "Aanval Sevilla FC",
-                  "mult": 1.0382,
-                  "detail": "scoort uit 1.41 per duel (comp.-gem. 1.36)"
+                  "mult": 1.0428,
+                  "detail": "scoort uit 1.41 per duel (comp.-gem. 1.35)"
                 },
                 {
                   "key": "opp_defense",
                   "label": "Verdediging Real Madrid CF",
-                  "mult": 0.6312,
-                  "detail": "incasseert thuis 0.86 per duel (comp.-gem. 1.36)"
+                  "mult": 0.6339,
+                  "detail": "incasseert thuis 0.86 per duel (comp.-gem. 1.35)"
                 },
                 {
                   "key": "form",
@@ -6119,7 +6123,7 @@
                 {
                   "key": "absences",
                   "label": "Aan-/afwezigen",
-                  "mult": 0.8907,
+                  "mult": 0.8912,
                   "detail": "aanval Sevilla FC -0.11 · verdediging Real Madrid CF +0.02"
                 },
                 {
@@ -6138,7 +6142,7 @@
                 "explanation": "Niveau: dit seizoen weegt 50% na 8 duels (thuis + uit samen), 50% 2 seizoenen. Thuis/uit-verschil komt uit 2 seizoenen."
               }
             },
-            "league_avg_total": 3.024,
+            "league_avg_total": 3.012,
             "check_ok": true
           }
         },
@@ -6146,21 +6150,21 @@
           "home": "Getafe CF",
           "away": "Rayo Vallecano de Madrid",
           "date": "2026-10-19T19:00:00Z",
-          "lambda_home": 0.694,
-          "lambda_away": 0.984,
-          "prob_home": 0.2334,
-          "prob_draw": 0.3709,
-          "prob_away": 0.3956,
+          "lambda_home": 0.707,
+          "lambda_away": 0.975,
+          "prob_home": 0.2393,
+          "prob_draw": 0.3714,
+          "prob_away": 0.3893,
           "bookmaker": "onexbet",
           "has_odds": true,
           "bets": [
             {
               "market": "1X2 Gelijkspel",
               "type": "1X2",
-              "model_prob": 0.3709,
-              "fair_odd": 2.696,
+              "model_prob": 0.3714,
+              "fair_odd": 2.692,
               "book_odd": 3.16,
-              "ev_pct": 17.21,
+              "ev_pct": 17.36,
               "stake": 5,
               "recommended": true,
               "needs_odd": false
@@ -6168,10 +6172,10 @@
             {
               "market": "1X2 Rayo Vallecano de Madrid",
               "type": "1X2",
-              "model_prob": 0.3956,
-              "fair_odd": 2.527,
+              "model_prob": 0.3893,
+              "fair_odd": 2.569,
               "book_odd": 2.74,
-              "ev_pct": 8.41,
+              "ev_pct": 6.67,
               "stake": 5,
               "recommended": true,
               "needs_odd": false
@@ -6179,10 +6183,10 @@
             {
               "market": "O/U 1.5 Under",
               "type": "O/U",
-              "model_prob": 0.4835,
-              "fair_odd": 2.068,
+              "model_prob": 0.4822,
+              "fair_odd": 2.074,
               "book_odd": 2.6,
-              "ev_pct": 25.72,
+              "ev_pct": 25.37,
               "stake": 10,
               "recommended": true,
               "needs_odd": false
@@ -6190,8 +6194,8 @@
             {
               "market": "O/U 2.5 Under",
               "type": "O/U",
-              "model_prob": 0.763,
-              "fair_odd": 1.311,
+              "model_prob": 0.762,
+              "fair_odd": 1.312,
               "book_odd": null,
               "ev_pct": null,
               "stake": 20,
@@ -6201,8 +6205,8 @@
             {
               "market": "O/U 3.5 Under",
               "type": "O/U",
-              "model_prob": 0.9101,
-              "fair_odd": 1.099,
+              "model_prob": 0.9095,
+              "fair_odd": 1.1,
               "book_odd": null,
               "ev_pct": null,
               "stake": 20,
@@ -6214,18 +6218,18 @@
           "notes": [],
           "lambda_factors": {
             "home": {
-              "base": 1.663,
+              "base": 1.657,
               "factors": [
                 {
                   "key": "attack",
                   "label": "Aanval Getafe CF",
-                  "mult": 0.4269,
+                  "mult": 0.4285,
                   "detail": "scoort thuis 0.71 per duel (comp.-gem. 1.66)"
                 },
                 {
                   "key": "opp_defense",
                   "label": "Verdediging Rayo Vallecano de Madrid",
-                  "mult": 1.0619,
+                  "mult": 1.0658,
                   "detail": "incasseert uit 1.77 per duel (comp.-gem. 1.66)"
                 },
                 {
@@ -6243,8 +6247,8 @@
                 {
                   "key": "position",
                   "label": "Stand Getafe CF",
-                  "mult": 0.9853,
-                  "detail": "14e van 20"
+                  "mult": 0.9811,
+                  "detail": "15e van 20"
                 },
                 {
                   "key": "h2h",
@@ -6261,8 +6265,8 @@
                 {
                   "key": "absences",
                   "label": "Aan-/afwezigen",
-                  "mult": 1.0296,
-                  "detail": "aanval Getafe CF -0.06 · verdediging Rayo Vallecano de Madrid +0.08"
+                  "mult": 1.0494,
+                  "detail": "aanval Getafe CF -0.05 · verdediging Rayo Vallecano de Madrid +0.08"
                 },
                 {
                   "key": "fatigue",
@@ -6281,19 +6285,19 @@
               }
             },
             "away": {
-              "base": 1.361,
+              "base": 1.355,
               "factors": [
                 {
                   "key": "attack",
                   "label": "Aanval Rayo Vallecano de Madrid",
-                  "mult": 0.795,
-                  "detail": "scoort uit 1.08 per duel (comp.-gem. 1.36)"
+                  "mult": 0.7985,
+                  "detail": "scoort uit 1.08 per duel (comp.-gem. 1.35)"
                 },
                 {
                   "key": "opp_defense",
                   "label": "Verdediging Getafe CF",
-                  "mult": 0.7656,
-                  "detail": "incasseert thuis 1.04 per duel (comp.-gem. 1.36)"
+                  "mult": 0.769,
+                  "detail": "incasseert thuis 1.04 per duel (comp.-gem. 1.35)"
                 },
                 {
                   "key": "form",
@@ -6304,8 +6308,8 @@
                 {
                   "key": "position",
                   "label": "Stand Rayo Vallecano de Madrid",
-                  "mult": 0.9895,
-                  "detail": "13e van 20"
+                  "mult": 0.9853,
+                  "detail": "14e van 20"
                 },
                 {
                   "key": "h2h",
@@ -6322,8 +6326,8 @@
                 {
                   "key": "absences",
                   "label": "Aan-/afwezigen",
-                  "mult": 1.0994,
-                  "detail": "aanval Rayo Vallecano de Madrid -0.01 · verdediging Getafe CF +0.10"
+                  "mult": 1.0894,
+                  "detail": "aanval Rayo Vallecano de Madrid -0.01 · verdediging Getafe CF +0.09"
                 },
                 {
                   "key": "fatigue",
@@ -6341,7 +6345,7 @@
                 "explanation": "Niveau: dit seizoen weegt 46% na 7 duels (thuis + uit samen), 54% 2 seizoenen. Thuis/uit-verschil komt uit 2 seizoenen."
               }
             },
-            "league_avg_total": 3.024,
+            "league_avg_total": 3.012,
             "check_ok": true
           }
         },
@@ -6349,21 +6353,21 @@
           "home": "Levante UD",
           "away": "Athletic Club",
           "date": "2026-10-21T18:00:00Z",
-          "lambda_home": 1.04,
-          "lambda_away": 1.228,
-          "prob_home": 0.2938,
+          "lambda_home": 1.036,
+          "lambda_away": 1.23,
+          "prob_home": 0.2924,
           "prob_draw": 0.3188,
-          "prob_away": 0.3874,
+          "prob_away": 0.3888,
           "bookmaker": "onexbet",
           "has_odds": true,
           "bets": [
             {
               "market": "1X2 Levante UD",
               "type": "1X2",
-              "model_prob": 0.2938,
-              "fair_odd": 3.403,
+              "model_prob": 0.2924,
+              "fair_odd": 3.42,
               "book_odd": 3.52,
-              "ev_pct": 3.42,
+              "ev_pct": 2.93,
               "stake": 5,
               "recommended": false,
               "needs_odd": false
@@ -6372,9 +6376,9 @@
               "market": "1X2 Gelijkspel",
               "type": "1X2",
               "model_prob": 0.3188,
-              "fair_odd": 3.136,
+              "fair_odd": 3.137,
               "book_odd": 3.52,
-              "ev_pct": 12.23,
+              "ev_pct": 12.22,
               "stake": 5,
               "recommended": true,
               "needs_odd": false
@@ -6382,8 +6386,8 @@
             {
               "market": "O/U 1.5 Under",
               "type": "O/U",
-              "model_prob": 0.3212,
-              "fair_odd": 3.113,
+              "model_prob": 0.3215,
+              "fair_odd": 3.11,
               "book_odd": null,
               "ev_pct": null,
               "stake": 5,
@@ -6393,10 +6397,10 @@
             {
               "market": "O/U 2.5 Under",
               "type": "O/U",
-              "model_prob": 0.6047,
-              "fair_odd": 1.654,
+              "model_prob": 0.605,
+              "fair_odd": 1.653,
               "book_odd": 1.92,
-              "ev_pct": 16.1,
+              "ev_pct": 16.16,
               "stake": 15,
               "recommended": true,
               "needs_odd": false
@@ -6404,8 +6408,8 @@
             {
               "market": "O/U 3.5 Under",
               "type": "O/U",
-              "model_prob": 0.8059,
-              "fair_odd": 1.241,
+              "model_prob": 0.8062,
+              "fair_odd": 1.24,
               "book_odd": null,
               "ev_pct": null,
               "stake": 20,
@@ -6415,7 +6419,7 @@
             {
               "market": "O/U 4.5 Under",
               "type": "O/U",
-              "model_prob": 0.92,
+              "model_prob": 0.9202,
               "fair_odd": 1.087,
               "book_odd": null,
               "ev_pct": null,
@@ -6428,18 +6432,18 @@
           "notes": [],
           "lambda_factors": {
             "home": {
-              "base": 1.663,
+              "base": 1.657,
               "factors": [
                 {
                   "key": "attack",
                   "label": "Aanval Levante UD",
-                  "mult": 0.902,
+                  "mult": 0.9053,
                   "detail": "scoort thuis 1.50 per duel (comp.-gem. 1.66)"
                 },
                 {
                   "key": "opp_defense",
                   "label": "Verdediging Athletic Club",
-                  "mult": 0.7282,
+                  "mult": 0.7308,
                   "detail": "incasseert uit 1.21 per duel (comp.-gem. 1.66)"
                 },
                 {
@@ -6475,7 +6479,7 @@
                 {
                   "key": "absences",
                   "label": "Aan-/afwezigen",
-                  "mult": 1.0959,
+                  "mult": 1.0882,
                   "detail": "aanval Levante UD -0.01 · verdediging Athletic Club +0.10"
                 },
                 {
@@ -6495,19 +6499,19 @@
               }
             },
             "away": {
-              "base": 1.361,
+              "base": 1.355,
               "factors": [
                 {
                   "key": "attack",
                   "label": "Aanval Athletic Club",
-                  "mult": 0.6863,
-                  "detail": "scoort uit 0.93 per duel (comp.-gem. 1.36)"
+                  "mult": 0.6893,
+                  "detail": "scoort uit 0.93 per duel (comp.-gem. 1.35)"
                 },
                 {
                   "key": "opp_defense",
                   "label": "Verdediging Levante UD",
-                  "mult": 1.2278,
-                  "detail": "incasseert thuis 1.67 per duel (comp.-gem. 1.36)"
+                  "mult": 1.2332,
+                  "detail": "incasseert thuis 1.67 per duel (comp.-gem. 1.35)"
                 },
                 {
                   "key": "form",
@@ -6518,8 +6522,8 @@
                 {
                   "key": "position",
                   "label": "Stand Athletic Club",
-                  "mult": 1.0063,
-                  "detail": "9e van 20"
+                  "mult": 1.0021,
+                  "detail": "10e van 20"
                 },
                 {
                   "key": "h2h",
@@ -6536,7 +6540,7 @@
                 {
                   "key": "absences",
                   "label": "Aan-/afwezigen",
-                  "mult": 0.9369,
+                  "mult": 0.9384,
                   "detail": "aanval Athletic Club -0.09 · verdediging Levante UD +0.00"
                 },
                 {
@@ -6555,7 +6559,7 @@
                 "explanation": "Niveau: dit seizoen weegt 46% na 7 duels (thuis + uit samen), 54% 2 seizoenen. Thuis/uit-verschil komt uit 2 seizoenen."
               }
             },
-            "league_avg_total": 3.024,
+            "league_avg_total": 3.012,
             "check_ok": true
           }
         }
@@ -7764,27 +7768,28 @@
             },
             "league_avg_total": 2.931,
             "check_ok": true
-          }
+          },
+          "frozen": true
         },
         {
           "home": "FC Lorient",
           "away": "AS Monaco FC",
           "date": "2026-10-18T15:15:00Z",
-          "lambda_home": 1.835,
-          "lambda_away": 1.428,
-          "prob_home": 0.4604,
-          "prob_draw": 0.2509,
-          "prob_away": 0.2887,
+          "lambda_home": 1.829,
+          "lambda_away": 1.434,
+          "prob_home": 0.4576,
+          "prob_draw": 0.2512,
+          "prob_away": 0.2912,
           "bookmaker": "onexbet",
           "has_odds": true,
           "bets": [
             {
               "market": "1X2 FC Lorient",
               "type": "1X2",
-              "model_prob": 0.4604,
-              "fair_odd": 2.172,
+              "model_prob": 0.4576,
+              "fair_odd": 2.185,
               "book_odd": 3.8,
-              "ev_pct": 74.94,
+              "ev_pct": 73.89,
               "stake": 10,
               "recommended": true,
               "needs_odd": false
@@ -7792,7 +7797,7 @@
             {
               "market": "O/U 1.5 Over",
               "type": "O/U",
-              "model_prob": 0.8489,
+              "model_prob": 0.849,
               "fair_odd": 1.178,
               "book_odd": null,
               "ev_pct": null,
@@ -7803,10 +7808,10 @@
             {
               "market": "O/U 2.5 Over",
               "type": "O/U",
-              "model_prob": 0.6331,
-              "fair_odd": 1.58,
+              "model_prob": 0.6332,
+              "fair_odd": 1.579,
               "book_odd": 2.05,
-              "ev_pct": 29.79,
+              "ev_pct": 29.81,
               "stake": 15,
               "recommended": true,
               "needs_odd": false
@@ -7814,8 +7819,8 @@
             {
               "market": "O/U 3.5 Over",
               "type": "O/U",
-              "model_prob": 0.4115,
-              "fair_odd": 2.43,
+              "model_prob": 0.4116,
+              "fair_odd": 2.429,
               "book_odd": null,
               "ev_pct": null,
               "stake": 5,
@@ -7825,8 +7830,8 @@
             {
               "market": "O/U 4.5 Over",
               "type": "O/U",
-              "model_prob": 0.2307,
-              "fair_odd": 4.334,
+              "model_prob": 0.2308,
+              "fair_odd": 4.332,
               "book_odd": null,
               "ev_pct": null,
               "stake": 5,
@@ -7887,7 +7892,7 @@
                 {
                   "key": "absences",
                   "label": "Aan-/afwezigen",
-                  "mult": 1.0942,
+                  "mult": 1.0906,
                   "detail": "aanval FC Lorient -0.02 · verdediging AS Monaco FC +0.17"
                 },
                 {
@@ -7948,8 +7953,8 @@
                 {
                   "key": "absences",
                   "label": "Aan-/afwezigen",
-                  "mult": 0.9159,
-                  "detail": "aanval AS Monaco FC -0.16 · verdediging FC Lorient +0.02"
+                  "mult": 0.9202,
+                  "detail": "aanval AS Monaco FC -0.16 · verdediging FC Lorient +0.03"
                 },
                 {
                   "key": "fatigue",
@@ -8178,21 +8183,21 @@
           "home": "Le Havre AC",
           "away": "AJ Auxerre",
           "date": "2026-10-18T15:15:00Z",
-          "lambda_home": 1.31,
-          "lambda_away": 1.256,
-          "prob_home": 0.3647,
-          "prob_draw": 0.2962,
-          "prob_away": 0.3392,
+          "lambda_home": 1.332,
+          "lambda_away": 1.25,
+          "prob_home": 0.3718,
+          "prob_draw": 0.2949,
+          "prob_away": 0.3332,
           "bookmaker": "onexbet",
           "has_odds": true,
           "bets": [
             {
               "market": "1X2 Gelijkspel",
               "type": "1X2",
-              "model_prob": 0.2962,
-              "fair_odd": 3.376,
+              "model_prob": 0.2949,
+              "fair_odd": 3.39,
               "book_odd": 3.51,
-              "ev_pct": 3.96,
+              "ev_pct": 3.53,
               "stake": 5,
               "recommended": true,
               "needs_odd": false
@@ -8200,19 +8205,19 @@
             {
               "market": "1X2 AJ Auxerre",
               "type": "1X2",
-              "model_prob": 0.3392,
-              "fair_odd": 2.948,
+              "model_prob": 0.3332,
+              "fair_odd": 3.001,
               "book_odd": 3.14,
-              "ev_pct": 6.5,
+              "ev_pct": 4.64,
               "stake": 5,
-              "recommended": true,
+              "recommended": false,
               "needs_odd": false
             },
             {
               "market": "O/U 1.5 Over",
               "type": "O/U",
-              "model_prob": 0.7411,
-              "fair_odd": 1.349,
+              "model_prob": 0.7442,
+              "fair_odd": 1.344,
               "book_odd": null,
               "ev_pct": null,
               "stake": 20,
@@ -8222,10 +8227,10 @@
             {
               "market": "O/U 2.5 Over",
               "type": "O/U",
-              "model_prob": 0.473,
-              "fair_odd": 2.114,
+              "model_prob": 0.477,
+              "fair_odd": 2.096,
               "book_odd": 1.95,
-              "ev_pct": -7.77,
+              "ev_pct": -6.98,
               "stake": 10,
               "recommended": false,
               "needs_odd": false
@@ -8233,8 +8238,8 @@
             {
               "market": "O/U 3.5 Over",
               "type": "O/U",
-              "model_prob": 0.2566,
-              "fair_odd": 3.897,
+              "model_prob": 0.2601,
+              "fair_odd": 3.845,
               "book_odd": null,
               "ev_pct": null,
               "stake": 5,
@@ -8244,8 +8249,8 @@
             {
               "market": "O/U 4.5 Over",
               "type": "O/U",
-              "model_prob": 0.1178,
-              "fair_odd": 8.489,
+              "model_prob": 0.12,
+              "fair_odd": 8.331,
               "book_odd": null,
               "ev_pct": null,
               "stake": 2.5,
@@ -8255,8 +8260,8 @@
             {
               "market": "O/U 1.5 Under",
               "type": "O/U",
-              "model_prob": 0.2589,
-              "fair_odd": 3.863,
+              "model_prob": 0.2558,
+              "fair_odd": 3.909,
               "book_odd": null,
               "ev_pct": null,
               "stake": 5,
@@ -8266,19 +8271,19 @@
             {
               "market": "O/U 2.5 Under",
               "type": "O/U",
-              "model_prob": 0.527,
-              "fair_odd": 1.897,
+              "model_prob": 0.523,
+              "fair_odd": 1.912,
               "book_odd": 1.99,
-              "ev_pct": 4.88,
-              "stake": 15,
+              "ev_pct": 4.07,
+              "stake": 10,
               "recommended": false,
               "needs_odd": false
             },
             {
               "market": "O/U 3.5 Under",
               "type": "O/U",
-              "model_prob": 0.7434,
-              "fair_odd": 1.345,
+              "model_prob": 0.7399,
+              "fair_odd": 1.351,
               "book_odd": null,
               "ev_pct": null,
               "stake": 20,
@@ -8288,8 +8293,8 @@
             {
               "market": "O/U 4.5 Under",
               "type": "O/U",
-              "model_prob": 0.8822,
-              "fair_odd": 1.134,
+              "model_prob": 0.88,
+              "fair_odd": 1.136,
               "book_odd": null,
               "ev_pct": null,
               "stake": 20,
@@ -8350,8 +8355,8 @@
                 {
                   "key": "absences",
                   "label": "Aan-/afwezigen",
-                  "mult": 0.9718,
-                  "detail": "aanval Le Havre AC -0.04 · verdediging AJ Auxerre +0.01"
+                  "mult": 0.9881,
+                  "detail": "aanval Le Havre AC -0.02 · verdediging AJ Auxerre +0.01"
                 },
                 {
                   "key": "fatigue",
@@ -8411,7 +8416,7 @@
                 {
                   "key": "absences",
                   "label": "Aan-/afwezigen",
-                  "mult": 1.1471,
+                  "mult": 1.1416,
                   "detail": "aanval AJ Auxerre -0.04 · verdediging Le Havre AC +0.20"
                 },
                 {
@@ -8438,21 +8443,21 @@
           "home": "Olympique Lyonnais",
           "away": "OGC Nice",
           "date": "2026-10-18T18:45:00Z",
-          "lambda_home": 2.099,
-          "lambda_away": 0.757,
-          "prob_home": 0.6735,
-          "prob_draw": 0.2142,
-          "prob_away": 0.1122,
+          "lambda_home": 2.119,
+          "lambda_away": 0.741,
+          "prob_home": 0.6817,
+          "prob_draw": 0.2109,
+          "prob_away": 0.1074,
           "bookmaker": "onexbet",
           "has_odds": true,
           "bets": [
             {
               "market": "1X2 Olympique Lyonnais",
               "type": "1X2",
-              "model_prob": 0.6735,
-              "fair_odd": 1.485,
+              "model_prob": 0.6817,
+              "fair_odd": 1.467,
               "book_odd": 1.92,
-              "ev_pct": 29.32,
+              "ev_pct": 30.89,
               "stake": 20,
               "recommended": true,
               "needs_odd": false
@@ -8460,8 +8465,8 @@
             {
               "market": "O/U 1.5 Over",
               "type": "O/U",
-              "model_prob": 0.7893,
-              "fair_odd": 1.267,
+              "model_prob": 0.7896,
+              "fair_odd": 1.266,
               "book_odd": null,
               "ev_pct": null,
               "stake": 20,
@@ -8471,10 +8476,10 @@
             {
               "market": "O/U 2.5 Over",
               "type": "O/U",
-              "model_prob": 0.5438,
-              "fair_odd": 1.839,
+              "model_prob": 0.5445,
+              "fair_odd": 1.837,
               "book_odd": 1.75,
-              "ev_pct": -4.83,
+              "ev_pct": -4.71,
               "stake": 15,
               "recommended": false,
               "needs_odd": false
@@ -8482,8 +8487,8 @@
             {
               "market": "O/U 3.5 Over",
               "type": "O/U",
-              "model_prob": 0.3206,
-              "fair_odd": 3.12,
+              "model_prob": 0.3212,
+              "fair_odd": 3.113,
               "book_odd": null,
               "ev_pct": null,
               "stake": 5,
@@ -8493,8 +8498,8 @@
             {
               "market": "O/U 4.5 Over",
               "type": "O/U",
-              "model_prob": 0.1612,
-              "fair_odd": 6.205,
+              "model_prob": 0.1616,
+              "fair_odd": 6.187,
               "book_odd": null,
               "ev_pct": null,
               "stake": 2.5,
@@ -8504,8 +8509,8 @@
             {
               "market": "O/U 1.5 Under",
               "type": "O/U",
-              "model_prob": 0.2107,
-              "fair_odd": 4.745,
+              "model_prob": 0.2104,
+              "fair_odd": 4.752,
               "book_odd": null,
               "ev_pct": null,
               "stake": 5,
@@ -8515,10 +8520,10 @@
             {
               "market": "O/U 2.5 Under",
               "type": "O/U",
-              "model_prob": 0.4562,
-              "fair_odd": 2.192,
+              "model_prob": 0.4555,
+              "fair_odd": 2.195,
               "book_odd": 2.25,
-              "ev_pct": 2.64,
+              "ev_pct": 2.49,
               "stake": 10,
               "recommended": false,
               "needs_odd": false
@@ -8526,8 +8531,8 @@
             {
               "market": "O/U 3.5 Under",
               "type": "O/U",
-              "model_prob": 0.6794,
-              "fair_odd": 1.472,
+              "model_prob": 0.6788,
+              "fair_odd": 1.473,
               "book_odd": null,
               "ev_pct": null,
               "stake": 20,
@@ -8537,8 +8542,8 @@
             {
               "market": "O/U 4.5 Under",
               "type": "O/U",
-              "model_prob": 0.8388,
-              "fair_odd": 1.192,
+              "model_prob": 0.8384,
+              "fair_odd": 1.193,
               "book_odd": null,
               "ev_pct": null,
               "stake": 20,
@@ -8597,8 +8602,8 @@
                 {
                   "key": "absences",
                   "label": "Aan-/afwezigen",
-                  "mult": 0.9718,
-                  "detail": "aanval Olympique Lyonnais -0.08 · verdediging OGC Nice +0.02"
+                  "mult": 0.9811,
+                  "detail": "aanval Olympique Lyonnais -0.08 · verdediging OGC Nice +0.04"
                 },
                 {
                   "key": "fatigue",
@@ -8658,8 +8663,8 @@
                 {
                   "key": "absences",
                   "label": "Aan-/afwezigen",
-                  "mult": 1.0661,
-                  "detail": "aanval OGC Nice -0.00 · verdediging Olympique Lyonnais +0.05"
+                  "mult": 1.0422,
+                  "detail": "aanval OGC Nice -0.02 · verdediging Olympique Lyonnais +0.05"
                 },
                 {
                   "key": "fatigue",
@@ -9943,7 +9948,8 @@
             },
             "league_avg_total": 2.907,
             "check_ok": true
-          }
+          },
+          "frozen": true
         },
         {
           "home": "Leeds United FC",
@@ -10157,7 +10163,8 @@
             },
             "league_avg_total": 2.907,
             "check_ok": true
-          }
+          },
+          "frozen": true
         },
         {
           "home": "Brighton & Hove Albion FC",
@@ -10360,7 +10367,8 @@
             },
             "league_avg_total": 2.907,
             "check_ok": true
-          }
+          },
+          "frozen": true
         },
         {
           "home": "Nottingham Forest FC",
@@ -10580,21 +10588,21 @@
           "home": "Tottenham Hotspur FC",
           "away": "Coventry City FC",
           "date": "2026-10-19T19:00:00Z",
-          "lambda_home": 1.252,
-          "lambda_away": 1.284,
-          "prob_home": 0.342,
-          "prob_draw": 0.3008,
-          "prob_away": 0.3572,
+          "lambda_home": 1.217,
+          "lambda_away": 1.327,
+          "prob_home": 0.3241,
+          "prob_draw": 0.2998,
+          "prob_away": 0.3761,
           "bookmaker": "onexbet",
           "has_odds": true,
           "bets": [
             {
               "market": "1X2 Gelijkspel",
               "type": "1X2",
-              "model_prob": 0.3008,
-              "fair_odd": 3.324,
+              "model_prob": 0.2998,
+              "fair_odd": 3.336,
               "book_odd": 4.72,
-              "ev_pct": 41.99,
+              "ev_pct": 41.49,
               "stake": 5,
               "recommended": true,
               "needs_odd": false
@@ -10602,10 +10610,10 @@
             {
               "market": "1X2 Coventry City FC",
               "type": "1X2",
-              "model_prob": 0.3572,
-              "fair_odd": 2.8,
+              "model_prob": 0.3761,
+              "fair_odd": 2.659,
               "book_odd": 6.47,
-              "ev_pct": 131.1,
+              "ev_pct": 143.36,
               "stake": 5,
               "recommended": true,
               "needs_odd": false
@@ -10613,8 +10621,8 @@
             {
               "market": "O/U 1.5 Under",
               "type": "O/U",
-              "model_prob": 0.2634,
-              "fair_odd": 3.797,
+              "model_prob": 0.2618,
+              "fair_odd": 3.819,
               "book_odd": null,
               "ev_pct": null,
               "stake": 5,
@@ -10624,10 +10632,10 @@
             {
               "market": "O/U 2.5 Under",
               "type": "O/U",
-              "model_prob": 0.5345,
-              "fair_odd": 1.871,
+              "model_prob": 0.5325,
+              "fair_odd": 1.878,
               "book_odd": 2.46,
-              "ev_pct": 31.5,
+              "ev_pct": 31.0,
               "stake": 15,
               "recommended": true,
               "needs_odd": false
@@ -10635,8 +10643,8 @@
             {
               "market": "O/U 3.5 Under",
               "type": "O/U",
-              "model_prob": 0.7498,
-              "fair_odd": 1.334,
+              "model_prob": 0.7481,
+              "fair_odd": 1.337,
               "book_odd": null,
               "ev_pct": null,
               "stake": 20,
@@ -10646,8 +10654,8 @@
             {
               "market": "O/U 4.5 Under",
               "type": "O/U",
-              "model_prob": 0.8863,
-              "fair_odd": 1.128,
+              "model_prob": 0.8852,
+              "fair_odd": 1.13,
               "book_odd": null,
               "ev_pct": null,
               "stake": 20,
@@ -10708,8 +10716,8 @@
                 {
                   "key": "absences",
                   "label": "Aan-/afwezigen",
-                  "mult": 1.0121,
-                  "detail": "aanval Tottenham Hotspur FC -0.03 · verdediging Coventry City FC +0.04"
+                  "mult": 0.9838,
+                  "detail": "aanval Tottenham Hotspur FC -0.07 · verdediging Coventry City FC +0.04"
                 },
                 {
                   "key": "fatigue",
@@ -10769,8 +10777,8 @@
                 {
                   "key": "absences",
                   "label": "Aan-/afwezigen",
-                  "mult": 1.0355,
-                  "detail": "aanval Coventry City FC -0.01 · verdediging Tottenham Hotspur FC +0.05"
+                  "mult": 1.0702,
+                  "detail": "aanval Coventry City FC -0.01 · verdediging Tottenham Hotspur FC +0.10"
                 },
                 {
                   "key": "fatigue",
@@ -12213,7 +12221,8 @@
             },
             "league_avg_total": 2.891,
             "check_ok": true
-          }
+          },
+          "frozen": true
         },
         {
           "home": "ACF Fiorentina",
@@ -12429,27 +12438,28 @@
             },
             "league_avg_total": 2.891,
             "check_ok": true
-          }
+          },
+          "frozen": true
         },
         {
           "home": "AC Milan",
           "away": "Atalanta BC",
           "date": "2026-10-18T16:00:00Z",
-          "lambda_home": 1.432,
-          "lambda_away": 0.955,
+          "lambda_home": 1.431,
+          "lambda_away": 0.954,
           "prob_home": 0.4632,
-          "prob_draw": 0.3029,
-          "prob_away": 0.2339,
+          "prob_draw": 0.303,
+          "prob_away": 0.2338,
           "bookmaker": "onexbet",
           "has_odds": true,
           "bets": [
             {
               "market": "1X2 Gelijkspel",
               "type": "1X2",
-              "model_prob": 0.3029,
-              "fair_odd": 3.301,
+              "model_prob": 0.303,
+              "fair_odd": 3.3,
               "book_odd": 4.07,
-              "ev_pct": 23.29,
+              "ev_pct": 23.33,
               "stake": 5,
               "recommended": true,
               "needs_odd": false
@@ -12457,10 +12467,10 @@
             {
               "market": "1X2 Atalanta BC",
               "type": "1X2",
-              "model_prob": 0.2339,
-              "fair_odd": 4.276,
+              "model_prob": 0.2338,
+              "fair_odd": 4.277,
               "book_odd": 4.67,
-              "ev_pct": 9.22,
+              "ev_pct": 9.18,
               "stake": 5,
               "recommended": true,
               "needs_odd": false
@@ -12468,8 +12478,8 @@
             {
               "market": "O/U 1.5 Under",
               "type": "O/U",
-              "model_prob": 0.2937,
-              "fair_odd": 3.405,
+              "model_prob": 0.2941,
+              "fair_odd": 3.4,
               "book_odd": null,
               "ev_pct": null,
               "stake": 5,
@@ -12479,10 +12489,10 @@
             {
               "market": "O/U 2.5 Under",
               "type": "O/U",
-              "model_prob": 0.5732,
-              "fair_odd": 1.745,
+              "model_prob": 0.5736,
+              "fair_odd": 1.743,
               "book_odd": 2.25,
-              "ev_pct": 28.96,
+              "ev_pct": 29.06,
               "stake": 15,
               "recommended": true,
               "needs_odd": false
@@ -12490,8 +12500,8 @@
             {
               "market": "O/U 3.5 Under",
               "type": "O/U",
-              "model_prob": 0.7815,
-              "fair_odd": 1.28,
+              "model_prob": 0.7818,
+              "fair_odd": 1.279,
               "book_odd": null,
               "ev_pct": null,
               "stake": 20,
@@ -12501,7 +12511,7 @@
             {
               "market": "O/U 4.5 Under",
               "type": "O/U",
-              "model_prob": 0.9058,
+              "model_prob": 0.906,
               "fair_odd": 1.104,
               "book_odd": null,
               "ev_pct": null,
@@ -12514,18 +12524,18 @@
           "notes": [],
           "lambda_factors": {
             "home": {
-              "base": 1.59,
+              "base": 1.591,
               "factors": [
                 {
                   "key": "attack",
                   "label": "Aanval AC Milan",
-                  "mult": 1.0491,
+                  "mult": 1.0484,
                   "detail": "scoort thuis 1.67 per duel (comp.-gem. 1.59)"
                 },
                 {
                   "key": "opp_defense",
                   "label": "Verdediging Atalanta BC",
-                  "mult": 0.7396,
+                  "mult": 0.7392,
                   "detail": "incasseert uit 1.18 per duel (comp.-gem. 1.59)"
                 },
                 {
@@ -12561,7 +12571,7 @@
                 {
                   "key": "absences",
                   "label": "Aan-/afwezigen",
-                  "mult": 1.1382,
+                  "mult": 1.1383,
                   "detail": "aanval AC Milan -0.02 · verdediging Atalanta BC +0.20"
                 },
                 {
@@ -12581,18 +12591,18 @@
               }
             },
             "away": {
-              "base": 1.301,
+              "base": 1.302,
               "factors": [
                 {
                   "key": "attack",
                   "label": "Aanval Atalanta BC",
-                  "mult": 1.1829,
+                  "mult": 1.182,
                   "detail": "scoort uit 1.54 per duel (comp.-gem. 1.30)"
                 },
                 {
                   "key": "opp_defense",
                   "label": "Verdediging AC Milan",
-                  "mult": 0.6603,
+                  "mult": 0.6598,
                   "detail": "incasseert thuis 0.86 per duel (comp.-gem. 1.30)"
                 },
                 {
@@ -12622,7 +12632,7 @@
                 {
                   "key": "absences",
                   "label": "Aan-/afwezigen",
-                  "mult": 0.9145,
+                  "mult": 0.9144,
                   "detail": "aanval Atalanta BC -0.12 · verdediging AC Milan +0.03"
                 },
                 {
@@ -12641,7 +12651,7 @@
                 "explanation": "Niveau: dit seizoen weegt 43% na 6 duels (thuis + uit samen), 57% 2 seizoenen. Thuis/uit-verschil komt uit 2 seizoenen."
               }
             },
-            "league_avg_total": 2.891,
+            "league_avg_total": 2.893,
             "check_ok": true
           }
         },
@@ -12649,21 +12659,21 @@
           "home": "Juventus FC",
           "away": "SS Lazio",
           "date": "2026-10-18T18:45:00Z",
-          "lambda_home": 0.979,
-          "lambda_away": 0.905,
-          "prob_home": 0.3411,
-          "prob_draw": 0.3573,
-          "prob_away": 0.3016,
+          "lambda_home": 0.978,
+          "lambda_away": 0.904,
+          "prob_home": 0.341,
+          "prob_draw": 0.3575,
+          "prob_away": 0.3015,
           "bookmaker": "onexbet",
           "has_odds": true,
           "bets": [
             {
               "market": "1X2 Gelijkspel",
               "type": "1X2",
-              "model_prob": 0.3573,
-              "fair_odd": 2.799,
+              "model_prob": 0.3575,
+              "fair_odd": 2.797,
               "book_odd": 4.17,
-              "ev_pct": 49.0,
+              "ev_pct": 49.06,
               "stake": 5,
               "recommended": true,
               "needs_odd": false
@@ -12671,10 +12681,10 @@
             {
               "market": "1X2 SS Lazio",
               "type": "1X2",
-              "model_prob": 0.3016,
-              "fair_odd": 3.316,
+              "model_prob": 0.3015,
+              "fair_odd": 3.317,
               "book_odd": 5.94,
-              "ev_pct": 79.13,
+              "ev_pct": 79.08,
               "stake": 5,
               "recommended": true,
               "needs_odd": false
@@ -12682,8 +12692,8 @@
             {
               "market": "O/U 1.5 Under",
               "type": "O/U",
-              "model_prob": 0.4196,
-              "fair_odd": 2.383,
+              "model_prob": 0.42,
+              "fair_odd": 2.381,
               "book_odd": null,
               "ev_pct": null,
               "stake": 5,
@@ -12693,10 +12703,10 @@
             {
               "market": "O/U 2.5 Under",
               "type": "O/U",
-              "model_prob": 0.7082,
-              "fair_odd": 1.412,
+              "model_prob": 0.7086,
+              "fair_odd": 1.411,
               "book_odd": 1.94,
-              "ev_pct": 37.39,
+              "ev_pct": 37.46,
               "stake": 20,
               "recommended": true,
               "needs_odd": false
@@ -12704,8 +12714,8 @@
             {
               "market": "O/U 3.5 Under",
               "type": "O/U",
-              "model_prob": 0.8775,
-              "fair_odd": 1.14,
+              "model_prob": 0.8777,
+              "fair_odd": 1.139,
               "book_odd": null,
               "ev_pct": null,
               "stake": 20,
@@ -12715,7 +12725,7 @@
             {
               "market": "O/U 4.5 Under",
               "type": "O/U",
-              "model_prob": 0.9572,
+              "model_prob": 0.9574,
               "fair_odd": 1.045,
               "book_odd": null,
               "ev_pct": null,
@@ -12728,18 +12738,18 @@
           "notes": [],
           "lambda_factors": {
             "home": {
-              "base": 1.59,
+              "base": 1.591,
               "factors": [
                 {
                   "key": "attack",
                   "label": "Aanval Juventus FC",
-                  "mult": 1.0314,
+                  "mult": 1.0308,
                   "detail": "scoort thuis 1.64 per duel (comp.-gem. 1.59)"
                 },
                 {
                   "key": "opp_defense",
                   "label": "Verdediging SS Lazio",
-                  "mult": 0.5447,
+                  "mult": 0.5443,
                   "detail": "incasseert uit 0.87 per duel (comp.-gem. 1.59)"
                 },
                 {
@@ -12795,18 +12805,18 @@
               }
             },
             "away": {
-              "base": 1.301,
+              "base": 1.302,
               "factors": [
                 {
                   "key": "attack",
                   "label": "Aanval SS Lazio",
-                  "mult": 1.05,
+                  "mult": 1.0492,
                   "detail": "scoort uit 1.37 per duel (comp.-gem. 1.30)"
                 },
                 {
                   "key": "opp_defense",
                   "label": "Verdediging Juventus FC",
-                  "mult": 0.5673,
+                  "mult": 0.5668,
                   "detail": "incasseert thuis 0.74 per duel (comp.-gem. 1.30)"
                 },
                 {
@@ -12855,7 +12865,7 @@
                 "explanation": "Niveau: dit seizoen weegt 43% na 6 duels (thuis + uit samen), 57% 2 seizoenen. Thuis/uit-verschil komt uit 2 seizoenen."
               }
             },
-            "league_avg_total": 2.891,
+            "league_avg_total": 2.893,
             "check_ok": true
           }
         },
@@ -12863,21 +12873,21 @@
           "home": "AC Monza",
           "away": "Cagliari Calcio",
           "date": "2026-10-19T16:30:00Z",
-          "lambda_home": 0.811,
-          "lambda_away": 1.459,
-          "prob_home": 0.1917,
-          "prob_draw": 0.3011,
-          "prob_away": 0.5072,
+          "lambda_home": 0.802,
+          "lambda_away": 1.464,
+          "prob_home": 0.1885,
+          "prob_draw": 0.3003,
+          "prob_away": 0.5112,
           "bookmaker": "onexbet",
           "has_odds": true,
           "bets": [
             {
               "market": "1X2 Gelijkspel",
               "type": "1X2",
-              "model_prob": 0.3011,
-              "fair_odd": 3.321,
+              "model_prob": 0.3003,
+              "fair_odd": 3.33,
               "book_odd": 3.25,
-              "ev_pct": -2.14,
+              "ev_pct": -2.4,
               "stake": 5,
               "recommended": false,
               "needs_odd": false
@@ -12885,10 +12895,10 @@
             {
               "market": "1X2 Cagliari Calcio",
               "type": "1X2",
-              "model_prob": 0.5072,
-              "fair_odd": 1.972,
+              "model_prob": 0.5112,
+              "fair_odd": 1.956,
               "book_odd": 3.25,
-              "ev_pct": 64.84,
+              "ev_pct": 66.13,
               "stake": 10,
               "recommended": true,
               "needs_odd": false
@@ -12896,8 +12906,8 @@
             {
               "market": "O/U 1.5 Under",
               "type": "O/U",
-              "model_prob": 0.3208,
-              "fair_odd": 3.118,
+              "model_prob": 0.3216,
+              "fair_odd": 3.11,
               "book_odd": null,
               "ev_pct": null,
               "stake": 5,
@@ -12907,10 +12917,10 @@
             {
               "market": "O/U 2.5 Under",
               "type": "O/U",
-              "model_prob": 0.6041,
-              "fair_odd": 1.655,
+              "model_prob": 0.6049,
+              "fair_odd": 1.653,
               "book_odd": 1.82,
-              "ev_pct": 9.94,
+              "ev_pct": 10.09,
               "stake": 15,
               "recommended": true,
               "needs_odd": false
@@ -12918,8 +12928,8 @@
             {
               "market": "O/U 3.5 Under",
               "type": "O/U",
-              "model_prob": 0.8055,
-              "fair_odd": 1.242,
+              "model_prob": 0.8061,
+              "fair_odd": 1.241,
               "book_odd": null,
               "ev_pct": null,
               "stake": 20,
@@ -12929,7 +12939,7 @@
             {
               "market": "O/U 4.5 Under",
               "type": "O/U",
-              "model_prob": 0.9197,
+              "model_prob": 0.9201,
               "fair_odd": 1.087,
               "book_odd": null,
               "ev_pct": null,
@@ -12944,18 +12954,18 @@
           ],
           "lambda_factors": {
             "home": {
-              "base": 1.59,
+              "base": 1.591,
               "factors": [
                 {
                   "key": "attack",
                   "label": "Aanval AC Monza",
-                  "mult": 0.744,
+                  "mult": 0.7436,
                   "detail": "scoort thuis 1.18 per duel (comp.-gem. 1.59)"
                 },
                 {
                   "key": "opp_defense",
                   "label": "Verdediging Cagliari Calcio",
-                  "mult": 0.7472,
+                  "mult": 0.7467,
                   "detail": "incasseert uit 1.19 per duel (comp.-gem. 1.59)"
                 },
                 {
@@ -12973,8 +12983,8 @@
                 {
                   "key": "position",
                   "label": "Stand AC Monza",
-                  "mult": 0.9768,
-                  "detail": "16e van 20"
+                  "mult": 0.9811,
+                  "detail": "15e van 20"
                 },
                 {
                   "key": "h2h",
@@ -12991,8 +13001,8 @@
                 {
                   "key": "absences",
                   "label": "Aan-/afwezigen",
-                  "mult": 0.9878,
-                  "detail": "aanval AC Monza -0.01 · verdediging Cagliari Calcio +0.00"
+                  "mult": 0.9733,
+                  "detail": "aanval AC Monza -0.03 · verdediging Cagliari Calcio +0.00"
                 },
                 {
                   "key": "fatigue",
@@ -13011,18 +13021,18 @@
               }
             },
             "away": {
-              "base": 1.301,
+              "base": 1.302,
               "factors": [
                 {
                   "key": "attack",
                   "label": "Aanval Cagliari Calcio",
-                  "mult": 0.6395,
+                  "mult": 0.639,
                   "detail": "scoort uit 0.83 per duel (comp.-gem. 1.30)"
                 },
                 {
                   "key": "opp_defense",
                   "label": "Verdediging AC Monza",
-                  "mult": 1.4581,
+                  "mult": 1.457,
                   "detail": "incasseert thuis 1.90 per duel (comp.-gem. 1.30)"
                 },
                 {
@@ -13052,7 +13062,7 @@
                 {
                   "key": "absences",
                   "label": "Aan-/afwezigen",
-                  "mult": 1.0318,
+                  "mult": 1.0368,
                   "detail": "aanval Cagliari Calcio -0.00 · verdediging AC Monza +0.05"
                 },
                 {
@@ -13071,7 +13081,7 @@
                 "explanation": "Niveau: dit seizoen weegt 43% na 6 duels (thuis + uit samen), 57% 2 seizoenen. Thuis/uit-verschil komt uit 2 seizoenen."
               }
             },
-            "league_avg_total": 2.891,
+            "league_avg_total": 2.893,
             "check_ok": true
           }
         },
@@ -13079,21 +13089,32 @@
           "home": "Parma Calcio 1913",
           "away": "Torino FC",
           "date": "2026-10-19T18:45:00Z",
-          "lambda_home": 0.935,
-          "lambda_away": 1.233,
-          "prob_home": 0.2615,
-          "prob_draw": 0.3265,
-          "prob_away": 0.412,
+          "lambda_home": 0.938,
+          "lambda_away": 1.227,
+          "prob_home": 0.2636,
+          "prob_draw": 0.327,
+          "prob_away": 0.4094,
           "bookmaker": "onexbet",
           "has_odds": true,
           "bets": [
             {
+              "market": "1X2 Parma Calcio 1913",
+              "type": "1X2",
+              "model_prob": 0.2636,
+              "fair_odd": 3.793,
+              "book_odd": 3.42,
+              "ev_pct": -9.84,
+              "stake": 5,
+              "recommended": false,
+              "needs_odd": false
+            },
+            {
               "market": "1X2 Gelijkspel",
               "type": "1X2",
-              "model_prob": 0.3265,
-              "fair_odd": 3.063,
+              "model_prob": 0.327,
+              "fair_odd": 3.058,
               "book_odd": 3.17,
-              "ev_pct": 3.5,
+              "ev_pct": 3.67,
               "stake": 5,
               "recommended": true,
               "needs_odd": false
@@ -13101,10 +13122,10 @@
             {
               "market": "1X2 Torino FC",
               "type": "1X2",
-              "model_prob": 0.412,
-              "fair_odd": 2.427,
+              "model_prob": 0.4094,
+              "fair_odd": 2.443,
               "book_odd": 2.45,
-              "ev_pct": 0.94,
+              "ev_pct": 0.29,
               "stake": 5,
               "recommended": false,
               "needs_odd": false
@@ -13112,8 +13133,8 @@
             {
               "market": "O/U 1.5 Over",
               "type": "O/U",
-              "model_prob": 0.656,
-              "fair_odd": 1.524,
+              "model_prob": 0.6553,
+              "fair_odd": 1.526,
               "book_odd": null,
               "ev_pct": null,
               "stake": 15,
@@ -13123,10 +13144,10 @@
             {
               "market": "O/U 2.5 Over",
               "type": "O/U",
-              "model_prob": 0.3686,
-              "fair_odd": 2.713,
+              "model_prob": 0.3679,
+              "fair_odd": 2.718,
               "book_odd": 2.48,
-              "ev_pct": -8.58,
+              "ev_pct": -8.76,
               "stake": 5,
               "recommended": false,
               "needs_odd": false
@@ -13134,8 +13155,8 @@
             {
               "market": "O/U 3.5 Over",
               "type": "O/U",
-              "model_prob": 0.1744,
-              "fair_odd": 5.735,
+              "model_prob": 0.1738,
+              "fair_odd": 5.753,
               "book_odd": null,
               "ev_pct": null,
               "stake": 2.5,
@@ -13145,8 +13166,8 @@
             {
               "market": "O/U 4.5 Over",
               "type": "O/U",
-              "model_prob": 0.0691,
-              "fair_odd": 14.48,
+              "model_prob": 0.0688,
+              "fair_odd": 14.54,
               "book_odd": null,
               "ev_pct": null,
               "stake": 1.25,
@@ -13156,8 +13177,8 @@
             {
               "market": "O/U 1.5 Under",
               "type": "O/U",
-              "model_prob": 0.344,
-              "fair_odd": 2.907,
+              "model_prob": 0.3447,
+              "fair_odd": 2.901,
               "book_odd": null,
               "ev_pct": null,
               "stake": 5,
@@ -13167,10 +13188,10 @@
             {
               "market": "O/U 2.5 Under",
               "type": "O/U",
-              "model_prob": 0.6314,
-              "fair_odd": 1.584,
+              "model_prob": 0.6321,
+              "fair_odd": 1.582,
               "book_odd": 1.63,
-              "ev_pct": 2.91,
+              "ev_pct": 3.03,
               "stake": 15,
               "recommended": false,
               "needs_odd": false
@@ -13178,8 +13199,8 @@
             {
               "market": "O/U 3.5 Under",
               "type": "O/U",
-              "model_prob": 0.8256,
-              "fair_odd": 1.211,
+              "model_prob": 0.8262,
+              "fair_odd": 1.21,
               "book_odd": null,
               "ev_pct": null,
               "stake": 20,
@@ -13189,7 +13210,7 @@
             {
               "market": "O/U 4.5 Under",
               "type": "O/U",
-              "model_prob": 0.9309,
+              "model_prob": 0.9312,
               "fair_odd": 1.074,
               "book_odd": null,
               "ev_pct": null,
@@ -13204,18 +13225,18 @@
           ],
           "lambda_factors": {
             "home": {
-              "base": 1.59,
+              "base": 1.591,
               "factors": [
                 {
                   "key": "attack",
                   "label": "Aanval Parma Calcio 1913",
-                  "mult": 0.5937,
+                  "mult": 0.5933,
                   "detail": "scoort thuis 0.94 per duel (comp.-gem. 1.59)"
                 },
                 {
                   "key": "opp_defense",
                   "label": "Verdediging Torino FC",
-                  "mult": 1.0377,
+                  "mult": 1.0371,
                   "detail": "incasseert uit 1.65 per duel (comp.-gem. 1.59)"
                 },
                 {
@@ -13233,8 +13254,8 @@
                 {
                   "key": "position",
                   "label": "Stand Parma Calcio 1913",
-                  "mult": 0.9726,
-                  "detail": "17e van 20"
+                  "mult": 0.9768,
+                  "detail": "16e van 20"
                 },
                 {
                   "key": "h2h",
@@ -13271,18 +13292,18 @@
               }
             },
             "away": {
-              "base": 1.301,
+              "base": 1.302,
               "factors": [
                 {
                   "key": "attack",
                   "label": "Aanval Torino FC",
-                  "mult": 0.8002,
+                  "mult": 0.7995,
                   "detail": "scoort uit 1.04 per duel (comp.-gem. 1.30)"
                 },
                 {
                   "key": "opp_defense",
                   "label": "Verdediging Parma Calcio 1913",
-                  "mult": 1.1699,
+                  "mult": 1.169,
                   "detail": "incasseert thuis 1.52 per duel (comp.-gem. 1.30)"
                 },
                 {
@@ -13294,8 +13315,8 @@
                 {
                   "key": "position",
                   "label": "Stand Torino FC",
-                  "mult": 0.9937,
-                  "detail": "12e van 20"
+                  "mult": 0.9895,
+                  "detail": "13e van 20"
                 },
                 {
                   "key": "h2h",
@@ -13331,7 +13352,7 @@
                 "explanation": "Niveau: dit seizoen weegt 43% na 6 duels (thuis + uit samen), 57% 2 seizoenen. Thuis/uit-verschil komt uit 2 seizoenen."
               }
             },
-            "league_avg_total": 2.891,
+            "league_avg_total": 2.893,
             "check_ok": true
           }
         }
