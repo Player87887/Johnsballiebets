@@ -1,11 +1,8 @@
 {
-  "generated_at": "2026-10-19T18:04:24.691725+00:00",
+  "generated_at": "2026-10-20T06:03:35.881171+00:00",
   "ev_threshold_pct": 5.0,
   "odds_updated": {
-    "la_liga": "2026-10-19T15:30:18.757430+00:00",
-    "premier_league": "2026-10-19T15:30:19.000235+00:00",
-    "primeira_liga": "2026-10-19T15:30:19.420956+00:00",
-    "serie_a": "2026-10-19T15:30:19.660223+00:00"
+    "la_liga": "2026-10-19T15:30:18.757430+00:00"
   },
   "leagues": [
     {
@@ -6285,27 +6282,28 @@
             },
             "league_avg_total": 3.08,
             "check_ok": true
-          }
+          },
+          "frozen": true
         },
         {
           "home": "Levante UD",
           "away": "Athletic Club",
           "date": "2026-10-21T18:00:00Z",
-          "lambda_home": 1.011,
-          "lambda_away": 1.194,
-          "prob_home": 0.2922,
-          "prob_draw": 0.3239,
-          "prob_away": 0.3838,
+          "lambda_home": 1.016,
+          "lambda_away": 1.197,
+          "prob_home": 0.2931,
+          "prob_draw": 0.3232,
+          "prob_away": 0.3837,
           "bookmaker": "onexbet",
           "has_odds": true,
           "bets": [
             {
               "market": "1X2 Levante UD",
               "type": "1X2",
-              "model_prob": 0.2922,
-              "fair_odd": 3.422,
+              "model_prob": 0.2931,
+              "fair_odd": 3.412,
               "book_odd": 3.52,
-              "ev_pct": 2.86,
+              "ev_pct": 3.16,
               "stake": 5,
               "recommended": false,
               "needs_odd": false
@@ -6313,10 +6311,10 @@
             {
               "market": "1X2 Gelijkspel",
               "type": "1X2",
-              "model_prob": 0.3239,
-              "fair_odd": 3.087,
+              "model_prob": 0.3232,
+              "fair_odd": 3.094,
               "book_odd": 3.52,
-              "ev_pct": 14.03,
+              "ev_pct": 13.78,
               "stake": 5,
               "recommended": true,
               "needs_odd": false
@@ -6324,8 +6322,8 @@
             {
               "market": "O/U 1.5 Under",
               "type": "O/U",
-              "model_prob": 0.3361,
-              "fair_odd": 2.975,
+              "model_prob": 0.3339,
+              "fair_odd": 2.995,
               "book_odd": null,
               "ev_pct": null,
               "stake": 5,
@@ -6335,10 +6333,10 @@
             {
               "market": "O/U 2.5 Under",
               "type": "O/U",
-              "model_prob": 0.6214,
-              "fair_odd": 1.609,
+              "model_prob": 0.619,
+              "fair_odd": 1.615,
               "book_odd": 1.92,
-              "ev_pct": 19.31,
+              "ev_pct": 18.85,
               "stake": 15,
               "recommended": true,
               "needs_odd": false
@@ -6346,8 +6344,8 @@
             {
               "market": "O/U 3.5 Under",
               "type": "O/U",
-              "model_prob": 0.8184,
-              "fair_odd": 1.222,
+              "model_prob": 0.8166,
+              "fair_odd": 1.225,
               "book_odd": null,
               "ev_pct": null,
               "stake": 20,
@@ -6357,8 +6355,8 @@
             {
               "market": "O/U 4.5 Under",
               "type": "O/U",
-              "model_prob": 0.927,
-              "fair_odd": 1.079,
+              "model_prob": 0.926,
+              "fair_odd": 1.08,
               "book_odd": null,
               "ev_pct": null,
               "stake": 20,
@@ -6370,18 +6368,18 @@
           "notes": [],
           "lambda_factors": {
             "home": {
-              "base": 1.694,
+              "base": 1.688,
               "factors": [
                 {
                   "key": "attack",
                   "label": "Aanval Levante UD",
-                  "mult": 0.8855,
+                  "mult": 0.8886,
                   "detail": "scoort thuis 1.50 per duel (comp.-gem. 1.69)"
                 },
                 {
                   "key": "opp_defense",
                   "label": "Verdediging Athletic Club",
-                  "mult": 0.7149,
+                  "mult": 0.7174,
                   "detail": "incasseert uit 1.21 per duel (comp.-gem. 1.69)"
                 },
                 {
@@ -6417,7 +6415,7 @@
                 {
                   "key": "absences",
                   "label": "Aan-/afwezigen",
-                  "mult": 1.0859,
+                  "mult": 1.0877,
                   "detail": "aanval Levante UD -0.01 · verdediging Athletic Club +0.09"
                 },
                 {
@@ -6437,19 +6435,19 @@
               }
             },
             "away": {
-              "base": 1.386,
+              "base": 1.381,
               "factors": [
                 {
                   "key": "attack",
                   "label": "Aanval Athletic Club",
-                  "mult": 0.6739,
-                  "detail": "scoort uit 0.93 per duel (comp.-gem. 1.39)"
+                  "mult": 0.6763,
+                  "detail": "scoort uit 0.93 per duel (comp.-gem. 1.38)"
                 },
                 {
                   "key": "opp_defense",
                   "label": "Verdediging Levante UD",
-                  "mult": 1.2056,
-                  "detail": "incasseert thuis 1.67 per duel (comp.-gem. 1.39)"
+                  "mult": 1.21,
+                  "detail": "incasseert thuis 1.67 per duel (comp.-gem. 1.38)"
                 },
                 {
                   "key": "form",
@@ -6478,8 +6476,8 @@
                 {
                   "key": "absences",
                   "label": "Aan-/afwezigen",
-                  "mult": 0.9352,
-                  "detail": "aanval Athletic Club -0.09 · verdediging Levante UD +0.01"
+                  "mult": 0.9347,
+                  "detail": "aanval Athletic Club -0.09 · verdediging Levante UD +0.00"
                 },
                 {
                   "key": "fatigue",
@@ -6497,7 +6495,7 @@
                 "explanation": "Niveau: dit seizoen weegt 46% na 7 duels (thuis + uit samen), 54% 2 seizoenen. Thuis/uit-verschil komt uit 2 seizoenen."
               }
             },
-            "league_avg_total": 3.08,
+            "league_avg_total": 3.069,
             "check_ok": true
           }
         }
@@ -10741,7 +10739,8 @@
             },
             "league_avg_total": 2.884,
             "check_ok": true
-          }
+          },
+          "frozen": true
         }
       ]
     },
@@ -10961,7 +10960,8 @@
             },
             "league_avg_total": 2.747,
             "check_ok": true
-          }
+          },
+          "frozen": true
         }
       ]
     },
@@ -13256,7 +13256,8 @@
             },
             "league_avg_total": 2.942,
             "check_ok": true
-          }
+          },
+          "frozen": true
         }
       ]
     }
