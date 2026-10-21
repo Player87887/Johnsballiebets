@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-10-21T14:16:29.175304+00:00",
+  "generated_at": "2026-10-21T15:43:23.647865+00:00",
   "ev_threshold_pct": 5.0,
   "odds_updated": {
     "bundesliga": "2026-10-20T11:59:43.352914+00:00",
     "eredivisie": "2026-10-20T11:59:43.623263+00:00",
-    "la_liga": "2026-10-21T07:30:29.233532+00:00",
+    "la_liga": "2026-10-21T15:30:04.270934+00:00",
     "ligue_1": "2026-10-20T11:59:44.302024+00:00",
     "premier_league": "2026-10-20T11:59:44.534473+00:00",
     "primeira_liga": "2026-10-20T11:59:44.761605+00:00",
@@ -4117,12 +4117,23 @@
           "has_odds": true,
           "bets": [
             {
+              "market": "1X2 Levante UD",
+              "type": "1X2",
+              "model_prob": 0.2496,
+              "fair_odd": 4.007,
+              "book_odd": 3.73,
+              "ev_pct": -6.91,
+              "stake": 5,
+              "recommended": false,
+              "needs_odd": false
+            },
+            {
               "market": "1X2 Gelijkspel",
               "type": "1X2",
               "model_prob": 0.3138,
               "fair_odd": 3.187,
-              "book_odd": 3.52,
-              "ev_pct": 10.44,
+              "book_odd": 3.44,
+              "ev_pct": 7.93,
               "stake": 5,
               "recommended": true,
               "needs_odd": false
@@ -4132,8 +4143,8 @@
               "type": "1X2",
               "model_prob": 0.4367,
               "fair_odd": 2.29,
-              "book_odd": 2.24,
-              "ev_pct": -2.18,
+              "book_odd": 2.19,
+              "ev_pct": -4.37,
               "stake": 10,
               "recommended": false,
               "needs_odd": false
@@ -4154,8 +4165,8 @@
               "type": "O/U",
               "model_prob": 0.6068,
               "fair_odd": 1.648,
-              "book_odd": 1.92,
-              "ev_pct": 16.51,
+              "book_odd": 1.87,
+              "ev_pct": 13.48,
               "stake": 15,
               "recommended": true,
               "needs_odd": false
