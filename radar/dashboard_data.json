@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-10-26T07:05:29.666597+00:00",
+  "generated_at": "2026-10-26T08:33:22.567978+00:00",
   "ev_threshold_pct": 5.0,
   "odds_updated": {
-    "la_liga": "2026-10-25T16:30:13.375231+00:00",
-    "primeira_liga": "2026-10-25T16:30:18.385338+00:00",
-    "serie_a": "2026-10-25T16:30:18.696397+00:00"
+    "la_liga": "2026-10-26T08:30:24.360246+00:00",
+    "primeira_liga": "2026-10-26T08:30:24.616416+00:00",
+    "serie_a": "2026-10-26T08:30:24.882267+00:00"
   },
   "leagues": [
     {
@@ -6337,8 +6337,8 @@
               "type": "1X2",
               "model_prob": 0.5183,
               "fair_odd": 1.929,
-              "book_odd": 2.02,
-              "ev_pct": 4.69,
+              "book_odd": 1.97,
+              "ev_pct": 2.1,
               "stake": 10,
               "recommended": false,
               "needs_odd": false
@@ -6348,8 +6348,8 @@
               "type": "1X2",
               "model_prob": 0.2869,
               "fair_odd": 3.485,
-              "book_odd": 3.6,
-              "ev_pct": 3.29,
+              "book_odd": 3.56,
+              "ev_pct": 2.14,
               "stake": 5,
               "recommended": true,
               "needs_odd": false
@@ -6370,8 +6370,8 @@
               "type": "O/U",
               "model_prob": 0.4351,
               "fair_odd": 2.298,
-              "book_odd": 2.19,
-              "ev_pct": -4.7,
+              "book_odd": 2.25,
+              "ev_pct": -2.09,
               "stake": 10,
               "recommended": false,
               "needs_odd": false
@@ -6414,8 +6414,8 @@
               "type": "O/U",
               "model_prob": 0.5649,
               "fair_odd": 1.77,
-              "book_odd": 1.79,
-              "ev_pct": 1.11,
+              "book_odd": 1.75,
+              "ev_pct": -1.15,
               "stake": 15,
               "recommended": false,
               "needs_odd": false
@@ -12756,10 +12756,21 @@
               "type": "O/U",
               "model_prob": 0.6029,
               "fair_odd": 1.659,
-              "book_odd": 1.89,
-              "ev_pct": 13.94,
+              "book_odd": null,
+              "ev_pct": null,
               "stake": 15,
-              "recommended": true,
+              "recommended": false,
+              "needs_odd": true
+            },
+            {
+              "market": "O/U 2.75 Under",
+              "type": "O/U",
+              "model_prob": 0.6029,
+              "fair_odd": 1.659,
+              "book_odd": 1.83,
+              "ev_pct": 10.32,
+              "stake": 15,
+              "recommended": false,
               "needs_odd": false
             },
             {
@@ -12767,17 +12778,6 @@
               "type": "O/U",
               "model_prob": 0.8046,
               "fair_odd": 1.243,
-              "book_odd": null,
-              "ev_pct": null,
-              "stake": 20,
-              "recommended": false,
-              "needs_odd": true
-            },
-            {
-              "market": "O/U 4.5 Under",
-              "type": "O/U",
-              "model_prob": 0.9192,
-              "fair_odd": 1.088,
               "book_odd": null,
               "ev_pct": null,
               "stake": 20,
@@ -15201,8 +15201,8 @@
               "type": "1X2",
               "model_prob": 0.7318,
               "fair_odd": 1.367,
-              "book_odd": 2.53,
-              "ev_pct": 85.14,
+              "book_odd": 2.24,
+              "ev_pct": 63.92,
               "stake": 20,
               "recommended": true,
               "needs_odd": false
@@ -15223,8 +15223,8 @@
               "type": "O/U",
               "model_prob": 0.5511,
               "fair_odd": 1.815,
-              "book_odd": 1.82,
-              "ev_pct": 0.3,
+              "book_odd": 1.76,
+              "ev_pct": -3.01,
               "stake": 15,
               "recommended": false,
               "needs_odd": false
@@ -15267,8 +15267,8 @@
               "type": "O/U",
               "model_prob": 0.4489,
               "fair_odd": 2.228,
-              "book_odd": 2.15,
-              "ev_pct": -3.48,
+              "book_odd": 2.24,
+              "ev_pct": 0.56,
               "stake": 10,
               "recommended": false,
               "needs_odd": false
@@ -15450,8 +15450,8 @@
               "type": "1X2",
               "model_prob": 0.7866,
               "fair_odd": 1.271,
-              "book_odd": 1.4,
-              "ev_pct": 10.13,
+              "book_odd": 1.39,
+              "ev_pct": 9.34,
               "stake": 20,
               "recommended": true,
               "needs_odd": false
@@ -15472,8 +15472,8 @@
               "type": "O/U",
               "model_prob": 0.5443,
               "fair_odd": 1.837,
-              "book_odd": 1.78,
-              "ev_pct": -3.12,
+              "book_odd": 1.72,
+              "ev_pct": -6.39,
               "stake": 15,
               "recommended": false,
               "needs_odd": false
@@ -15516,10 +15516,10 @@
               "type": "O/U",
               "model_prob": 0.4557,
               "fair_odd": 2.194,
-              "book_odd": 2.21,
-              "ev_pct": 0.72,
+              "book_odd": 2.31,
+              "ev_pct": 5.28,
               "stake": 10,
-              "recommended": false,
+              "recommended": true,
               "needs_odd": false
             },
             {
@@ -15697,8 +15697,8 @@
               "type": "1X2",
               "model_prob": 0.2482,
               "fair_odd": 4.029,
-              "book_odd": 4.74,
-              "ev_pct": 17.66,
+              "book_odd": 4.78,
+              "ev_pct": 18.65,
               "stake": 5,
               "recommended": true,
               "needs_odd": false
@@ -15708,8 +15708,8 @@
               "type": "1X2",
               "model_prob": 0.3163,
               "fair_odd": 3.162,
-              "book_odd": 3.86,
-              "ev_pct": 22.09,
+              "book_odd": 3.88,
+              "ev_pct": 22.72,
               "stake": 5,
               "recommended": true,
               "needs_odd": false
@@ -15730,8 +15730,8 @@
               "type": "O/U",
               "model_prob": 0.6067,
               "fair_odd": 1.648,
-              "book_odd": 2.15,
-              "ev_pct": 30.44,
+              "book_odd": 2.24,
+              "ev_pct": 35.9,
               "stake": 15,
               "recommended": true,
               "needs_odd": false
