@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-10-26T15:07:30.050809+00:00",
+  "generated_at": "2026-10-26T16:33:05.161003+00:00",
   "ev_threshold_pct": 5.0,
   "odds_updated": {
-    "la_liga": "2026-10-26T08:30:24.360246+00:00",
-    "primeira_liga": "2026-10-26T08:30:24.616416+00:00",
-    "serie_a": "2026-10-26T08:30:24.882267+00:00"
+    "la_liga": "2026-10-26T16:30:03.594830+00:00",
+    "primeira_liga": "2026-10-26T16:30:03.921004+00:00",
+    "serie_a": "2026-10-26T16:30:04.241920+00:00"
   },
   "leagues": [
     {
@@ -6337,8 +6337,8 @@
               "type": "1X2",
               "model_prob": 0.5183,
               "fair_odd": 1.929,
-              "book_odd": 1.97,
-              "ev_pct": 2.1,
+              "book_odd": 1.92,
+              "ev_pct": -0.49,
               "stake": 10,
               "recommended": false,
               "needs_odd": false
@@ -6348,10 +6348,21 @@
               "type": "1X2",
               "model_prob": 0.2869,
               "fair_odd": 3.485,
-              "book_odd": 3.56,
-              "ev_pct": 2.14,
+              "book_odd": 3.54,
+              "ev_pct": 1.57,
               "stake": 5,
               "recommended": true,
+              "needs_odd": false
+            },
+            {
+              "market": "1X2 CA Osasuna",
+              "type": "1X2",
+              "model_prob": 0.1948,
+              "fair_odd": 5.134,
+              "book_odd": 4.72,
+              "ev_pct": -8.06,
+              "stake": 2.5,
+              "recommended": false,
               "needs_odd": false
             },
             {
@@ -6370,8 +6381,8 @@
               "type": "O/U",
               "model_prob": 0.4351,
               "fair_odd": 2.298,
-              "book_odd": 2.25,
-              "ev_pct": -2.09,
+              "book_odd": 2.28,
+              "ev_pct": -0.79,
               "stake": 10,
               "recommended": false,
               "needs_odd": false
@@ -6414,8 +6425,8 @@
               "type": "O/U",
               "model_prob": 0.5649,
               "fair_odd": 1.77,
-              "book_odd": 1.75,
-              "ev_pct": -1.15,
+              "book_odd": 1.73,
+              "ev_pct": -2.28,
               "stake": 15,
               "recommended": false,
               "needs_odd": false
@@ -12741,6 +12752,28 @@
           "has_odds": true,
           "bets": [
             {
+              "market": "1X2 CD Santa Clara",
+              "type": "1X2",
+              "model_prob": 0.2894,
+              "fair_odd": 3.456,
+              "book_odd": 9.7,
+              "ev_pct": 180.68,
+              "stake": 5,
+              "recommended": true,
+              "needs_odd": false
+            },
+            {
+              "market": "1X2 Gelijkspel",
+              "type": "1X2",
+              "model_prob": 0.3152,
+              "fair_odd": 3.173,
+              "book_odd": 5.85,
+              "ev_pct": 84.39,
+              "stake": 5,
+              "recommended": true,
+              "needs_odd": false
+            },
+            {
               "market": "O/U 1.5 Under",
               "type": "O/U",
               "model_prob": 0.3212,
@@ -12763,13 +12796,13 @@
               "needs_odd": true
             },
             {
-              "market": "O/U 2.75 Under",
+              "market": "O/U 3.0 Under",
               "type": "O/U",
-              "model_prob": 0.6031,
-              "fair_odd": 1.658,
-              "book_odd": 1.83,
-              "ev_pct": 10.37,
-              "stake": 15,
+              "model_prob": 0.8048,
+              "fair_odd": 1.243,
+              "book_odd": 1.87,
+              "ev_pct": 50.49,
+              "stake": 20,
               "recommended": false,
               "needs_odd": false
             },
@@ -12778,6 +12811,17 @@
               "type": "O/U",
               "model_prob": 0.8048,
               "fair_odd": 1.243,
+              "book_odd": null,
+              "ev_pct": null,
+              "stake": 20,
+              "recommended": false,
+              "needs_odd": true
+            },
+            {
+              "market": "O/U 4.5 Under",
+              "type": "O/U",
+              "model_prob": 0.9193,
+              "fair_odd": 1.088,
               "book_odd": null,
               "ev_pct": null,
               "stake": 20,
@@ -15450,8 +15494,8 @@
               "type": "1X2",
               "model_prob": 0.8233,
               "fair_odd": 1.215,
-              "book_odd": 1.39,
-              "ev_pct": 14.43,
+              "book_odd": 1.38,
+              "ev_pct": 13.61,
               "stake": 20,
               "recommended": true,
               "needs_odd": false
@@ -15472,8 +15516,8 @@
               "type": "O/U",
               "model_prob": 0.546,
               "fair_odd": 1.831,
-              "book_odd": 1.72,
-              "ev_pct": -6.08,
+              "book_odd": 1.71,
+              "ev_pct": -6.63,
               "stake": 15,
               "recommended": false,
               "needs_odd": false
