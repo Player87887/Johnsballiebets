@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-01T19:06:52.212016+00:00",
+  "generated_at": "2026-11-02T07:07:39.028212+00:00",
   "ev_threshold_pct": 5.0,
   "odds_updated": {
     "la_liga": "2026-11-01T16:30:19.450032+00:00",
@@ -6234,27 +6234,28 @@
             },
             "league_avg_total": 3.029,
             "check_ok": true
-          }
+          },
+          "frozen": true
         },
         {
           "home": "RC Deportivo La Coruña",
           "away": "CA Osasuna",
           "date": "2026-11-02T20:00:00Z",
-          "lambda_home": 1.552,
-          "lambda_away": 0.663,
-          "prob_home": 0.5736,
-          "prob_draw": 0.2831,
-          "prob_away": 0.1433,
+          "lambda_home": 1.551,
+          "lambda_away": 0.66,
+          "prob_home": 0.5739,
+          "prob_draw": 0.2832,
+          "prob_away": 0.1429,
           "bookmaker": "onexbet",
           "has_odds": true,
           "bets": [
             {
               "market": "1X2 RC Deportivo La Coruña",
               "type": "1X2",
-              "model_prob": 0.5736,
-              "fair_odd": 1.743,
+              "model_prob": 0.5739,
+              "fair_odd": 1.742,
               "book_odd": 2.27,
-              "ev_pct": 30.21,
+              "ev_pct": 30.28,
               "stake": 15,
               "recommended": true,
               "needs_odd": false
@@ -6262,10 +6263,10 @@
             {
               "market": "1X2 Gelijkspel",
               "type": "1X2",
-              "model_prob": 0.2831,
-              "fair_odd": 3.533,
+              "model_prob": 0.2832,
+              "fair_odd": 3.531,
               "book_odd": 3.45,
-              "ev_pct": -2.34,
+              "ev_pct": -2.3,
               "stake": 5,
               "recommended": false,
               "needs_odd": false
@@ -6273,8 +6274,8 @@
             {
               "market": "O/U 1.5 Under",
               "type": "O/U",
-              "model_prob": 0.3364,
-              "fair_odd": 2.973,
+              "model_prob": 0.3373,
+              "fair_odd": 2.965,
               "book_odd": null,
               "ev_pct": null,
               "stake": 5,
@@ -6284,10 +6285,10 @@
             {
               "market": "O/U 2.5 Under",
               "type": "O/U",
-              "model_prob": 0.6188,
-              "fair_odd": 1.616,
+              "model_prob": 0.6197,
+              "fair_odd": 1.614,
               "book_odd": 1.73,
-              "ev_pct": 7.05,
+              "ev_pct": 7.21,
               "stake": 15,
               "recommended": true,
               "needs_odd": false
@@ -6295,8 +6296,8 @@
             {
               "market": "O/U 3.5 Under",
               "type": "O/U",
-              "model_prob": 0.8165,
-              "fair_odd": 1.225,
+              "model_prob": 0.8171,
+              "fair_odd": 1.224,
               "book_odd": null,
               "ev_pct": null,
               "stake": 20,
@@ -6306,7 +6307,7 @@
             {
               "market": "O/U 4.5 Under",
               "type": "O/U",
-              "model_prob": 0.9259,
+              "model_prob": 0.9263,
               "fair_odd": 1.08,
               "book_odd": null,
               "ev_pct": null,
@@ -6321,19 +6322,19 @@
           "notes": [],
           "lambda_factors": {
             "home": {
-              "base": 1.666,
+              "base": 1.655,
               "factors": [
                 {
                   "key": "attack",
                   "label": "Aanval RC Deportivo La Coruña",
-                  "mult": 0.928,
-                  "detail": "scoort thuis 1.55 per duel (comp.-gem. 1.67)"
+                  "mult": 0.9305,
+                  "detail": "scoort thuis 1.54 per duel (comp.-gem. 1.66)"
                 },
                 {
                   "key": "opp_defense",
                   "label": "Verdediging CA Osasuna",
-                  "mult": 1.0936,
-                  "detail": "incasseert uit 1.82 per duel (comp.-gem. 1.67)"
+                  "mult": 1.1009,
+                  "detail": "incasseert uit 1.82 per duel (comp.-gem. 1.66)"
                 },
                 {
                   "key": "home_adv",
@@ -6368,8 +6369,8 @@
                 {
                   "key": "absences",
                   "label": "Aan-/afwezigen",
-                  "mult": 0.9749,
-                  "detail": "aanval RC Deportivo La Coruña -0.06 · verdediging CA Osasuna +0.01"
+                  "mult": 0.9714,
+                  "detail": "aanval RC Deportivo La Coruña -0.05 · verdediging CA Osasuna +0.01"
                 },
                 {
                   "key": "fatigue",
@@ -6388,19 +6389,19 @@
               }
             },
             "away": {
-              "base": 1.363,
+              "base": 1.354,
               "factors": [
                 {
                   "key": "attack",
                   "label": "Aanval CA Osasuna",
-                  "mult": 0.5723,
-                  "detail": "scoort uit 0.78 per duel (comp.-gem. 1.36)"
+                  "mult": 0.5761,
+                  "detail": "scoort uit 0.78 per duel (comp.-gem. 1.35)"
                 },
                 {
                   "key": "opp_defense",
                   "label": "Verdediging RC Deportivo La Coruña",
-                  "mult": 0.9134,
-                  "detail": "incasseert thuis 1.25 per duel (comp.-gem. 1.36)"
+                  "mult": 0.9173,
+                  "detail": "incasseert thuis 1.24 per duel (comp.-gem. 1.35)"
                 },
                 {
                   "key": "form",
@@ -6429,8 +6430,8 @@
                 {
                   "key": "absences",
                   "label": "Aan-/afwezigen",
-                  "mult": 1.069,
-                  "detail": "aanval CA Osasuna -0.01 · verdediging RC Deportivo La Coruña +0.06"
+                  "mult": 1.061,
+                  "detail": "aanval CA Osasuna -0.01 · verdediging RC Deportivo La Coruña +0.05"
                 },
                 {
                   "key": "fatigue",
@@ -6448,7 +6449,7 @@
                 "explanation": "Niveau: dit seizoen weegt 55% na 10 duels (thuis + uit samen), 45% 2 seizoenen. Thuis/uit-verschil komt uit 2 seizoenen."
               }
             },
-            "league_avg_total": 3.029,
+            "league_avg_total": 3.009,
             "check_ok": true
           }
         }
@@ -8171,27 +8172,28 @@
             },
             "league_avg_total": 3.063,
             "check_ok": true
-          }
+          },
+          "frozen": true
         },
         {
           "home": "FC Lorient",
           "away": "Stade Brestois 29",
           "date": "2026-11-02T19:45:00Z",
-          "lambda_home": 1.632,
-          "lambda_away": 1.204,
-          "prob_home": 0.4596,
-          "prob_draw": 0.2722,
-          "prob_away": 0.2682,
+          "lambda_home": 1.64,
+          "lambda_away": 1.209,
+          "prob_home": 0.4605,
+          "prob_draw": 0.2714,
+          "prob_away": 0.2681,
           "bookmaker": "onexbet",
           "has_odds": true,
           "bets": [
             {
               "market": "1X2 FC Lorient",
               "type": "1X2",
-              "model_prob": 0.4596,
-              "fair_odd": 2.176,
+              "model_prob": 0.4605,
+              "fair_odd": 2.172,
               "book_odd": 2.56,
-              "ev_pct": 17.65,
+              "ev_pct": 17.89,
               "stake": 10,
               "recommended": true,
               "needs_odd": false
@@ -8199,10 +8201,10 @@
             {
               "market": "1X2 Gelijkspel",
               "type": "1X2",
-              "model_prob": 0.2722,
-              "fair_odd": 3.674,
+              "model_prob": 0.2714,
+              "fair_odd": 3.684,
               "book_odd": 3.39,
-              "ev_pct": -7.72,
+              "ev_pct": -7.99,
               "stake": 5,
               "recommended": false,
               "needs_odd": false
@@ -8210,8 +8212,8 @@
             {
               "market": "O/U 1.5 Over",
               "type": "O/U",
-              "model_prob": 0.7889,
-              "fair_odd": 1.268,
+              "model_prob": 0.7908,
+              "fair_odd": 1.264,
               "book_odd": null,
               "ev_pct": null,
               "stake": 20,
@@ -8221,10 +8223,10 @@
             {
               "market": "O/U 2.5 Over",
               "type": "O/U",
-              "model_prob": 0.5392,
-              "fair_odd": 1.855,
+              "model_prob": 0.542,
+              "fair_odd": 1.845,
               "book_odd": 2.14,
-              "ev_pct": 15.39,
+              "ev_pct": 15.99,
               "stake": 15,
               "recommended": true,
               "needs_odd": false
@@ -8232,8 +8234,8 @@
             {
               "market": "O/U 3.5 Over",
               "type": "O/U",
-              "model_prob": 0.3162,
-              "fair_odd": 3.163,
+              "model_prob": 0.3189,
+              "fair_odd": 3.136,
               "book_odd": null,
               "ev_pct": null,
               "stake": 5,
@@ -8243,8 +8245,8 @@
             {
               "market": "O/U 4.5 Over",
               "type": "O/U",
-              "model_prob": 0.1581,
-              "fair_odd": 6.327,
+              "model_prob": 0.16,
+              "fair_odd": 6.252,
               "book_odd": null,
               "ev_pct": null,
               "stake": 2.5,
@@ -8258,19 +8260,19 @@
           ],
           "lambda_factors": {
             "home": {
-              "base": 1.685,
+              "base": 1.677,
               "factors": [
                 {
                   "key": "attack",
                   "label": "Aanval FC Lorient",
-                  "mult": 0.8742,
-                  "detail": "scoort thuis 1.47 per duel (comp.-gem. 1.69)"
+                  "mult": 0.8784,
+                  "detail": "scoort thuis 1.47 per duel (comp.-gem. 1.68)"
                 },
                 {
                   "key": "opp_defense",
                   "label": "Verdediging Stade Brestois 29",
-                  "mult": 1.0819,
-                  "detail": "incasseert uit 1.82 per duel (comp.-gem. 1.69)"
+                  "mult": 1.0871,
+                  "detail": "incasseert uit 1.82 per duel (comp.-gem. 1.68)"
                 },
                 {
                   "key": "home_adv",
@@ -8305,7 +8307,7 @@
                 {
                   "key": "absences",
                   "label": "Aan-/afwezigen",
-                  "mult": 1.0271,
+                  "mult": 1.0269,
                   "detail": "aanval FC Lorient -0.00 · verdediging Stade Brestois 29 +0.05"
                 },
                 {
@@ -8325,19 +8327,19 @@
               }
             },
             "away": {
-              "base": 1.378,
+              "base": 1.373,
               "factors": [
                 {
                   "key": "attack",
                   "label": "Aanval Stade Brestois 29",
-                  "mult": 0.9811,
-                  "detail": "scoort uit 1.35 per duel (comp.-gem. 1.38)"
+                  "mult": 0.9847,
+                  "detail": "scoort uit 1.35 per duel (comp.-gem. 1.37)"
                 },
                 {
                   "key": "opp_defense",
                   "label": "Verdediging FC Lorient",
-                  "mult": 0.8164,
-                  "detail": "incasseert thuis 1.12 per duel (comp.-gem. 1.38)"
+                  "mult": 0.8194,
+                  "detail": "incasseert thuis 1.12 per duel (comp.-gem. 1.37)"
                 },
                 {
                   "key": "form",
@@ -8385,7 +8387,7 @@
                 "explanation": "Niveau: dit seizoen weegt 50% na 8 duels (thuis + uit samen), 50% 2 seizoenen. Thuis/uit-verschil komt uit 2 seizoenen."
               }
             },
-            "league_avg_total": 3.063,
+            "league_avg_total": 3.05,
             "check_ok": true
           }
         }
@@ -10383,20 +10385,20 @@
           "away": "Everton FC",
           "date": "2026-11-02T20:00:00Z",
           "lambda_home": 1.618,
-          "lambda_away": 1.016,
-          "prob_home": 0.4989,
+          "lambda_away": 1.015,
+          "prob_home": 0.4991,
           "prob_draw": 0.2788,
-          "prob_away": 0.2224,
+          "prob_away": 0.2221,
           "bookmaker": "onexbet",
           "has_odds": true,
           "bets": [
             {
               "market": "1X2 Newcastle United FC",
               "type": "1X2",
-              "model_prob": 0.4989,
-              "fair_odd": 2.005,
+              "model_prob": 0.4991,
+              "fair_odd": 2.004,
               "book_odd": 2.38,
-              "ev_pct": 18.73,
+              "ev_pct": 18.78,
               "stake": 10,
               "recommended": true,
               "needs_odd": false
@@ -10407,7 +10409,7 @@
               "model_prob": 0.2788,
               "fair_odd": 3.587,
               "book_odd": 3.74,
-              "ev_pct": 4.26,
+              "ev_pct": 4.27,
               "stake": 5,
               "recommended": true,
               "needs_odd": false
@@ -10415,8 +10417,8 @@
             {
               "market": "O/U 1.5 Under",
               "type": "O/U",
-              "model_prob": 0.2455,
-              "fair_odd": 4.073,
+              "model_prob": 0.2457,
+              "fair_odd": 4.07,
               "book_odd": null,
               "ev_pct": null,
               "stake": 5,
@@ -10426,10 +10428,10 @@
             {
               "market": "O/U 2.5 Under",
               "type": "O/U",
-              "model_prob": 0.5099,
-              "fair_odd": 1.961,
+              "model_prob": 0.5101,
+              "fair_odd": 1.96,
               "book_odd": 2.22,
-              "ev_pct": 13.19,
+              "ev_pct": 13.25,
               "stake": 10,
               "recommended": true,
               "needs_odd": false
@@ -10437,8 +10439,8 @@
             {
               "market": "O/U 3.5 Under",
               "type": "O/U",
-              "model_prob": 0.7285,
-              "fair_odd": 1.373,
+              "model_prob": 0.7288,
+              "fair_odd": 1.372,
               "book_odd": null,
               "ev_pct": null,
               "stake": 20,
@@ -10448,7 +10450,7 @@
             {
               "market": "O/U 4.5 Under",
               "type": "O/U",
-              "model_prob": 0.8725,
+              "model_prob": 0.8727,
               "fair_odd": 1.146,
               "book_odd": null,
               "ev_pct": null,
@@ -10569,7 +10571,7 @@
                 {
                   "key": "absences",
                   "label": "Aan-/afwezigen",
-                  "mult": 1.0104,
+                  "mult": 1.0094,
                   "detail": "aanval Everton FC -0.00 · verdediging Newcastle United FC +0.01"
                 },
                 {
@@ -12196,17 +12198,18 @@
             },
             "league_avg_total": 2.729,
             "check_ok": true
-          }
+          },
+          "frozen": true
         },
         {
           "home": "Sport Lisboa e Benfica",
           "away": "FC Alverca",
           "date": "2026-11-02T20:15:00Z",
-          "lambda_home": 4.534,
-          "lambda_away": 0.722,
-          "prob_home": 0.9362,
-          "prob_draw": 0.0469,
-          "prob_away": 0.0169,
+          "lambda_home": 4.536,
+          "lambda_away": 0.719,
+          "prob_home": 0.9365,
+          "prob_draw": 0.0468,
+          "prob_away": 0.0167,
           "bookmaker": "pinnacle",
           "has_odds": true,
           "bets": [
@@ -12224,7 +12227,7 @@
             {
               "market": "O/U 2.5 Over",
               "type": "O/U",
-              "model_prob": 0.8946,
+              "model_prob": 0.8945,
               "fair_odd": 1.118,
               "book_odd": null,
               "ev_pct": null,
@@ -12238,7 +12241,7 @@
               "model_prob": 0.7674,
               "fair_odd": 1.303,
               "book_odd": 1.92,
-              "ev_pct": 47.35,
+              "ev_pct": 47.34,
               "stake": 20,
               "recommended": true,
               "needs_odd": false
@@ -12246,7 +12249,7 @@
             {
               "market": "O/U 4.5 Over",
               "type": "O/U",
-              "model_prob": 0.6004,
+              "model_prob": 0.6003,
               "fair_odd": 1.666,
               "book_odd": null,
               "ev_pct": null,
@@ -12259,18 +12262,18 @@
           "notes": [],
           "lambda_factors": {
             "home": {
-              "base": 1.501,
+              "base": 1.5,
               "factors": [
                 {
                   "key": "attack",
                   "label": "Aanval Sport Lisboa e Benfica",
-                  "mult": 2.024,
+                  "mult": 2.0253,
                   "detail": "scoort thuis 3.04 per duel (comp.-gem. 1.50)"
                 },
                 {
                   "key": "opp_defense",
                   "label": "Verdediging FC Alverca",
-                  "mult": 1.1053,
+                  "mult": 1.106,
                   "detail": "incasseert uit 1.66 per duel (comp.-gem. 1.50)"
                 },
                 {
@@ -12306,7 +12309,7 @@
                 {
                   "key": "absences",
                   "label": "Aan-/afwezigen",
-                  "mult": 0.9935,
+                  "mult": 0.9933,
                   "detail": "aanval Sport Lisboa e Benfica -0.11 · verdediging FC Alverca +0.08"
                 },
                 {
@@ -12326,18 +12329,18 @@
               }
             },
             "away": {
-              "base": 1.228,
+              "base": 1.227,
               "factors": [
                 {
                   "key": "attack",
                   "label": "Aanval FC Alverca",
-                  "mult": 0.9935,
+                  "mult": 0.9943,
                   "detail": "scoort uit 1.22 per duel (comp.-gem. 1.23)"
                 },
                 {
                   "key": "opp_defense",
                   "label": "Verdediging Sport Lisboa e Benfica",
-                  "mult": 0.579,
+                  "mult": 0.5795,
                   "detail": "incasseert thuis 0.71 per duel (comp.-gem. 1.23)"
                 },
                 {
@@ -12349,8 +12352,8 @@
                 {
                   "key": "position",
                   "label": "Stand FC Alverca",
-                  "mult": 1.0024,
-                  "detail": "9e van 18"
+                  "mult": 0.9976,
+                  "detail": "10e van 18"
                 },
                 {
                   "key": "h2h",
@@ -12367,7 +12370,7 @@
                 {
                   "key": "absences",
                   "label": "Aan-/afwezigen",
-                  "mult": 1.1389,
+                  "mult": 1.1394,
                   "detail": "aanval FC Alverca -0.03 · verdediging Sport Lisboa e Benfica +0.12"
                 },
                 {
@@ -12386,7 +12389,7 @@
                 "explanation": "Niveau: dit seizoen weegt 53% na 9 duels (thuis + uit samen), 47% prior_thin. Thuis/uit-verschil komt uit prior_thin."
               }
             },
-            "league_avg_total": 2.729,
+            "league_avg_total": 2.727,
             "check_ok": true
           }
         },
@@ -12394,21 +12397,21 @@
           "home": "Gil Vicente FC",
           "away": "Vitória SC",
           "date": "2026-11-02T20:15:00Z",
-          "lambda_home": 1.109,
+          "lambda_home": 1.105,
           "lambda_away": 0.648,
-          "prob_home": 0.4507,
-          "prob_draw": 0.3504,
-          "prob_away": 0.1989,
+          "prob_home": 0.4492,
+          "prob_draw": 0.3511,
+          "prob_away": 0.1997,
           "bookmaker": "pinnacle",
           "has_odds": true,
           "bets": [
             {
               "market": "1X2 Gil Vicente FC",
               "type": "1X2",
-              "model_prob": 0.4507,
-              "fair_odd": 2.219,
+              "model_prob": 0.4492,
+              "fair_odd": 2.226,
               "book_odd": 2.89,
-              "ev_pct": 30.26,
+              "ev_pct": 29.82,
               "stake": 10,
               "recommended": true,
               "needs_odd": false
@@ -12416,10 +12419,10 @@
             {
               "market": "1X2 Gelijkspel",
               "type": "1X2",
-              "model_prob": 0.3504,
-              "fair_odd": 2.854,
+              "model_prob": 0.3511,
+              "fair_odd": 2.848,
               "book_odd": 3.05,
-              "ev_pct": 6.87,
+              "ev_pct": 7.09,
               "stake": 5,
               "recommended": true,
               "needs_odd": false
@@ -12427,8 +12430,8 @@
             {
               "market": "O/U 1.5 Under",
               "type": "O/U",
-              "model_prob": 0.4608,
-              "fair_odd": 2.17,
+              "model_prob": 0.4619,
+              "fair_odd": 2.165,
               "book_odd": null,
               "ev_pct": null,
               "stake": 10,
@@ -12438,10 +12441,10 @@
             {
               "market": "O/U 2.25 Under",
               "type": "O/U",
-              "model_prob": 0.742,
-              "fair_odd": 1.348,
+              "model_prob": 0.743,
+              "fair_odd": 1.346,
               "book_odd": 1.89,
-              "ev_pct": 40.24,
+              "ev_pct": 40.43,
               "stake": 20,
               "recommended": false,
               "needs_odd": false
@@ -12449,8 +12452,8 @@
             {
               "market": "O/U 2.5 Under",
               "type": "O/U",
-              "model_prob": 0.742,
-              "fair_odd": 1.348,
+              "model_prob": 0.743,
+              "fair_odd": 1.346,
               "book_odd": null,
               "ev_pct": null,
               "stake": 20,
@@ -12460,8 +12463,8 @@
             {
               "market": "O/U 3.5 Under",
               "type": "O/U",
-              "model_prob": 0.8981,
-              "fair_odd": 1.114,
+              "model_prob": 0.8986,
+              "fair_odd": 1.113,
               "book_odd": null,
               "ev_pct": null,
               "stake": 20,
@@ -12473,18 +12476,18 @@
           "notes": [],
           "lambda_factors": {
             "home": {
-              "base": 1.501,
+              "base": 1.5,
               "factors": [
                 {
                   "key": "attack",
                   "label": "Aanval Gil Vicente FC",
-                  "mult": 0.8514,
+                  "mult": 0.852,
                   "detail": "scoort thuis 1.28 per duel (comp.-gem. 1.50)"
                 },
                 {
                   "key": "opp_defense",
                   "label": "Verdediging Vitória SC",
-                  "mult": 0.8981,
+                  "mult": 0.8987,
                   "detail": "incasseert uit 1.35 per duel (comp.-gem. 1.50)"
                 },
                 {
@@ -12502,8 +12505,8 @@
                 {
                   "key": "position",
                   "label": "Stand Gil Vicente FC",
-                  "mult": 1.0118,
-                  "detail": "7e van 18"
+                  "mult": 1.0071,
+                  "detail": "8e van 18"
                 },
                 {
                   "key": "h2h",
@@ -12540,18 +12543,18 @@
               }
             },
             "away": {
-              "base": 1.228,
+              "base": 1.227,
               "factors": [
                 {
                   "key": "attack",
                   "label": "Aanval Vitória SC",
-                  "mult": 0.7101,
+                  "mult": 0.7107,
                   "detail": "scoort uit 0.87 per duel (comp.-gem. 1.23)"
                 },
                 {
                   "key": "opp_defense",
                   "label": "Verdediging Gil Vicente FC",
-                  "mult": 0.68,
+                  "mult": 0.6805,
                   "detail": "incasseert thuis 0.83 per duel (comp.-gem. 1.23)"
                 },
                 {
@@ -12581,7 +12584,7 @@
                 {
                   "key": "absences",
                   "label": "Aan-/afwezigen",
-                  "mult": 1.052,
+                  "mult": 1.0519,
                   "detail": "aanval Vitória SC -0.01 · verdediging Gil Vicente FC +0.04"
                 },
                 {
@@ -12600,7 +12603,7 @@
                 "explanation": "Niveau: dit seizoen weegt 53% na 9 duels (thuis + uit samen), 47% 2 seizoenen. Thuis/uit-verschil komt uit 2 seizoenen."
               }
             },
-            "league_avg_total": 2.729,
+            "league_avg_total": 2.727,
             "check_ok": true
           }
         }
@@ -16492,27 +16495,28 @@
             },
             "league_avg_total": 3.165,
             "check_ok": true
-          }
+          },
+          "frozen": true
         },
         {
           "home": "US Sassuolo Calcio",
           "away": "ACF Fiorentina",
           "date": "2026-11-02T17:30:00Z",
-          "lambda_home": 1.561,
-          "lambda_away": 1.45,
-          "prob_home": 0.3877,
-          "prob_draw": 0.2733,
-          "prob_away": 0.339,
+          "lambda_home": 1.565,
+          "lambda_away": 1.461,
+          "prob_home": 0.3865,
+          "prob_draw": 0.2726,
+          "prob_away": 0.341,
           "bookmaker": "onexbet",
           "has_odds": true,
           "bets": [
             {
               "market": "1X2 US Sassuolo Calcio",
               "type": "1X2",
-              "model_prob": 0.3877,
-              "fair_odd": 2.579,
+              "model_prob": 0.3865,
+              "fair_odd": 2.588,
               "book_odd": 2.94,
-              "ev_pct": 13.99,
+              "ev_pct": 13.62,
               "stake": 5,
               "recommended": true,
               "needs_odd": false
@@ -16520,10 +16524,10 @@
             {
               "market": "1X2 Gelijkspel",
               "type": "1X2",
-              "model_prob": 0.2733,
-              "fair_odd": 3.659,
+              "model_prob": 0.2726,
+              "fair_odd": 3.669,
               "book_odd": 3.79,
-              "ev_pct": 3.58,
+              "ev_pct": 3.3,
               "stake": 5,
               "recommended": true,
               "needs_odd": false
@@ -16531,8 +16535,8 @@
             {
               "market": "O/U 1.5 Under",
               "type": "O/U",
-              "model_prob": 0.1819,
-              "fair_odd": 5.498,
+              "model_prob": 0.1799,
+              "fair_odd": 5.559,
               "book_odd": null,
               "ev_pct": null,
               "stake": 2.5,
@@ -16542,8 +16546,8 @@
             {
               "market": "O/U 2.5 Under",
               "type": "O/U",
-              "model_prob": 0.4207,
-              "fair_odd": 2.377,
+              "model_prob": 0.4176,
+              "fair_odd": 2.395,
               "book_odd": null,
               "ev_pct": null,
               "stake": 5,
@@ -16553,10 +16557,10 @@
             {
               "market": "O/U 3.5 Under",
               "type": "O/U",
-              "model_prob": 0.6447,
-              "fair_odd": 1.551,
+              "model_prob": 0.6416,
+              "fair_odd": 1.559,
               "book_odd": 1.64,
-              "ev_pct": 5.74,
+              "ev_pct": 5.22,
               "stake": 15,
               "recommended": true,
               "needs_odd": false
@@ -16564,8 +16568,8 @@
             {
               "market": "O/U 4.5 Under",
               "type": "O/U",
-              "model_prob": 0.8134,
-              "fair_odd": 1.229,
+              "model_prob": 0.811,
+              "fair_odd": 1.233,
               "book_odd": null,
               "ev_pct": null,
               "stake": 20,
@@ -16575,8 +16579,8 @@
             {
               "market": "O/U 5.5 Under",
               "type": "O/U",
-              "model_prob": 0.915,
-              "fair_odd": 1.093,
+              "model_prob": 0.9135,
+              "fair_odd": 1.095,
               "book_odd": null,
               "ev_pct": null,
               "stake": 20,
@@ -16590,19 +16594,19 @@
           ],
           "lambda_factors": {
             "home": {
-              "base": 1.741,
+              "base": 1.734,
               "factors": [
                 {
                   "key": "attack",
                   "label": "Aanval US Sassuolo Calcio",
-                  "mult": 0.8455,
-                  "detail": "scoort thuis 1.47 per duel (comp.-gem. 1.74)"
+                  "mult": 0.8489,
+                  "detail": "scoort thuis 1.47 per duel (comp.-gem. 1.73)"
                 },
                 {
                   "key": "opp_defense",
                   "label": "Verdediging ACF Fiorentina",
-                  "mult": 1.1166,
-                  "detail": "incasseert uit 1.94 per duel (comp.-gem. 1.74)"
+                  "mult": 1.1211,
+                  "detail": "incasseert uit 1.94 per duel (comp.-gem. 1.73)"
                 },
                 {
                   "key": "home_adv",
@@ -16637,7 +16641,7 @@
                 {
                   "key": "absences",
                   "label": "Aan-/afwezigen",
-                  "mult": 0.9842,
+                  "mult": 0.9824,
                   "detail": "aanval US Sassuolo Calcio -0.04 · verdediging ACF Fiorentina +0.01"
                 },
                 {
@@ -16657,18 +16661,18 @@
               }
             },
             "away": {
-              "base": 1.424,
+              "base": 1.419,
               "factors": [
                 {
                   "key": "attack",
                   "label": "Aanval ACF Fiorentina",
-                  "mult": 0.8188,
+                  "mult": 0.8217,
                   "detail": "scoort uit 1.17 per duel (comp.-gem. 1.42)"
                 },
                 {
                   "key": "opp_defense",
                   "label": "Verdediging US Sassuolo Calcio",
-                  "mult": 1.401,
+                  "mult": 1.4059,
                   "detail": "incasseert thuis 2.00 per duel (comp.-gem. 1.42)"
                 },
                 {
@@ -16698,8 +16702,8 @@
                 {
                   "key": "absences",
                   "label": "Aan-/afwezigen",
-                  "mult": 1.0332,
-                  "detail": "aanval ACF Fiorentina -0.01 · verdediging US Sassuolo Calcio +0.06"
+                  "mult": 1.0371,
+                  "detail": "aanval ACF Fiorentina -0.01 · verdediging US Sassuolo Calcio +0.07"
                 },
                 {
                   "key": "fatigue",
@@ -16717,7 +16721,7 @@
                 "explanation": "Niveau: dit seizoen weegt 53% na 9 duels (thuis + uit samen), 47% 2 seizoenen. Thuis/uit-verschil komt uit 2 seizoenen."
               }
             },
-            "league_avg_total": 3.165,
+            "league_avg_total": 3.153,
             "check_ok": true
           }
         },
@@ -16725,21 +16729,21 @@
           "home": "Atalanta BC",
           "away": "Parma Calcio 1913",
           "date": "2026-11-02T19:45:00Z",
-          "lambda_home": 1.433,
-          "lambda_away": 0.677,
-          "prob_home": 0.5365,
-          "prob_draw": 0.3036,
-          "prob_away": 0.1599,
+          "lambda_home": 1.43,
+          "lambda_away": 0.693,
+          "prob_home": 0.5313,
+          "prob_draw": 0.3043,
+          "prob_away": 0.1644,
           "bookmaker": "onexbet",
           "has_odds": true,
           "bets": [
             {
               "market": "1X2 Gelijkspel",
               "type": "1X2",
-              "model_prob": 0.3036,
-              "fair_odd": 3.294,
+              "model_prob": 0.3043,
+              "fair_odd": 3.286,
               "book_odd": 4.67,
-              "ev_pct": 41.78,
+              "ev_pct": 42.12,
               "stake": 5,
               "recommended": true,
               "needs_odd": false
@@ -16747,10 +16751,10 @@
             {
               "market": "1X2 Parma Calcio 1913",
               "type": "1X2",
-              "model_prob": 0.1599,
-              "fair_odd": 6.254,
+              "model_prob": 0.1644,
+              "fair_odd": 6.082,
               "book_odd": 6.3,
-              "ev_pct": 0.73,
+              "ev_pct": 3.58,
               "stake": 2.5,
               "recommended": false,
               "needs_odd": false
@@ -16758,8 +16762,8 @@
             {
               "market": "O/U 1.5 Under",
               "type": "O/U",
-              "model_prob": 0.3605,
-              "fair_odd": 2.774,
+              "model_prob": 0.3571,
+              "fair_odd": 2.8,
               "book_odd": null,
               "ev_pct": null,
               "stake": 5,
@@ -16769,10 +16773,10 @@
             {
               "market": "O/U 2.5 Under",
               "type": "O/U",
-              "model_prob": 0.6468,
-              "fair_odd": 1.546,
+              "model_prob": 0.6434,
+              "fair_odd": 1.554,
               "book_odd": 2.4,
-              "ev_pct": 55.23,
+              "ev_pct": 54.42,
               "stake": 15,
               "recommended": true,
               "needs_odd": false
@@ -16780,8 +16784,8 @@
             {
               "market": "O/U 3.5 Under",
               "type": "O/U",
-              "model_prob": 0.8367,
-              "fair_odd": 1.195,
+              "model_prob": 0.8343,
+              "fair_odd": 1.199,
               "book_odd": null,
               "ev_pct": null,
               "stake": 20,
@@ -16791,8 +16795,8 @@
             {
               "market": "O/U 4.5 Under",
               "type": "O/U",
-              "model_prob": 0.9368,
-              "fair_odd": 1.067,
+              "model_prob": 0.9356,
+              "fair_odd": 1.069,
               "book_odd": null,
               "ev_pct": null,
               "stake": 20,
@@ -16806,19 +16810,19 @@
           ],
           "lambda_factors": {
             "home": {
-              "base": 1.741,
+              "base": 1.734,
               "factors": [
                 {
                   "key": "attack",
                   "label": "Aanval Atalanta BC",
-                  "mult": 1.0144,
-                  "detail": "scoort thuis 1.77 per duel (comp.-gem. 1.74)"
+                  "mult": 1.0185,
+                  "detail": "scoort thuis 1.77 per duel (comp.-gem. 1.73)"
                 },
                 {
                   "key": "opp_defense",
                   "label": "Verdediging Parma Calcio 1913",
-                  "mult": 0.8512,
-                  "detail": "incasseert uit 1.48 per duel (comp.-gem. 1.74)"
+                  "mult": 0.8547,
+                  "detail": "incasseert uit 1.48 per duel (comp.-gem. 1.73)"
                 },
                 {
                   "key": "home_adv",
@@ -16853,7 +16857,7 @@
                 {
                   "key": "absences",
                   "label": "Aan-/afwezigen",
-                  "mult": 0.9014,
+                  "mult": 0.8958,
                   "detail": "aanval Atalanta BC -0.17"
                 },
                 {
@@ -16873,18 +16877,18 @@
               }
             },
             "away": {
-              "base": 1.424,
+              "base": 1.419,
               "factors": [
                 {
                   "key": "attack",
                   "label": "Aanval Parma Calcio 1913",
-                  "mult": 0.4221,
+                  "mult": 0.4235,
                   "detail": "scoort uit 0.60 per duel (comp.-gem. 1.42)"
                 },
                 {
                   "key": "opp_defense",
                   "label": "Verdediging Atalanta BC",
-                  "mult": 1.007,
+                  "mult": 1.0106,
                   "detail": "incasseert thuis 1.43 per duel (comp.-gem. 1.42)"
                 },
                 {
@@ -16914,8 +16918,8 @@
                 {
                   "key": "absences",
                   "label": "Aan-/afwezigen",
-                  "mult": 1.3618,
-                  "detail": "verdediging Atalanta BC +0.18"
+                  "mult": 1.3886,
+                  "detail": "verdediging Atalanta BC +0.19"
                 },
                 {
                   "key": "fatigue",
@@ -16933,7 +16937,7 @@
                 "explanation": "Niveau: dit seizoen weegt 53% na 9 duels (thuis + uit samen), 47% 1 seizoen (promovendus). Thuis/uit-verschil komt uit 1 seizoen (promovendus)."
               }
             },
-            "league_avg_total": 3.165,
+            "league_avg_total": 3.153,
             "check_ok": true
           }
         }
