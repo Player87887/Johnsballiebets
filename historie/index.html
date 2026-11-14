@@ -83,6 +83,12 @@
 
   /* ── Analyse ─────────────────────────────────────────────────────────── */
   #analyse { max-width:1120px; margin:0 auto; padding:22px 24px; }
+  #combis { max-width:1120px; margin:0 auto; padding:22px 24px; }
+  .cb-note { font-size:12px; color:var(--ink-faint); margin:-4px 0 14px; }
+  .cb-legs { display:flex; flex-direction:column; gap:2px; font-size:12px; color:var(--ink-dim); }
+  #combis .card { overflow-x:auto; }
+  #combis td .cb-legs { white-space:normal; min-width:260px; }
+  .cb-legs .g { color:var(--signal); } .cb-legs .f { color:var(--neg); } .cb-legs .o { color:var(--ink-faint); }
   .an-filters { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:14px 16px 6px; margin-bottom:16px; }
   .an-row { display:grid; grid-template-columns:118px 1fr; gap:10px; align-items:start; padding:7px 0; border-bottom:1px solid var(--line-soft); }
   .an-row:last-child { border-bottom:none; }
@@ -182,11 +188,13 @@
     <nav class="viewswitch" aria-label="Weergave">
       <a href="#" data-view="overzicht">Overzicht</a>
       <a href="#analyse" data-view="analyse">Analyse</a>
+      <a href="#combis" data-view="combis">Combi's</a>
     </nav>
   </div>
 
   <main id="main"></main>
   <section id="analyse" hidden></section>
+  <section id="combis" hidden></section>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.js"></script>
 <script>
@@ -819,13 +827,74 @@ function renderAnalyse(){
 }
 
 // ── Weergave kiezen: #analyse in de URL toont de analyse ───────────────────
-function currentView(){ return location.hash.replace('#','')==='analyse'?'analyse':'overzicht'; }
+function currentView(){ const h=location.hash.replace('#',''); return h==='analyse'?'analyse':h==='combis'?'combis':'overzicht'; }
 function renderView(){
   const v=currentView();
   document.querySelectorAll('.viewswitch a').forEach(a=>{ const on=a.dataset.view===v; a.classList.toggle('on',on); a.setAttribute('aria-current',on?'page':'false'); });
   document.getElementById('main').hidden = v!=='overzicht';
   document.getElementById('analyse').hidden = v!=='analyse';
-  if(v==='analyse') renderAnalyse(); else render();
+  document.getElementById('combis').hidden = v!=='combis';
+  if(v==='analyse') renderAnalyse(); else if(v==='combis') renderCombis(); else render();
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  COMBI'S — apart tabblad. Bron: ../picks/combi_picks.json (server).
+//  Papieren inzet: telt NIET mee in de bankroll of de totalen hierboven.
+// ═══════════════════════════════════════════════════════════════════════════
+let COMBIS=null;
+async function laadCombis(){
+  try{ const r=await fetch('../picks/combi_picks.json',{cache:'no-store'}); if(r.ok) COMBIS=await r.json(); }catch(e){}
+}
+function combiRijen(){
+  const uit=[];
+  ((COMBIS&&COMBIS.weken)||[]).forEach(w=>{
+    const legs=Object.fromEntries((w.legs||[]).map(l=>[l.id,l]));
+    (w.combis||[]).forEach(c=>{
+      const ll=c.legs.map(i=>legs[i]).filter(Boolean);
+      const laatste=ll.map(l=>l.match_date||'').sort().pop()||w.gemaakt;
+      uit.push({week:w.picks_bestand||'',c,legs:ll,dt:new Date(laatste),r:c.resultaat||null});
+    });
+  });
+  return uit.sort((a,b)=>b.dt-a.dt);
+}
+function combiStats(lijst){
+  const af=lijst.filter(x=>x.r&&x.r.gf);
+  const inzet=af.reduce((t,x)=>t+(+x.c.inzet||0),0), winst=af.reduce((t,x)=>t+(+x.r.winst||0),0);
+  const g=af.filter(x=>x.r.gf==='G').length, verwacht=af.reduce((t,x)=>t+(+x.c.kans||0),0);
+  return {n:af.length,open:lijst.length-af.length,g,inzet,winst,roi:inzet?winst/inzet*100:null,verwacht};
+}
+async function renderCombis(){
+  const sec=document.getElementById('combis');
+  if(COMBIS===null){ sec.innerHTML='<div class="empty"><p>Combi\'s laden…</p></div>'; await laadCombis(); }
+  const rijen=combiRijen();
+  if(!rijen.length){ sec.innerHTML=`<div class="empty"><h2>Nog geen combi's</h2><p>Het model stelt elke week combi's samen op het tabblad <b>Picks → Combi Picks</b>. Afgeronde combi's verschijnen hier.</p></div>`; return; }
+  const st=combiStats(rijen);
+  // legs: trefkans t.o.v. wat het model verwachtte
+  const alleLegs=new Map(); rijen.forEach(x=>x.legs.forEach(l=>alleLegs.set(x.week+'|'+l.id,l)));
+  const legsAf=[...alleLegs.values()].filter(l=>l.resultaat&&(l.resultaat.gf==='G'||l.resultaat.gf==='F'));
+  const legG=legsAf.filter(l=>l.resultaat.gf==='G').length, legVerw=legsAf.reduce((t,l)=>t+(+l.model_prob||0),0);
+  const perNaam=['Lage odd','Middel','Hoge odd'].map(n=>({n,s:combiStats(rijen.filter(x=>x.c.naam===n))})).filter(x=>x.s.n);
+  let html=`<p class="cb-note">Papieren bets met een vaste inzet. Ze tellen niet mee in je bankroll of in de totalen van Overzicht en Analyse.</p>
+  <div class="kpis">
+    <div class="stat hero"><div class="label">Winst/verlies (papier)</div><div class="value ${cls(st.winst)}">${eurSigned(st.winst)}</div><div class="sub">over ${eur(st.inzet)} inzet</div></div>
+    <div class="stat"><div class="label">ROI</div><div class="value ${cls(st.roi)}">${st.roi==null?'—':pct(st.roi,1)}</div><div class="sub">${st.n} afgerond · ${st.open} open</div></div>
+    <div class="stat"><div class="label">Gewonnen</div><div class="value">${st.g}/${st.n}</div><div class="sub">model verwachtte ${num(st.verwacht,1)}</div></div>
+    <div class="stat"><div class="label">Legs goed</div><div class="value">${legsAf.length?num(legG/legsAf.length*100,0)+'%':'—'}</div><div class="sub">${legG}/${legsAf.length} · model ${legsAf.length?num(legVerw/legsAf.length*100,0)+'%':'—'}</div></div>
+  </div>`;
+  if(perNaam.length){
+    html+=`<div class="card"><div class="card-head"><h3>Per soort combi</h3></div><table><thead><tr><th class="l">Soort</th><th>Afgerond</th><th>Gewonnen</th><th>Model verwachtte</th><th>Winst</th><th>ROI</th></tr></thead><tbody>${
+      perNaam.map(x=>`<tr><td class="l">${escH(x.n)}</td><td>${x.s.n}</td><td>${x.s.g}</td><td>${num(x.s.verwacht,1)}</td><td class="${cls(x.s.winst)}">${eurSigned(x.s.winst)}</td><td class="${cls(x.s.roi)}">${x.s.roi==null?'—':pct(x.s.roi,1)}</td></tr>`).join('')}</tbody></table></div>`;
+  }
+  const legRegel=l=>{ const r=l.resultaat||{}; const k=r.gf==='G'?'g':r.gf==='F'?'f':'o';
+    return `<span class="${k}">${r.gf==='G'?'✓':r.gf==='F'?'✗':r.gf==='P'?'=':'·'} ${escH(l.home)} – ${escH(l.away)}: ${escH(l.label)} @ ${num(+l.book_odd,2)}${r.uitslag?' ('+escH(r.uitslag)+')':''}</span>`; };
+  html+=`<div class="card"><div class="card-head"><h3>Alle combi's</h3></div><table><thead><tr><th class="l">Datum</th><th class="l">Combi</th><th class="l">Legs</th><th>Odd</th><th>Inzet</th><th>Uitslag</th><th>Winst</th></tr></thead><tbody>${
+    rijen.map(x=>{ const r=x.r; return `<tr><td class="l">${isNaN(x.dt)?'—':x.dt.toLocaleDateString('nl-NL',{day:'numeric',month:'short'})}</td>
+      <td class="l">${escH(x.c.naam)}<div class="cb-legs"><span class="o">${escH(x.week.replace(/\.json$/,''))}</span></div></td>
+      <td class="l"><div class="cb-legs">${x.legs.map(legRegel).join('')}</div></td>
+      <td>${num(r&&r.odd?+r.odd:+x.c.odd,2)}</td><td>${eur(+x.c.inzet)}</td>
+      <td>${r&&r.gf?(r.gf==='G'?'gewonnen':r.gf==='F'?'verloren':'push'):'open'}</td>
+      <td class="${r&&r.gf?cls(+r.winst):''}">${r&&r.gf?eurSigned(+r.winst):'—'}</td></tr>`; }).join('')}</tbody></table></div>`;
+  sec.innerHTML=html;
 }
 window.addEventListener('hashchange',renderView);
 
