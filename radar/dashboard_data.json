@@ -1,6 +1,128 @@
 {
-  "generated_at": "2026-11-09T07:00:58.079412+00:00",
+  "generated_at": "2026-11-14T19:32:05.714160+00:00",
   "ev_threshold_pct": 5.0,
+  "beslisregels": {
+    "versie": 1,
+    "gemaakt": "2026-11-14T19:11:48.415297+00:00",
+    "bron": {
+      "batches": 6,
+      "regels": 655,
+      "aanbevolen": 489,
+      "gespeeld_van_aanbevolen": 400
+    },
+    "drop": {
+      "min_ev_pct": 5.5,
+      "min_odd": 1.3,
+      "trefzeker_pct": 95.9
+    },
+    "inzet": {
+      "per_trede": {
+        "Home": {
+          "20": 0.75,
+          "15": 0.667,
+          "5": 0.8,
+          "10": 0.5
+        },
+        "Over 3.5": {
+          "15": 0.667,
+          "20": 0.625,
+          "10": 0.5
+        },
+        "Away": {
+          "15": 0.667,
+          "5": 0.8,
+          "10": 0.5,
+          "20": 0.75
+        },
+        "Under 3.5": {
+          "15": 0.833,
+          "20": 0.625
+        },
+        "Draw": {
+          "5": 0.8
+        },
+        "Under 2.5": {
+          "15": 0.667,
+          "10": 0.75,
+          "20": 0.625
+        },
+        "Over 2.5": {
+          "15": 0.75,
+          "20": 0.75
+        }
+      },
+      "per_markt": {
+        "Home": 0.75,
+        "Over 3.5": 0.667,
+        "Away": 0.75,
+        "Under 3.5": 0.708,
+        "Draw": 0.8,
+        "Under 2.5": 0.667,
+        "Over 2.5": 0.708
+      },
+      "globaal": 0.75,
+      "aantallen": {
+        "Home": {
+          "20": 37,
+          "15": 24,
+          "2.5": 2,
+          "5": 21,
+          "10": 14
+        },
+        "Over 3.5": {
+          "15": 16,
+          "20": 5,
+          "10": 7
+        },
+        "Away": {
+          "15": 14,
+          "5": 30,
+          "10": 16,
+          "20": 15,
+          "2.5": 1
+        },
+        "Under 3.5": {
+          "15": 19,
+          "20": 14,
+          "10": 1
+        },
+        "Draw": {
+          "2.5": 2,
+          "5": 67
+        },
+        "O/U overig": {
+          "15": 2,
+          "10": 2
+        },
+        "Under 2.5": {
+          "15": 38,
+          "10": 13,
+          "20": 12
+        },
+        "Over 2.5": {
+          "15": 16,
+          "20": 11,
+          "10": 1
+        }
+      }
+    },
+    "toetsing": {
+      "spelen_trefzeker_pct": 95.1,
+      "spelen_basis_pct": 81.8,
+      "spelen_n": 489,
+      "inzet_afwijking_model": 3.77,
+      "inzet_afwijking_advies": 1.38,
+      "inzet_exact_pct": 42.4,
+      "inzet_binnen_2_5_pct": 92.8,
+      "inzet_n": 387
+    },
+    "groep_label": {
+      "Home": "thuiswinst",
+      "Away": "uitwinst",
+      "Draw": "gelijkspel",
+      "O/U overig": "over/under (overige lijnen)"
+    }
+  },
   "odds_updated": {},
   "leagues": [
     {
