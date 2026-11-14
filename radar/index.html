@@ -46,6 +46,21 @@
   .warns { padding:0 18px 12px; display:flex; flex-direction:column; gap:4px; }
   .warn-chip { font-size:11.5px; color:var(--warn); display:flex; align-items:center; gap:7px; }
   .warn-chip::before { content:"▲"; font-size:9px; }
+  /* promovendus zonder prior: grote waarschuwing, bets blijven wél aangevinkt */
+  .caution-box { margin:0 18px 12px; padding:10px 13px; border:1px solid rgba(240,162,75,.55); background:rgba(240,162,75,.09);
+    border-radius:9px; color:var(--warn); font-size:12.5px; line-height:1.45; }
+  .caution-box b { display:block; font-size:11px; letter-spacing:.6px; text-transform:uppercase; margin-bottom:3px; }
+  .caution-box div + div { margin-top:4px; }
+  .match.has-caution { border-color:rgba(240,162,75,.55); }
+  /* jouw stijl (geleerd uit het logboek) */
+  .stijl-chip { font-family:var(--mono); font-size:9.5px; color:#9fb7ff; border:1px solid rgba(120,150,255,.4); padding:1px 6px;
+    border-radius:10px; margin-left:8px; vertical-align:middle; cursor:help; white-space:nowrap; }
+  .stijl-chip.skip { color:var(--ink-faint); border-color:var(--line); }
+  .startpunt { display:inline-flex; align-items:center; gap:6px; font-family:var(--mono); font-size:12px; }
+  .startpunt .seg { display:inline-flex; border:1px solid var(--line); border-radius:7px; overflow:hidden; }
+  .startpunt .seg button { background:none; border:none; color:var(--ink-dim); font-family:var(--sans); font-size:12px; font-weight:600; padding:6px 11px; cursor:pointer; }
+  .startpunt .seg button.on { background:var(--panel-2); color:var(--ink); box-shadow:inset 0 -2px 0 #9fb7ff; }
+  .startpunt .uitleg { color:var(--ink-faint); cursor:help; }
 
   .bets { border-top:1px solid var(--line-soft); }
   .bets-empty, .no-odds { padding:14px 18px; color:var(--ink-faint); font-size:12.5px; font-family:var(--mono); }
@@ -216,6 +231,9 @@
     <div class="meta-row">
       <span><b>data:</b> <span id="gen-date">—</span> <span id="bron" class="bron-tag"></span></span>
       <span><b>drempel:</b> EV &gt; <span id="ev-thr">5</span>%</span>
+      <span class="startpunt" id="startpunt" hidden><b>startpunt:</b>
+        <span class="seg"><button type="button" data-start="stijl">Jouw stijl</button><button type="button" data-start="model">Model</button></span>
+        <span class="uitleg" id="startpunt-uitleg"></span></span>
       <label class="load-btn">
         data laden
         <input type="file" id="file-input" accept=".json,application/json" hidden>
@@ -343,19 +361,36 @@ function initSelections() {
     SEL[id].orig = { played: SEL[id].played, stake: b.stake, book_odd: b.book_odd ?? null, ev_pct: b.ev_pct ?? null };
     // Eigen pick: het model stelde niets voor, dus 'toegevoegd' t.o.v. niets
     if (b.custom) SEL[id].orig = { played: false, stake: 0, book_odd: null, ev_pct: null };
+    // Jouw stijl (geleerd uit het logboek): spelen of niet + inzet
+    SEL[id].adv = b.custom ? null : adviesVoor(m, b, SEL[id].orig.played);
+    if (SEL[id].adv && startpunt() === 'stijl') {
+      SEL[id].played = SEL[id].adv.played;
+      SEL[id].stake = SEL[id].adv.stake;
+    }
+    // Startpunt van deze pagina (stijl of model) — daartegen markeren we jouw aanpassingen
+    SEL[id].start = { played: SEL[id].played, stake: SEL[id].stake, book_odd: b.book_odd ?? null };
+    if (b.custom) SEL[id].start = { played: false, stake: 0, book_odd: null };
   })));
 
   // Eerdere keuzes (vinkjes, inzet, odd) terugzetten
   if (opgeslagen && opgeslagen.sel) {
     Object.entries(opgeslagen.sel).forEach(([id, k]) => {
       const s = SEL[id]; if (!s) return;
-      s.played = !!k.played;
-      if (typeof k.stake === 'number') s.stake = k.stake;
       if ('book_odd' in k && !zelfdeGetal(k.book_odd, s.bet.book_odd ?? null)) {
         s.bet.book_odd = k.book_odd;
         s.bet.ev_pct = (k.book_odd > 1 && s.bet.model_prob != null)
           ? (s.bet.model_prob * k.book_odd - 1) * 100 : null;
+        // jouw stijl opnieuw bepalen met de odd die jij invulde
+        if (!s.bet.custom && regels()) {
+          s.adv = adviesVoor(s.match, s.bet, s.orig.played);
+          if (!('played' in k) && startpunt() === 'stijl') {
+            s.played = s.adv.played; s.stake = s.adv.stake;
+            s.start = { played: s.played, stake: s.stake, book_odd: s.bet.book_odd ?? null };
+          }
+        }
       }
+      if ('played' in k) s.played = !!k.played;
+      if (typeof k.stake === 'number') s.stake = k.stake;
     });
   }
   KEUZES_ACTIEF = true;
@@ -372,6 +407,7 @@ function render() {
   const leagues = (DATA.leagues||[]).filter(l => (l.matches||[]).length);
   document.getElementById('gen-date').textContent = fmtGen(DATA.generated_at);
   document.getElementById('ev-thr').textContent = DATA.ev_threshold_pct ?? 5;
+  tekenStartpunt();
 
   const tabsEl = document.getElementById('tabs'); tabsEl.innerHTML='';
   leagues.forEach((lg,i) => {
@@ -406,7 +442,8 @@ function render() {
 
 function renderMatch(lg, m) {
   const el = document.createElement('div'); el.className='match';
-  const bets = m.bets||[], warns = m.warnings||[];
+  const bets = m.bets||[], warns = m.warnings||[], cauts = m.cautions||[];
+  if (cauts.length) el.classList.add('has-caution');
   let html = `
     <div class="match-head">
       <div>
@@ -419,6 +456,8 @@ function renderMatch(lg, m) {
       <div class="kickoff">${fmtDate(m.date)}</div>
     </div>`;
   if (warns.length) html += `<div class="warns">`+warns.map(w=>`<div class="warn-chip">${w}</div>`).join('')+`</div>`;
+  if (cauts.length) html += `<div class="caution-box"><b>⚠ Minder betrouwbare analyse — kleine steekproef</b>`+
+    cauts.map(w=>`<div>${escT(w)}</div>`).join('')+`</div>`;
   html += whyHTML(lg, m);
 
   // Bij ontbrekende bookmaker-odds tonen we een informatieve kop, maar we
@@ -458,8 +497,8 @@ function renderMatch(lg, m) {
       const hasEv = s.bet.ev_pct!=null && s.bet.ev_pct!==undefined;
       const evStr = hasEv ? ((s.bet.ev_pct>=0?'+':'') + s.bet.ev_pct.toFixed(1) + '%') : '—';
       const bookVal = (s.bet.book_odd!=null) ? s.bet.book_odd.toFixed(2) : '';
-      return `<tr class="${s.played?'':'off'} ${isRec||b.custom?'':'shown-only'} ${needsOdd?'needs-odd':''} ${wijzigingen(s).length?'changed':''}" data-id="${id}">
-        <td class="l"><span class="mkt-type">${typ}</span>${label}${isRec?'<span class="rec-star" title="Aanbevolen">★</span>':''}${needsOdd?'<span class="fill-hint" title="Bookmaker-odd ontbreekt — vul zelf in">✎</span>':''}${b.custom?`<span class="eigen-chip">eigen</span><button class="rm-btn" type="button" data-rm="${escT(id)}" title="Eigen pick verwijderen" aria-label="Eigen pick verwijderen">×</button>`:''}</td>
+      return `<tr class="${s.played?'':'off'} ${isRec||b.custom?'':'shown-only'} ${needsOdd?'needs-odd':''} ${vanStart(s).length?'changed':''}" data-id="${id}">
+        <td class="l"><span class="mkt-type">${typ}</span>${label}${isRec?'<span class="rec-star" title="Aanbevolen">★</span>':''}${stijlChip(s)}${needsOdd?'<span class="fill-hint" title="Bookmaker-odd ontbreekt — vul zelf in">✎</span>':''}${b.custom?`<span class="eigen-chip">eigen</span><button class="rm-btn" type="button" data-rm="${escT(id)}" title="Eigen pick verwijderen" aria-label="Eigen pick verwijderen">×</button>`:''}</td>
         <td>${b.fair_odd.toFixed(2)}</td>
         <td><input class="odd-in" type="number" min="1" step="0.01" value="${bookVal}" placeholder="—" data-odd="${id}"></td>
         <td class="ev ${hasEv&&s.bet.ev_pct<0?'ev-neg':''}" data-ev="${id}">${evStr}</td>
@@ -648,8 +687,9 @@ function updateSummary() {
     sumEl.innerHTML = `<b>${played.length}</b> bet(s) geselecteerd · totale inzet <span class="amt">€${totalStake.toFixed(2)}</span>`;
     pub.disabled = false;
   }
-  const nChg = Object.values(SEL).filter(s => wijzigingen(s).some(w => w !== 'odd_ingevuld')).length;
-  if (nChg) sumEl.innerHTML += ` · <span class="chg">${nChg} aanpassing(en) t.o.v. model</span>`;
+  const nChg = Object.values(SEL).filter(s => vanStart(s).some(w => w !== 'odd_ingevuld')).length;
+  const tov = (startpunt() === 'stijl' && regels()) ? 'jouw stijl' : 'model';
+  if (nChg) sumEl.innerHTML += ` · <span class="chg">${nChg} aanpassing(en) t.o.v. ${tov}</span>`;
   bewaarKeuzes();       // elke wijziging loopt hierlangs → meteen bewaren
   const nLog = leesLogboek().length;
   document.getElementById('log-btn').textContent = `Logboek exporteren (.csv)${nLog ? ' · ' + nLog + ' batch' + (nLog>1?'es':'') : ''}`;
@@ -797,6 +837,107 @@ function wijzigingen(s) {
   return w;
 }
 
+// Verschil met het STARTPUNT van de pagina (jouw stijl of model) — voor de markering
+function vanStart(s) {
+  if (!s || !s.start) return [];
+  const o = s.start, w = [];
+  if (s.played && !o.played) w.push('toegevoegd');
+  if (!s.played && o.played) w.push('geschrapt');
+  if ((s.played || o.played) && !zelfdeGetal(s.stake, o.stake)) w.push('inzet');
+  const nu = s.bet.book_odd ?? null;
+  if (!zelfdeGetal(nu, o.book_odd)) w.push(o.book_odd == null ? 'odd_ingevuld' : 'odd_gewijzigd');
+  return w;
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  JOUW STIJL — beslisregels geleerd uit je logboek (beslis_leren.py op de
+//  server → config/beslisregels.json → dashboard_data.json → hier).
+//  • Schrappen: een aanbevolen bet met EV of odd onder jouw drempel.
+//  • Inzet: modelinzet × jouw mediaan-verhouding voor die markt en inzet-trede.
+//  Dezelfde rekenregels als advies() in beslis_leren.py.
+// ═══════════════════════════════════════════════════════════════════════════
+const STARTPUNT_KEY = 'johnspicks:startpunt:v1';
+function regels() { return (DATA && DATA.beslisregels && DATA.beslisregels.drop) ? DATA.beslisregels : null; }
+function startpunt() {
+  let v = null; try { v = localStorage.getItem(STARTPUNT_KEY); } catch(e) {}
+  return v === 'model' ? 'model' : 'stijl';
+}
+const GROEPEN = ['Home','Away','Draw','Over 2.5','Over 3.5','Under 2.5','Under 3.5'];
+function groepVan(m, b) {
+  const t = String(b.market || '');
+  let g;
+  if (/^O\/U/i.test(t)) { const p = t.split(/\s+/); g = `${p[2] ? p[2][0].toUpperCase() + p[2].slice(1).toLowerCase() : ''} ${p[1]}`; }
+  else { const r = t.replace(/^1X2\s*/, '').trim(); g = /^(gelijkspel|gelijk|draw|x)$/i.test(r) ? 'Draw' : (r === m.home ? 'Home' : 'Away'); }
+  return GROEPEN.includes(g) ? g : 'O/U overig';
+}
+function trede(v) { return String(+v); }
+function rondInzet(x) {
+  const r = (v, st) => Math.floor(v / st + 0.5) * st;
+  if (x >= 6.25) return r(x, 2.5);
+  if (x >= 2) return r(x, 1);
+  return Math.max(0.5, r(x, 0.5));
+}
+function ratioVoor(R, g, stake) {
+  const I = R.inzet || {};
+  return ((I.per_trede || {})[g] || {})[trede(stake)] || (I.per_markt || {})[g] || I.globaal || 1;
+}
+const GROEP_NL = { Home:'thuiswinst', Away:'uitwinst', Draw:'gelijkspel', 'O/U overig':'over/under (overig)' };
+function adviesVoor(m, b, modelSpeelt) {
+  const R = regels(); if (!R) return null;
+  const g = groepVan(m, b), ratio = ratioVoor(R, g, +b.stake || 0);
+  const n = (((R.inzet || {}).aantallen || {})[g] || {})[trede(+b.stake || 0)] || 0;
+  const stake = rondInzet((+b.stake || 0) * ratio);
+  const red = [];
+  if (!modelSpeelt) return { played: false, stake, redenen: ['model raadt hem niet aan'], groep: g, ratio, n };
+  const d = R.drop, ev = b.ev_pct, odd = b.book_odd;
+  if (ev == null || ev < d.min_ev_pct) red.push(`EV ${ev == null ? '?' : ev.toFixed(1) + '%'} < ${d.min_ev_pct}%`);
+  if (odd != null && odd < d.min_odd) red.push(`odd ${odd.toFixed(2)} < ${d.min_odd.toFixed(2)}`);
+  return { played: red.length === 0, stake, redenen: red, groep: g, ratio, n };
+}
+function stijlChip(s) {
+  const a = s.adv; if (!a || !s.orig.played) return '';
+  const lbl = GROEP_NL[a.groep] || a.groep;
+  if (!a.played) {
+    return `<span class="stijl-chip skip" title="Jouw stijl: overslaan — ${escT(a.redenen.join(', '))}. Zulke bets schrap jij bijna altijd.">✂ jij: overslaan</span>`;
+  }
+  if (zelfdeGetal(a.stake, +s.orig.stake)) return '';
+  const bron = a.n >= 5 ? `${a.n} keer ${lbl} met modelinzet €${+s.orig.stake}` : `gemiddelde bij ${lbl}`;
+  return `<span class="stijl-chip" title="Jouw stijl: modelinzet €${+s.orig.stake} → €${a.stake} (${Math.round(a.ratio * 100)}% — mediaan van ${escT(bron)})">stijl: €${+s.orig.stake} → €${a.stake}</span>`;
+}
+function tekenStartpunt() {
+  const R = regels(), box = document.getElementById('startpunt');
+  if (!R) { box.hidden = true; return; }
+  box.hidden = false;
+  const sp = startpunt();
+  box.querySelectorAll('[data-start]').forEach(bt => {
+    bt.classList.toggle('on', bt.getAttribute('data-start') === sp);
+    bt.onclick = () => zetStartpunt(bt.getAttribute('data-start'));
+  });
+  const t = R.toetsing || {}, b = R.bron || {};
+  const uitleg = document.getElementById('startpunt-uitleg');
+  uitleg.textContent = `ⓘ ${b.batches || '?'} weken geleerd`;
+  uitleg.title = `Jouw stijl = geleerd uit ${b.regels || '?'} logboekregels (${b.batches || '?'} batches).\n` +
+    `Schrappen: EV < ${R.drop.min_ev_pct}% of odd < ${R.drop.min_odd.toFixed(2)}.` +
+    (t.spelen_trefzeker_pct ? `\nGetoetst op een week die hij niet kende: spelen/schrappen ${t.spelen_trefzeker_pct}% goed, ` +
+      `inzet gemiddeld €${(t.inzet_afwijking_advies ?? 0).toFixed(2)} naast jouw keuze (model: €${(t.inzet_afwijking_model ?? 0).toFixed(2)}).` : '') +
+    `\nAlles blijft aan te passen; je logboek legt beide vast.`;
+}
+function zetStartpunt(v) {
+  if (v === startpunt()) return;
+  const nChg = Object.values(SEL).filter(s => vanStart(s).some(w => w !== 'odd_ingevuld')).length;
+  if (nChg && !confirm(`Startpunt wisselen naar "${v === 'stijl' ? 'Jouw stijl' : 'Model'}"?\n\n` +
+      `Je ${nChg} eigen aanpassing(en) in deze batch worden teruggezet (eigen picks en ingevulde odds blijven).`)) return;
+  try { localStorage.setItem(STARTPUNT_KEY, v); } catch(e) {}
+  // keuzes van deze batch wissen, eigen picks en odds bewaren
+  const k = leesKeuzes();
+  if (k) {
+    const sel = {};
+    Object.entries(k.sel || {}).forEach(([id, x]) => { sel[id] = { book_odd: x.book_odd }; });
+    try { localStorage.setItem(KEUZES_KEY_PREFIX + batchId(), JSON.stringify({ sel, custom: k.custom || [] })); } catch(e) {}
+  }
+  initSelections(); render();
+}
+
 function noteHTML(lg, m) {
   const n = notitieVan(lg.key, m);
   return `<details class="note" data-note="${escT(matchKey(lg.key, m))}">
@@ -840,7 +981,7 @@ function verversNotitieStaat(el, lg, m) {
   const box = el.querySelector('details.note'); if (!box) return;
   const n = notitieVan(lg.key, m);
   const regels = betsVanMatch(lg, m).map(beschrijf).filter(Boolean);
-  const echteChg = betsVanMatch(lg, m).filter(s => wijzigingen(s).some(w => w !== 'odd_ingevuld')).length;
+  const echteChg = betsVanMatch(lg, m).filter(s => vanStart(s).some(w => w !== 'odd_ingevuld')).length;
   const st = box.querySelector('.note-state');
   const bits = [];
   if (echteChg) bits.push(`<span class="chg">${echteChg} aangepast</span>`);
@@ -854,7 +995,7 @@ function verversNotitieStaat(el, lg, m) {
 }
 function markeer(el, lg, m, id) {
   const tr = el.querySelector(`tr[data-id="${CSS.escape(id)}"]`);
-  if (tr) tr.classList.toggle('changed', wijzigingen(SEL[id]).length > 0);
+  if (tr) tr.classList.toggle('changed', vanStart(SEL[id]).length > 0);
   verversNotitieStaat(el, lg, m);
   vulDekking(el, lg, m);
 }
@@ -1044,6 +1185,10 @@ function batchRijen(picksNr) {
       fair_odd: r4(b.fair_odd),
       recommended: isRec ? 1 : 0,
       had_warning: (s.match.warnings || []).length ? 1 : 0,
+      had_caution: (s.match.cautions || []).length ? 1 : 0,
+      advice_played: s.adv ? (s.adv.played ? 1 : 0) : '',
+      advice_stake: s.adv ? s.adv.stake : '',
+      startpunt: regels() ? startpunt() : 'model',
       model_played: o.played ? 1 : 0,
       model_stake: o.stake ?? '',
       model_book_odd: r4(o.book_odd),
@@ -1076,6 +1221,7 @@ function legBatchVast(picksNr) {
 // ── CSV-export ──
 const LOG_KOLOMMEN = ['batch_id','logged_at','picks_nr','bet_id','league','home','away','match_date',
   'market','type','bookmaker','lambda_home','lambda_away','model_prob','fair_odd','recommended','had_warning',
+  'had_caution','advice_played','advice_stake','startpunt',
   'model_played','model_stake','model_book_odd','model_ev_pct',
   'final_played','final_stake','final_book_odd','final_ev_pct','stake_diff','odd_diff',
   'changes','tags','match_note','batch_note'];
