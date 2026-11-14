@@ -258,6 +258,29 @@
     .hoofdtab { padding:8px 12px; font-size:13.5px; }
   }
 
+  /* ── combi picks ───────────────────────────────────────────────────── */
+  .combi-intro { background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:16px 20px; margin-bottom:16px; max-width:720px; }
+  .combi-intro h2 { font-size:16px; font-weight:800; margin-bottom:8px; letter-spacing:-0.2px; }
+  .combi-intro ul { list-style:none; display:flex; flex-direction:column; gap:7px; }
+  .combi-intro li { font-size:13px; color:var(--ink-dim); padding-left:16px; position:relative; line-height:1.5; }
+  .combi-intro li::before { content:""; position:absolute; left:2px; top:8px; width:6px; height:6px; border-radius:50%; background:var(--signal); }
+  .combi-intro li.let-op { color:var(--ink-faint); font-size:12px; }
+  .combi-intro li.let-op::before { background:var(--ink-faint); }
+  .ckaart { margin-bottom:16px; }
+  .ckaart .dk-kop .t1 span { color:var(--signal); }
+  .ckaart .cijfers { display:flex; gap:16px; flex-wrap:wrap; padding:10px 20px; border-bottom:1px solid var(--line-soft); font-family:var(--mono); font-size:11.5px; color:var(--ink-dim); }
+  .ckaart .cijfers b { color:var(--ink); font-weight:700; }
+  .ckaart .stand b.plus { color:var(--signal); } .ckaart .stand b.min { color:var(--neg); }
+  .lijntag { font-family:var(--mono); font-size:9.5px; color:var(--warn); border:1px solid rgba(240,162,75,.45); padding:1px 7px; border-radius:20px; cursor:help; }
+  .onderbouwing { margin-top:6px; }
+  .onderbouwing summary { font-family:var(--mono); font-size:10.5px; color:var(--ink-faint); cursor:pointer; list-style:none; }
+  .onderbouwing summary::-webkit-details-marker { display:none; }
+  .onderbouwing summary::before { content:"▸ "; }
+  .onderbouwing[open] summary::before { content:"▾ "; }
+  .onderbouwing ul { list-style:none; margin-top:4px; font-size:12px; color:var(--ink-dim); display:flex; flex-direction:column; gap:2px; }
+  .onderbouwing .orig { color:var(--warn); }
+  .papierlabel { font-family:var(--mono); font-size:10px; color:var(--ink-faint); border:1px dashed var(--line); padding:2px 8px; border-radius:20px; }
+
   /* ── kaart-modus (?kaart=JJJJ-MM-DD): alleen de kaart, voor een screenshot ── */
   body.kaart-modus { padding:24px; background:var(--bg); }
   body.kaart-modus > nav, body.kaart-modus > header, body.kaart-modus .hoofdtabs, body.kaart-modus .dagnav,
@@ -1587,8 +1610,10 @@ const QS = new URLSearchParams(location.search);
 const KAART = QS.has('kaart');                       // ?kaart=2026-10-17 → alleen de kaart (screenshot)
 let DAILY = null;                                    // inhoud van daily_picks.json
 let DAILY_DAG = null;                                // getoonde dag (JJJJ-MM-DD)
-let HOOFDTAB = null;                                 // 'daily' | 'week'
+let HOOFDTAB = null;                                 // 'daily' | 'week' | 'combi'
 const HOOFDTAB_SLEUTEL = 'jbb_hoofdtab';
+let COMBI = null;                                    // inhoud van combi_picks.json
+let COMBI_WEEK = null;                               // index van de getoonde week
 if (KAART) document.body.classList.add('kaart-modus');
 
 function vandaagIso() {
@@ -1655,9 +1680,10 @@ function kiesHoofdtab() {
   if (KAART) return 'daily';
   if (location.hash.toLowerCase().includes('daily')) return 'daily';
   if (location.hash.toLowerCase().includes('week')) return 'week';
+  if (location.hash.toLowerCase().includes('combi')) return 'combi';
   if (BEHEER) return 'week';
   let bewaard = null; try { bewaard = sessionStorage.getItem(HOOFDTAB_SLEUTEL); } catch(e) {}
-  if (bewaard === 'daily' || bewaard === 'week') return bewaard;
+  if (bewaard === 'daily' || bewaard === 'week' || bewaard === 'combi') return bewaard;
   const v = vandaagIso();
   return dailyDagen().some(d => d.datum >= v) ? 'daily' : 'week';
 }
@@ -1669,6 +1695,7 @@ function hoofdtabsHTML() {
   return `<nav class="hoofdtabs" aria-label="Weergave">
       <button class="hoofdtab ${HOOFDTAB === 'daily' ? 'active' : ''}" data-hoofdtab="daily" type="button"><span class="ster">★</span> Daily picks<span class="cnt">${nDaily}</span></button>
       <button class="hoofdtab ${HOOFDTAB === 'week' ? 'active' : ''}" data-hoofdtab="week" type="button">Deze week<span class="cnt">${nWeek}</span></button>
+      <button class="hoofdtab ${HOOFDTAB === 'combi' ? 'active' : ''}" data-hoofdtab="combi" type="button"><span class="ster">◆</span> Combi Picks<span class="cnt">${nCombi()}</span></button>
     </nav>`;
 }
 function koppelHoofdtabs() {
@@ -1681,10 +1708,11 @@ function koppelHoofdtabs() {
     };
   });
   const sub = document.getElementById('sub-label');
-  if (sub) sub.textContent = HOOFDTAB === 'daily' ? '● daily picks' : '● deze week';
+  if (sub) sub.textContent = HOOFDTAB === 'daily' ? '● daily picks' : HOOFDTAB === 'combi' ? '● combi picks' : '● deze week';
 }
 function tekenAlles() {
-  if (HOOFDTAB === 'daily') renderDaily();
+  if (HOOFDTAB === 'combi') renderCombi();
+  else if (HOOFDTAB === 'daily') renderDaily();
   else if (DATA && DATA.bets && DATA.bets.length) render();
   else renderEmpty();
 }
@@ -1788,15 +1816,153 @@ function renderDaily() {
   if (KAART) document.body.setAttribute('data-kaart-klaar', '1');   // signaal voor een screenshot-script
 }
 
+// ═════════════════════════════════════════════════════════════════════════
+//  COMBI PICKS — derde hoofdtabblad
+// ═════════════════════════════════════════════════════════════════════════
+// Bron: combi_picks.json in deze map (server: combi_picks.py). Per picks-week:
+// een onderbouwing uit je historie, de gekozen legs en (max.) drie combi's
+// met een totale odd tussen 5 en 30. Papieren inzet: telt niet mee in de bankroll.
+async function laadCombi() {
+  const t = await haalTekst('combi_picks.json');
+  if (!t) return;
+  try { COMBI = JSON.parse(t); } catch(e) {}
+}
+function combiWeken() { return ((COMBI && COMBI.weken) || []).filter(w => (w.combis || []).length || (w.inleiding || []).length); }
+function nCombi() { const w = combiWeken(); return w.length ? (w[w.length - 1].combis || []).length : 0; }
+function legStatus(l) {
+  const r = l && l.resultaat;
+  if (r && r.gf) return { k: r.gf === 'G' ? 'goed' : r.gf === 'F' ? 'fout' : 'push', uitslag: r.uitslag || '' };
+  // nog niet door de server afgerekend: probeer de historie-CSV (alleen als je hem zelf speelde)
+  if (l && l.gespeeld) { const c = resultaatVan(l); if (c) return { k: c.uitkomst, uitslag: c.uitslag || '' }; }
+  return null;
+}
+function combiStatus(c, legs) {
+  const r = c.resultaat;
+  if (r && r.gf) return { k: r.gf === 'G' ? 'goed' : r.gf === 'F' ? 'fout' : 'push', winst: +r.winst || 0, odd: r.odd || c.odd };
+  const st = c.legs.map(i => legStatus(legs[i]));
+  if (st.some(x => x && x.k === 'fout')) return { k: 'fout', winst: -(+c.inzet || 0), odd: c.odd, voorlopig: true };
+  return null;
+}
+function combiTotaal() {
+  let n = 0, g = 0, inzet = 0, winst = 0;
+  combiWeken().forEach(w => {
+    const legs = Object.fromEntries((w.legs || []).map(l => [l.id, l]));
+    (w.combis || []).forEach(c => {
+      const s = combiStatus(c, legs); if (!s || s.voorlopig) return;
+      n++; inzet += +c.inzet || 0; winst += s.winst; if (s.k === 'goed') g++;
+    });
+  });
+  return { n, g, inzet, winst };
+}
+function fmtNl(v, d) { return (+v).toLocaleString('nl-NL', { minimumFractionDigits: d, maximumFractionDigits: d }); }
+
+function combiLegHTML(l, i) {
+  const st = legStatus(l);
+  const typ = (l.type === 'O/U' || /^O\/U/i.test(l.market || '')) ? 'O/U' : '1X2';
+  const ev = parseFloat(l.ev_pct);
+  const evTxt = isFinite(ev) ? `<span class="ev">${ev < 0 ? '−' : '+'}${Math.abs(ev).toFixed(1)}%</span>` : '';
+  const kans = l.model_prob ? `kans ${Math.round(l.model_prob * 100)}% · ` : '';
+  const uitkomst = st ? `<span class="uitkomst ${st.k}">${st.k === 'goed' ? 'goed' : st.k === 'fout' ? 'fout' : 'push'}${st.uitslag ? ' · ' + esc(st.uitslag) : ''}</span>` : '';
+  const orig = l.origineel ? `<li class="orig">${esc(l.lijn_aangepast || '')}</li>` : '';
+  return `<div class="dk-pick ${st ? st.k : ''}">
+      <span class="nr">${st ? (st.k === 'goed' ? '✓' : st.k === 'fout' ? '✗' : '=') : i + 1}</span>
+      <div style="min-width:0">
+        <div class="meta"><span class="lg-badge">${esc(l.league_label || l.league || '')}</span><span>${fmtDate(l.match_date)}</span>
+          ${l.origineel ? `<span class="lijntag" title="${esc(l.lijn_aangepast || '')}">lijn aangepast: ${esc(l.origineel.label)} → ${esc(l.label)}</span>` : ''}
+          ${l.gespeeld === false && !l.origineel ? '<span class="papier">niet in je weekpicks</span>' : ''}</div>
+        <div class="wed">${esc(l.home)}<span class="vs">vs</span>${esc(l.away)}</div>
+        <div class="markt"><span class="mkt-type">${typ}</span><span class="pick-name">${esc(l.label)}</span>${uitkomst}</div>
+        <details class="onderbouwing"><summary>waarom deze leg</summary><ul>${orig}${(l.onderbouwing || []).map(t => `<li>${esc(t)}</li>`).join('')}</ul></details>
+      </div>
+      <div class="rechts">
+        <span class="odd">${(+l.book_odd).toFixed(2)}</span>
+        <span class="sub">${kans}${evTxt}</span>
+      </div>
+    </div>`;
+}
+
+function combiKaartHTML(c, legs) {
+  const s = combiStatus(c, legs);
+  const uitbetaling = (+c.inzet || 0) * (+c.odd || 0);
+  const stand = s
+    ? `<div class="stand"><b class="${s.winst > 0 ? 'plus' : s.winst < 0 ? 'min' : ''}">${fmtPL(s.winst)}</b><small>${s.k === 'goed' ? 'gewonnen' : s.k === 'fout' ? (s.voorlopig ? 'verloren (leg fout)' : 'verloren') : 'push'}</small></div>`
+    : `<div class="stand"><b>${fmtNl(c.odd, 2)}</b><small>totale odd</small></div>`;
+  return `<div class="dkaart ckaart">
+      <div class="dk-kop">
+        <img src="../assets/mark.png" alt="" width="46" height="46">
+        <div><div class="t1">Combi <span>${esc(c.naam)}</span></div><div class="t2">${c.legs.length} legs · odd ${fmtNl(c.odd, 2)}</div></div>
+        ${stand}
+      </div>
+      <div class="cijfers">
+        <span>kans (model) <b>${fmtNl(c.kans * 100, 1)}%</b></span>
+        <span>EV <b>${c.ev_pct >= 0 ? '+' : '−'}${fmtNl(Math.abs(c.ev_pct), 1)}%</b></span>
+        <span>historie-score <b>${c.score >= 0 ? '+' : '−'}${fmtNl(Math.abs(c.score * 100), 1)}</b></span>
+        <span>inzet <b>€${fmtNl(c.inzet, 2)}</b> → <b>€${fmtNl(uitbetaling, 2)}</b></span>
+        <span class="papierlabel" title="Combi's tellen niet mee in je bankroll of de historie-totalen">papieren inzet</span>
+      </div>
+      ${c.legs.map((id, i) => legs[id] ? combiLegHTML(legs[id], i) : '').join('')}
+    </div>`;
+}
+
+function renderCombi() {
+  const main = document.getElementById('main');
+  const weken = combiWeken();
+  let html = beheerBarHTML() + hoofdtabsHTML();
+  if (!weken.length) {
+    main.innerHTML = html + `<div class="empty"><h2>Nog geen combi picks</h2>
+      <p>Zodra de picks van deze week online staan, stelt het model hier combi's samen (totale odd 5 – 30), onderbouwd met je historie.</p></div>`;
+    koppelHoofdtabs(); koppelBeheer(); return;
+  }
+  if (COMBI_WEEK == null || COMBI_WEEK >= weken.length) COMBI_WEEK = weken.length - 1;
+  const w = weken[COMBI_WEEK];
+  const legs = Object.fromEntries((w.legs || []).map(l => [l.id, l]));
+  const gemaakt = w.gemaakt ? new Date(w.gemaakt).toLocaleDateString('nl-NL', { weekday:'long', day:'numeric', month:'long' }) : '';
+  html += `<div class="dagnav">
+      <button type="button" id="cw-vorige" aria-label="Vorige week" ${COMBI_WEEK <= 0 ? 'disabled' : ''}>‹</button>
+      <button type="button" id="cw-volgende" aria-label="Volgende week" ${COMBI_WEEK >= weken.length - 1 ? 'disabled' : ''}>›</button>
+      <span class="dagtitel">Combi's ${esc((w.picks_bestand || '').replace(/^picks_data_?|\.json$/g, '') ? 'week ' + (w.picks_bestand || '').replace(/^picks_data_?|\.json$/g, '') : '')}<small>gemaakt ${esc(gemaakt)}</small></span>
+    </div>`;
+  const inl = (w.inleiding || []);
+  const intro = `<div class="combi-intro"><h2>Waarom deze combi's</h2><ul>${inl.map((r, i) =>
+    `<li class="${i === inl.length - 1 && /^let op/i.test(r) ? 'let-op' : ''}">${esc(r)}</li>`).join('')}</ul></div>`;
+  const kaarten = (w.combis || []).map(c => combiKaartHTML(c, legs)).join('');
+
+  const t = combiTotaal();
+  let zij = `<div class="zijblok"><h3>Combi's totaal (papier)</h3>`;
+  zij += t.n
+    ? `<div class="groot ${plClass(t.winst)}">${fmtPL(t.winst)}</div>
+       <div class="klein">${t.g} van ${t.n} combi's gewonnen</div>
+       <div class="klein">rendement ${t.inzet ? ((t.winst >= 0 ? '+' : '−') + Math.abs(t.winst / t.inzet * 100).toFixed(1) + '%') : '—'} over €${fmtNl(t.inzet, 2)} inzet</div>`
+    : `<div class="klein">nog geen afgeronde combi's</div>`;
+  zij += `<div class="klein" style="color:var(--ink-faint);margin-top:8px">Telt niet mee in je bankroll.</div>
+    <a class="linkknop" href="../historie/#combis" style="display:inline-block;text-decoration:none">alle combi's in de historie →</a></div>`;
+  const reserve = (w.legs || []).filter(l => l.reserve);
+  if (reserve.length) {
+    zij += `<div class="zijblok"><h3>Ook onderbouwd, niet in een combi</h3>${reserve.map(l =>
+      `<div class="recap-rij"><span class="w"><b>${esc(l.home)} – ${esc(l.away)}</b> · ${esc(l.label)}</span><span class="u open">${(+l.book_odd).toFixed(2)}</span></div>`).join('')}</div>`;
+  }
+  html += `<div class="daily-grid"><div>${intro}${kaarten || '<div class="empty"><p>Deze week geen combi binnen de odd-grenzen.</p></div>'}</div><div class="zijkolom">${zij}</div></div>`;
+  main.innerHTML = html;
+  document.getElementById('upd').textContent = fmtUpd(COMBI.bijgewerkt);
+  document.getElementById('cnt').textContent = (w.combis || []).length;
+  const vb = document.getElementById('cw-vorige'), nb = document.getElementById('cw-volgende');
+  if (vb) vb.onclick = () => { if (COMBI_WEEK > 0) { COMBI_WEEK--; renderCombi(); } };
+  if (nb) nb.onclick = () => { if (COMBI_WEEK < weken.length - 1) { COMBI_WEEK++; renderCombi(); } };
+  koppelHoofdtabs();
+  koppelBeheer();
+}
+
 // render() en renderEmpty() van de week-weergave kennen het hoofdtabblad niet;
 // hier krijgen ze het erbij, zonder de bestaande code te veranderen.
 const _renderWeek = render, _renderLeeg = renderEmpty;
 render = function () {
+  if (HOOFDTAB === 'combi') { renderCombi(); return; }
   if (HOOFDTAB === 'daily') { renderDaily(); return; }
   _renderWeek();
   voegHoofdtabsToe();
 };
 renderEmpty = function () {
+  if (HOOFDTAB === 'combi') { renderCombi(); return; }
   if (HOOFDTAB === 'daily') { renderDaily(); return; }
   _renderLeeg();
   voegHoofdtabsToe();
@@ -1816,11 +1982,14 @@ function voegHoofdtabsToe() {
   if (KAART) {
     const d = QS.get('kaart'); if (/^\d{4}-\d{2}-\d{2}$/.test(d || '')) DAILY_DAG = d;
   }
-  await laadDaily();
+  await Promise.all([laadDaily(), laadCombi()]);
   if (KAART && QS.get('kaart') && !/^\d{4}-\d{2}-\d{2}$/.test(QS.get('kaart'))) DAILY_DAG = null;
   HOOFDTAB = kiesHoofdtab();
   tekenAlles();
-  setInterval(async () => { await laadDaily(); if (HOOFDTAB === 'daily') renderDaily(); }, VERVERS_SECONDEN * 1000);
+  setInterval(async () => {
+    await Promise.all([laadDaily(), laadCombi()]);
+    if (HOOFDTAB === 'daily') renderDaily(); else if (HOOFDTAB === 'combi') renderCombi();
+  }, VERVERS_SECONDEN * 1000);
 })();
 
 boot();
