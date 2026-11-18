@@ -1,5 +1,877 @@
 {
   "versie": 1,
-  "bijgewerkt": "2026-11-15T07:13:48.599668+00:00",
-  "weken": []
+  "bijgewerkt": "2026-11-18T21:44:57.995748+00:00",
+  "weken": [
+    {
+      "sleutel": "picks_data.json|2026-11-18T19:03:13.280130+00:00",
+      "picks_bestand": "picks_data.json",
+      "gemaakt": "2026-11-18T21:44:57.991237+00:00",
+      "instellingen": {
+        "combi_min_odd": 5.0,
+        "combi_max_odd": 30.0,
+        "combi_inzet": 2.5,
+        "combi_max_legs": 5,
+        "combi_min_bets": 25,
+        "combi_lijn_min_ev": -5.0,
+        "combi_aantal": 3
+      },
+      "analyse": {
+        "bets": 1662,
+        "periode": [
+          "03/04/26",
+          "08/11/26"
+        ],
+        "krimp": 30,
+        "top": [
+          {
+            "dim": "comp_markt",
+            "waarde": "Liga Portugal · Gelijkspel",
+            "n": 33,
+            "roi": 0.767,
+            "score": 0.4017,
+            "marge": 0.9586,
+            "trefkans": 0.3636,
+            "roi_eur": 0.486,
+            "telt": true
+          },
+          {
+            "dim": "comp_markt",
+            "waarde": "Eredivisie · Gelijkspel",
+            "n": 26,
+            "roi": 0.7482,
+            "score": 0.3474,
+            "marge": 0.8874,
+            "trefkans": 0.3846,
+            "roi_eur": 0.7765,
+            "telt": true
+          },
+          {
+            "dim": "odd",
+            "waarde": "5,00+",
+            "n": 104,
+            "roi": 0.4098,
+            "score": 0.318,
+            "marge": 0.5624,
+            "trefkans": 0.2019,
+            "roi_eur": 0.2868,
+            "telt": true
+          },
+          {
+            "dim": "edge",
+            "waarde": "0–5%",
+            "n": 62,
+            "roi": 0.3436,
+            "score": 0.2315,
+            "marge": 0.4796,
+            "trefkans": 0.3871,
+            "roi_eur": 0.0919,
+            "telt": true
+          },
+          {
+            "dim": "comp_markt",
+            "waarde": "Serie A · Winst",
+            "n": 119,
+            "roi": 0.2678,
+            "score": 0.2139,
+            "marge": 0.3322,
+            "trefkans": 0.479,
+            "roi_eur": 0.1775,
+            "telt": true
+          },
+          {
+            "dim": "markt",
+            "waarde": "Gelijkspel",
+            "n": 289,
+            "roi": 0.2052,
+            "score": 0.1859,
+            "marge": 0.234,
+            "trefkans": 0.2907,
+            "roi_eur": 0.1631,
+            "telt": true
+          },
+          {
+            "dim": "comp_markt",
+            "waarde": "Ligue 1 · Winst",
+            "n": 96,
+            "roi": 0.2051,
+            "score": 0.1563,
+            "marge": 0.2747,
+            "trefkans": 0.5,
+            "roi_eur": 0.1539,
+            "telt": true
+          },
+          {
+            "dim": "comp_markt",
+            "waarde": "Premier League · Gelijkspel",
+            "n": 50,
+            "roi": 0.2492,
+            "score": 0.1557,
+            "marge": 0.5133,
+            "trefkans": 0.32,
+            "roi_eur": 0.3369,
+            "telt": true
+          },
+          {
+            "dim": "comp_markt",
+            "waarde": "La Liga · Over 2.5",
+            "n": 41,
+            "roi": 0.2326,
+            "score": 0.1343,
+            "marge": 0.2959,
+            "trefkans": 0.6341,
+            "roi_eur": 0.2434,
+            "telt": true
+          },
+          {
+            "dim": "comp",
+            "waarde": "Ligue 1",
+            "n": 215,
+            "roi": 0.1442,
+            "score": 0.1266,
+            "marge": 0.1771,
+            "trefkans": 0.4884,
+            "roi_eur": 0.124,
+            "telt": true
+          },
+          {
+            "dim": "comp",
+            "waarde": "Bundesliga",
+            "n": 189,
+            "roi": 0.1346,
+            "score": 0.1161,
+            "marge": 0.2121,
+            "trefkans": 0.4868,
+            "roi_eur": 0.0353,
+            "telt": true
+          },
+          {
+            "dim": "comp_markt",
+            "waarde": "La Liga · Gelijkspel",
+            "n": 50,
+            "roi": 0.1776,
+            "score": 0.111,
+            "marge": 0.4624,
+            "trefkans": 0.34,
+            "roi_eur": 0.2129,
+            "telt": true
+          }
+        ],
+        "zwak": [
+          {
+            "dim": "comp_markt",
+            "waarde": "Serie A · Gelijkspel",
+            "n": 75,
+            "roi": -0.4236,
+            "score": -0.3026,
+            "marge": 0.3033,
+            "trefkans": 0.16,
+            "roi_eur": -0.4361,
+            "telt": true
+          },
+          {
+            "dim": "comp_markt",
+            "waarde": "Liga Portugal · Winst",
+            "n": 73,
+            "roi": -0.2514,
+            "score": -0.1781,
+            "marge": 0.2815,
+            "trefkans": 0.3151,
+            "roi_eur": -0.2,
+            "telt": true
+          },
+          {
+            "dim": "comp_markt",
+            "waarde": "Eredivisie · Under 3.5",
+            "n": 42,
+            "roi": -0.1825,
+            "score": -0.1064,
+            "marge": 0.2773,
+            "trefkans": 0.4524,
+            "roi_eur": -0.1892,
+            "telt": true
+          },
+          {
+            "dim": "comp_markt",
+            "waarde": "Eredivisie · Winst",
+            "n": 102,
+            "roi": -0.1043,
+            "score": -0.0806,
+            "marge": 0.2157,
+            "trefkans": 0.451,
+            "roi_eur": 0.0479,
+            "telt": true
+          },
+          {
+            "dim": "comp_markt",
+            "waarde": "Serie A · Over 2.5",
+            "n": 38,
+            "roi": -0.1134,
+            "score": -0.0634,
+            "marge": 0.3386,
+            "trefkans": 0.4211,
+            "roi_eur": -0.1695,
+            "telt": true
+          },
+          {
+            "dim": "comp_markt",
+            "waarde": "Premier League · Winst",
+            "n": 102,
+            "roi": -0.0752,
+            "score": -0.0581,
+            "marge": 0.2612,
+            "trefkans": 0.3824,
+            "roi_eur": -0.0935,
+            "telt": true
+          }
+        ]
+      },
+      "inleiding": [
+        "Gebaseerd op 1662 afgerekende bets uit je historie. Rendement per unit (vlakke inzet); segmenten met minder dan 25 bets tellen niet mee.",
+        "Best presterende competitie(s): Ligue 1: +14,4% ROI over 215 bets (trefkans 49%); Bundesliga: +13,5% ROI over 189 bets (trefkans 49%).",
+        "Best presterende markt(en): Gelijkspel: +20,5% ROI over 289 bets (trefkans 29%); Over 2.5: +5,4% ROI over 198 bets (trefkans 55%).",
+        "Sterkste combinaties competitie × markt: Liga Portugal · Gelijkspel: +76,7% ROI over 33 bets (trefkans 36%); Eredivisie · Gelijkspel: +74,8% ROI over 26 bets (trefkans 38%); Serie A · Winst: +26,8% ROI over 119 bets (trefkans 48%).",
+        "Bewust vermeden (negatief over voldoende bets): Serie A: −2,2% ROI over 314 bets; Under 2.5: −1,7% ROI over 238 bets.",
+        "Eredivisie · Gelijkspel (competitie × markt, +74,8% over 26 bets) → FC Utrecht – SC Cambuur-Leeuwarden (Gelijkspel), Telstar 1963 – PEC Zwolle (Gelijkspel).",
+        "5,00+ (bookie-odd, +41,0% over 104 bets) → Bayer 04 Leverkusen – SC Paderborn 07 (Gelijkspel).",
+        "0–5% (edge, +34,4% over 62 bets) → ES Troyes AC – Le Havre AC (Le Havre AC wint).",
+        "Let op: ook een sterk segment kan toeval zijn — de ± marge staat per segment in de onderbouwing. Combi's zijn papieren bets en tellen niet mee in je bankroll."
+      ],
+      "legs": [
+        {
+          "id": "bayer 04 leverkusen|sc paderborn 07|1X2 Gelijkspel",
+          "home": "Bayer 04 Leverkusen",
+          "away": "SC Paderborn 07",
+          "match_date": "2026-11-21T14:30:00Z",
+          "league": "bundesliga",
+          "league_label": "Bundesliga",
+          "market": "1X2 Gelijkspel",
+          "label": "Gelijkspel",
+          "type": "1X2",
+          "book_odd": 6.91,
+          "fair_odd": 4.545,
+          "model_prob": 0.22,
+          "ev_pct": 52.019999999999996,
+          "score": 0.1771,
+          "onderbouwing": [
+            "5,00+: +41,0% ROI over 104 bets (trefkans 20%) [bookie-odd]",
+            "Gelijkspel: +20,5% ROI over 289 bets (trefkans 29%) [markt]",
+            "Bundesliga: +13,5% ROI over 189 bets (trefkans 49%) [competitie]",
+            "50%+: +12,0% ROI over 82 bets (trefkans 35%) [edge]"
+          ],
+          "segmenten": [
+            {
+              "dim": "comp",
+              "waarde": "Bundesliga",
+              "n": 189,
+              "roi": 0.1346,
+              "score": 0.1161
+            },
+            {
+              "dim": "markt",
+              "waarde": "Gelijkspel",
+              "n": 289,
+              "roi": 0.2052,
+              "score": 0.1859
+            },
+            {
+              "dim": "odd",
+              "waarde": "5,00+",
+              "n": 104,
+              "roi": 0.4098,
+              "score": 0.318
+            },
+            {
+              "dim": "edge",
+              "waarde": "50%+",
+              "n": 82,
+              "roi": 0.1205,
+              "score": 0.0882
+            }
+          ],
+          "gespeeld": true
+        },
+        {
+          "id": "fc utrecht|sc cambuur leeuwarden|1X2 Gelijkspel",
+          "home": "FC Utrecht",
+          "away": "SC Cambuur-Leeuwarden",
+          "match_date": "2026-11-21T17:45:00Z",
+          "league": "eredivisie",
+          "league_label": "Eredivisie",
+          "market": "1X2 Gelijkspel",
+          "label": "Gelijkspel",
+          "type": "1X2",
+          "book_odd": 3.9,
+          "fair_odd": 4.86,
+          "model_prob": 0.2058,
+          "ev_pct": -19.816,
+          "score": 0.1449,
+          "onderbouwing": [
+            "Eredivisie · Gelijkspel: +74,8% ROI over 26 bets (trefkans 38%) [competitie × markt]",
+            "Gelijkspel: +20,5% ROI over 289 bets (trefkans 29%) [markt]",
+            "3,50–5,00: +5,4% ROI over 275 bets (trefkans 26%) [bookie-odd]",
+            "Eredivisie: −0,2% ROI over 214 bets (trefkans 45%) [competitie]"
+          ],
+          "segmenten": [
+            {
+              "dim": "comp",
+              "waarde": "Eredivisie",
+              "n": 214,
+              "roi": -0.0022,
+              "score": -0.0019
+            },
+            {
+              "dim": "markt",
+              "waarde": "Gelijkspel",
+              "n": 289,
+              "roi": 0.2052,
+              "score": 0.1859
+            },
+            {
+              "dim": "comp_markt",
+              "waarde": "Eredivisie · Gelijkspel",
+              "n": 26,
+              "roi": 0.7482,
+              "score": 0.3474
+            },
+            {
+              "dim": "odd",
+              "waarde": "3,50–5,00",
+              "n": 275,
+              "roi": 0.0535,
+              "score": 0.0483
+            }
+          ],
+          "gespeeld": true
+        },
+        {
+          "id": "telstar 1963|pec zwolle|1X2 Gelijkspel",
+          "home": "Telstar 1963",
+          "away": "PEC Zwolle",
+          "match_date": "2026-11-21T20:00:00Z",
+          "league": "eredivisie",
+          "league_label": "Eredivisie",
+          "market": "1X2 Gelijkspel",
+          "label": "Gelijkspel",
+          "type": "1X2",
+          "book_odd": 3.5,
+          "fair_odd": 4.18,
+          "model_prob": 0.2392,
+          "ev_pct": -16.280000000000005,
+          "score": 0.1449,
+          "onderbouwing": [
+            "Eredivisie · Gelijkspel: +74,8% ROI over 26 bets (trefkans 38%) [competitie × markt]",
+            "Gelijkspel: +20,5% ROI over 289 bets (trefkans 29%) [markt]",
+            "3,50–5,00: +5,4% ROI over 275 bets (trefkans 26%) [bookie-odd]",
+            "Eredivisie: −0,2% ROI over 214 bets (trefkans 45%) [competitie]"
+          ],
+          "segmenten": [
+            {
+              "dim": "comp",
+              "waarde": "Eredivisie",
+              "n": 214,
+              "roi": -0.0022,
+              "score": -0.0019
+            },
+            {
+              "dim": "markt",
+              "waarde": "Gelijkspel",
+              "n": 289,
+              "roi": 0.2052,
+              "score": 0.1859
+            },
+            {
+              "dim": "comp_markt",
+              "waarde": "Eredivisie · Gelijkspel",
+              "n": 26,
+              "roi": 0.7482,
+              "score": 0.3474
+            },
+            {
+              "dim": "odd",
+              "waarde": "3,50–5,00",
+              "n": 275,
+              "roi": 0.0535,
+              "score": 0.0483
+            }
+          ],
+          "gespeeld": true
+        },
+        {
+          "id": "es troyes ac|le havre ac|1X2 Le Havre AC",
+          "home": "ES Troyes AC",
+          "away": "Le Havre AC",
+          "match_date": "2026-11-20T19:45:00Z",
+          "league": "ligue_1",
+          "league_label": "Ligue 1",
+          "market": "1X2 Le Havre AC",
+          "label": "Le Havre AC wint",
+          "type": "1X2",
+          "book_odd": 3.54,
+          "fair_odd": 3.535,
+          "model_prob": 0.2829,
+          "ev_pct": 0.14,
+          "score": 0.1136,
+          "onderbouwing": [
+            "0–5%: +34,4% ROI over 62 bets (trefkans 39%) [edge]",
+            "Ligue 1 · Winst: +20,5% ROI over 96 bets (trefkans 50%) [competitie × markt]",
+            "Ligue 1: +14,4% ROI over 215 bets (trefkans 49%) [competitie]",
+            "Uitwinst: +11,5% ROI over 182 bets (trefkans 46%) [thuis/uit]",
+            "3,50–5,00: +5,4% ROI over 275 bets (trefkans 26%) [bookie-odd]",
+            "Winst: +2,1% ROI over 697 bets (trefkans 44%) [markt]"
+          ],
+          "segmenten": [
+            {
+              "dim": "comp",
+              "waarde": "Ligue 1",
+              "n": 215,
+              "roi": 0.1442,
+              "score": 0.1266
+            },
+            {
+              "dim": "markt",
+              "waarde": "Winst",
+              "n": 697,
+              "roi": 0.0208,
+              "score": 0.0199
+            },
+            {
+              "dim": "comp_markt",
+              "waarde": "Ligue 1 · Winst",
+              "n": 96,
+              "roi": 0.2051,
+              "score": 0.1563
+            },
+            {
+              "dim": "zijde",
+              "waarde": "Uitwinst",
+              "n": 182,
+              "roi": 0.1153,
+              "score": 0.099
+            },
+            {
+              "dim": "odd",
+              "waarde": "3,50–5,00",
+              "n": 275,
+              "roi": 0.0535,
+              "score": 0.0483
+            },
+            {
+              "dim": "edge",
+              "waarde": "0–5%",
+              "n": 62,
+              "roi": 0.3436,
+              "score": 0.2315
+            }
+          ],
+          "gespeeld": true
+        },
+        {
+          "id": "paris fc|angers sco|1X2 Gelijkspel",
+          "home": "Paris FC",
+          "away": "Angers SCO",
+          "match_date": "2026-11-22T14:00:00Z",
+          "league": "ligue_1",
+          "league_label": "Ligue 1",
+          "market": "1X2 Gelijkspel",
+          "label": "Gelijkspel",
+          "type": "1X2",
+          "book_odd": 5.63,
+          "fair_odd": 4.856,
+          "model_prob": 0.2059,
+          "ev_pct": 15.95,
+          "score": 0.1562,
+          "onderbouwing": [
+            "5,00+: +41,0% ROI over 104 bets (trefkans 20%) [bookie-odd]",
+            "Gelijkspel: +20,5% ROI over 289 bets (trefkans 29%) [markt]",
+            "Ligue 1: +14,4% ROI over 215 bets (trefkans 49%) [competitie]",
+            "Ligue 1 · Gelijkspel: +16,1% ROI over 34 bets (trefkans 29%) [competitie × markt]",
+            "15–20%: +7,2% ROI over 255 bets (trefkans 48%) [edge]"
+          ],
+          "segmenten": [
+            {
+              "dim": "comp",
+              "waarde": "Ligue 1",
+              "n": 215,
+              "roi": 0.1442,
+              "score": 0.1266
+            },
+            {
+              "dim": "markt",
+              "waarde": "Gelijkspel",
+              "n": 289,
+              "roi": 0.2052,
+              "score": 0.1859
+            },
+            {
+              "dim": "comp_markt",
+              "waarde": "Ligue 1 · Gelijkspel",
+              "n": 34,
+              "roi": 0.1615,
+              "score": 0.0858
+            },
+            {
+              "dim": "odd",
+              "waarde": "5,00+",
+              "n": 104,
+              "roi": 0.4098,
+              "score": 0.318
+            },
+            {
+              "dim": "edge",
+              "waarde": "15–20%",
+              "n": 255,
+              "roi": 0.0723,
+              "score": 0.0647
+            }
+          ],
+          "gespeeld": true,
+          "reserve": true
+        },
+        {
+          "id": "ogc nice|paris saint germain fc|1X2 Gelijkspel",
+          "home": "OGC Nice",
+          "away": "Paris Saint-Germain FC",
+          "match_date": "2026-11-21T16:15:00Z",
+          "league": "ligue_1",
+          "league_label": "Ligue 1",
+          "market": "1X2 Gelijkspel",
+          "label": "Gelijkspel",
+          "type": "1X2",
+          "book_odd": 5.24,
+          "fair_odd": 4.305,
+          "model_prob": 0.2323,
+          "ev_pct": 21.71,
+          "score": 0.1331,
+          "onderbouwing": [
+            "5,00+: +41,0% ROI over 104 bets (trefkans 20%) [bookie-odd]",
+            "Gelijkspel: +20,5% ROI over 289 bets (trefkans 29%) [markt]",
+            "Ligue 1: +14,4% ROI over 215 bets (trefkans 49%) [competitie]",
+            "Ligue 1 · Gelijkspel: +16,1% ROI over 34 bets (trefkans 29%) [competitie × markt]",
+            "20–30%: −5,5% ROI over 358 bets (trefkans 43%) [edge]"
+          ],
+          "segmenten": [
+            {
+              "dim": "comp",
+              "waarde": "Ligue 1",
+              "n": 215,
+              "roi": 0.1442,
+              "score": 0.1266
+            },
+            {
+              "dim": "markt",
+              "waarde": "Gelijkspel",
+              "n": 289,
+              "roi": 0.2052,
+              "score": 0.1859
+            },
+            {
+              "dim": "comp_markt",
+              "waarde": "Ligue 1 · Gelijkspel",
+              "n": 34,
+              "roi": 0.1615,
+              "score": 0.0858
+            },
+            {
+              "dim": "odd",
+              "waarde": "5,00+",
+              "n": 104,
+              "roi": 0.4098,
+              "score": 0.318
+            },
+            {
+              "dim": "edge",
+              "waarde": "20–30%",
+              "n": 358,
+              "roi": -0.0549,
+              "score": -0.0506
+            }
+          ],
+          "gespeeld": true,
+          "reserve": true
+        },
+        {
+          "id": "como 1907|cagliari calcio|1X2 Cagliari Calcio",
+          "home": "Como 1907",
+          "away": "Cagliari Calcio",
+          "match_date": "2026-11-21T14:00:00Z",
+          "league": "serie_a",
+          "league_label": "Serie A",
+          "market": "1X2 Cagliari Calcio",
+          "label": "Cagliari Calcio wint",
+          "type": "1X2",
+          "book_odd": 10.0,
+          "fair_odd": 15.5,
+          "model_prob": 0.0645,
+          "ev_pct": -35.5,
+          "score": 0.1261,
+          "onderbouwing": [
+            "5,00+: +41,0% ROI over 104 bets (trefkans 20%) [bookie-odd]",
+            "Serie A · Winst: +26,8% ROI over 119 bets (trefkans 48%) [competitie × markt]",
+            "Uitwinst: +11,5% ROI over 182 bets (trefkans 46%) [thuis/uit]",
+            "Winst: +2,1% ROI over 697 bets (trefkans 44%) [markt]",
+            "Serie A: −2,2% ROI over 314 bets (trefkans 40%) [competitie]"
+          ],
+          "segmenten": [
+            {
+              "dim": "comp",
+              "waarde": "Serie A",
+              "n": 314,
+              "roi": -0.0222,
+              "score": -0.0203
+            },
+            {
+              "dim": "markt",
+              "waarde": "Winst",
+              "n": 697,
+              "roi": 0.0208,
+              "score": 0.0199
+            },
+            {
+              "dim": "comp_markt",
+              "waarde": "Serie A · Winst",
+              "n": 119,
+              "roi": 0.2678,
+              "score": 0.2139
+            },
+            {
+              "dim": "zijde",
+              "waarde": "Uitwinst",
+              "n": 182,
+              "roi": 0.1153,
+              "score": 0.099
+            },
+            {
+              "dim": "odd",
+              "waarde": "5,00+",
+              "n": 104,
+              "roi": 0.4098,
+              "score": 0.318
+            }
+          ],
+          "gespeeld": true,
+          "reserve": true
+        },
+        {
+          "id": "ssc napoli|torino fc|1X2 Torino FC",
+          "home": "SSC Napoli",
+          "away": "Torino FC",
+          "match_date": "2026-11-21T19:45:00Z",
+          "league": "serie_a",
+          "league_label": "Serie A",
+          "market": "1X2 Torino FC",
+          "label": "Torino FC wint",
+          "type": "1X2",
+          "book_odd": 6.64,
+          "fair_odd": 4.4,
+          "model_prob": 0.2273,
+          "ev_pct": 50.92,
+          "score": 0.1198,
+          "onderbouwing": [
+            "5,00+: +41,0% ROI over 104 bets (trefkans 20%) [bookie-odd]",
+            "Serie A · Winst: +26,8% ROI over 119 bets (trefkans 48%) [competitie × markt]",
+            "Uitwinst: +11,5% ROI over 182 bets (trefkans 46%) [thuis/uit]",
+            "50%+: +12,0% ROI over 82 bets (trefkans 35%) [edge]",
+            "Winst: +2,1% ROI over 697 bets (trefkans 44%) [markt]",
+            "Serie A: −2,2% ROI over 314 bets (trefkans 40%) [competitie]"
+          ],
+          "segmenten": [
+            {
+              "dim": "comp",
+              "waarde": "Serie A",
+              "n": 314,
+              "roi": -0.0222,
+              "score": -0.0203
+            },
+            {
+              "dim": "markt",
+              "waarde": "Winst",
+              "n": 697,
+              "roi": 0.0208,
+              "score": 0.0199
+            },
+            {
+              "dim": "comp_markt",
+              "waarde": "Serie A · Winst",
+              "n": 119,
+              "roi": 0.2678,
+              "score": 0.2139
+            },
+            {
+              "dim": "zijde",
+              "waarde": "Uitwinst",
+              "n": 182,
+              "roi": 0.1153,
+              "score": 0.099
+            },
+            {
+              "dim": "odd",
+              "waarde": "5,00+",
+              "n": 104,
+              "roi": 0.4098,
+              "score": 0.318
+            },
+            {
+              "dim": "edge",
+              "waarde": "50%+",
+              "n": 82,
+              "roi": 0.1205,
+              "score": 0.0882
+            }
+          ],
+          "gespeeld": true,
+          "reserve": true
+        },
+        {
+          "id": "rc strasbourg alsace|stade brestois 29|1X2 Gelijkspel",
+          "home": "RC Strasbourg Alsace",
+          "away": "Stade Brestois 29",
+          "match_date": "2026-11-21T19:45:00Z",
+          "league": "ligue_1",
+          "league_label": "Ligue 1",
+          "market": "1X2 Gelijkspel",
+          "label": "Gelijkspel",
+          "type": "1X2",
+          "book_odd": 3.92,
+          "fair_odd": 4.241,
+          "model_prob": 0.2358,
+          "ev_pct": -7.566399999999995,
+          "score": 0.1116,
+          "onderbouwing": [
+            "Gelijkspel: +20,5% ROI over 289 bets (trefkans 29%) [markt]",
+            "Ligue 1: +14,4% ROI over 215 bets (trefkans 49%) [competitie]",
+            "Ligue 1 · Gelijkspel: +16,1% ROI over 34 bets (trefkans 29%) [competitie × markt]",
+            "3,50–5,00: +5,4% ROI over 275 bets (trefkans 26%) [bookie-odd]"
+          ],
+          "segmenten": [
+            {
+              "dim": "comp",
+              "waarde": "Ligue 1",
+              "n": 215,
+              "roi": 0.1442,
+              "score": 0.1266
+            },
+            {
+              "dim": "markt",
+              "waarde": "Gelijkspel",
+              "n": 289,
+              "roi": 0.2052,
+              "score": 0.1859
+            },
+            {
+              "dim": "comp_markt",
+              "waarde": "Ligue 1 · Gelijkspel",
+              "n": 34,
+              "roi": 0.1615,
+              "score": 0.0858
+            },
+            {
+              "dim": "odd",
+              "waarde": "3,50–5,00",
+              "n": 275,
+              "roi": 0.0535,
+              "score": 0.0483
+            }
+          ],
+          "gespeeld": true,
+          "reserve": true
+        },
+        {
+          "id": "athletic club|rcd espanyol de barcelona|1X2 RCD Espanyol de Barcelona",
+          "home": "Athletic Club",
+          "away": "RCD Espanyol de Barcelona",
+          "match_date": "2026-11-20T20:00:00Z",
+          "league": "la_liga",
+          "league_label": "La Liga",
+          "market": "1X2 RCD Espanyol de Barcelona",
+          "label": "RCD Espanyol de Barcelona wint",
+          "type": "1X2",
+          "book_odd": 6.99,
+          "fair_odd": 6.974,
+          "model_prob": 0.1434,
+          "ev_pct": 0.22,
+          "score": 0.1098,
+          "onderbouwing": [
+            "5,00+: +41,0% ROI over 104 bets (trefkans 20%) [bookie-odd]",
+            "0–5%: +34,4% ROI over 62 bets (trefkans 39%) [edge]",
+            "Uitwinst: +11,5% ROI over 182 bets (trefkans 46%) [thuis/uit]",
+            "La Liga: +4,6% ROI over 282 bets (trefkans 46%) [competitie]",
+            "Winst: +2,1% ROI over 697 bets (trefkans 44%) [markt]",
+            "La Liga · Winst: −6,4% ROI over 117 bets (trefkans 39%) [competitie × markt]"
+          ],
+          "segmenten": [
+            {
+              "dim": "comp",
+              "waarde": "La Liga",
+              "n": 282,
+              "roi": 0.0457,
+              "score": 0.0413
+            },
+            {
+              "dim": "markt",
+              "waarde": "Winst",
+              "n": 697,
+              "roi": 0.0208,
+              "score": 0.0199
+            },
+            {
+              "dim": "comp_markt",
+              "waarde": "La Liga · Winst",
+              "n": 117,
+              "roi": -0.0638,
+              "score": -0.0508
+            },
+            {
+              "dim": "zijde",
+              "waarde": "Uitwinst",
+              "n": 182,
+              "roi": 0.1153,
+              "score": 0.099
+            },
+            {
+              "dim": "odd",
+              "waarde": "5,00+",
+              "n": 104,
+              "roi": 0.4098,
+              "score": 0.318
+            },
+            {
+              "dim": "edge",
+              "waarde": "0–5%",
+              "n": 62,
+              "roi": 0.3436,
+              "score": 0.2315
+            }
+          ],
+          "gespeeld": true,
+          "reserve": true
+        }
+      ],
+      "combis": [
+        {
+          "naam": "Middel",
+          "legs": [
+            "fc utrecht|sc cambuur leeuwarden|1X2 Gelijkspel",
+            "telstar 1963|pec zwolle|1X2 Gelijkspel"
+          ],
+          "odd": 13.65,
+          "kans": 0.0492,
+          "ev_pct": -32.8,
+          "score": 0.1449,
+          "inzet": 2.5
+        },
+        {
+          "naam": "Hoge odd",
+          "legs": [
+            "bayer 04 leverkusen|sc paderborn 07|1X2 Gelijkspel",
+            "es troyes ac|le havre ac|1X2 Le Havre AC"
+          ],
+          "odd": 24.46,
+          "kans": 0.0622,
+          "ev_pct": 52.2,
+          "score": 0.1454,
+          "inzet": 2.5
+        }
+      ]
+    }
+  ]
 }
