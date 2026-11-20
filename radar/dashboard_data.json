@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T15:13:49.922050+00:00",
+  "generated_at": "2026-11-20T16:41:37.628959+00:00",
   "ev_threshold_pct": 5.0,
   "beslisregels": {
     "versie": 1,
@@ -124,12 +124,12 @@
     }
   },
   "odds_updated": {
-    "bundesliga": "2026-11-20T08:30:07.460188+00:00",
-    "eredivisie": "2026-11-20T08:30:07.812176+00:00",
-    "la_liga": "2026-11-20T08:30:08.159701+00:00",
-    "ligue_1": "2026-11-20T08:30:08.414263+00:00",
-    "premier_league": "2026-11-20T08:30:08.699943+00:00",
-    "serie_a": "2026-11-20T08:30:08.943575+00:00"
+    "bundesliga": "2026-11-20T16:30:27.674190+00:00",
+    "eredivisie": "2026-11-20T16:30:27.972097+00:00",
+    "la_liga": "2026-11-20T16:30:28.268975+00:00",
+    "ligue_1": "2026-11-20T16:30:28.676166+00:00",
+    "premier_league": "2026-11-20T16:30:28.914064+00:00",
+    "serie_a": "2026-11-20T16:30:29.138117+00:00"
   },
   "leagues": [
     {
@@ -153,10 +153,10 @@
               "type": "1X2",
               "model_prob": 0.9576,
               "fair_odd": 1.044,
-              "book_odd": 1.09,
-              "ev_pct": 4.37,
+              "book_odd": 1.11,
+              "ev_pct": 6.29,
               "stake": 20,
-              "recommended": false,
+              "recommended": true,
               "needs_odd": false
             },
             {
@@ -780,8 +780,8 @@
               "type": "1X2",
               "model_prob": 0.3766,
               "fair_odd": 2.655,
-              "book_odd": 3.7,
-              "ev_pct": 39.34,
+              "book_odd": 3.6,
+              "ev_pct": 35.58,
               "stake": 5,
               "recommended": true,
               "needs_odd": false
@@ -791,8 +791,8 @@
               "type": "1X2",
               "model_prob": 0.2415,
               "fair_odd": 4.141,
-              "book_odd": 4.06,
-              "ev_pct": -1.96,
+              "book_odd": 4.07,
+              "ev_pct": -1.72,
               "stake": 5,
               "recommended": false,
               "needs_odd": false
@@ -824,8 +824,8 @@
               "type": "O/U",
               "model_prob": 0.4804,
               "fair_odd": 2.082,
-              "book_odd": 2.45,
-              "ev_pct": 17.7,
+              "book_odd": 2.46,
+              "ev_pct": 18.18,
               "stake": 10,
               "recommended": true,
               "needs_odd": false
@@ -1256,10 +1256,21 @@
               "type": "1X2",
               "model_prob": 0.506,
               "fair_odd": 1.976,
-              "book_odd": 2.4,
-              "ev_pct": 21.43,
+              "book_odd": 2.45,
+              "ev_pct": 23.96,
               "stake": 10,
               "recommended": true,
+              "needs_odd": false
+            },
+            {
+              "market": "1X2 Gelijkspel",
+              "type": "1X2",
+              "model_prob": 0.2126,
+              "fair_odd": 4.704,
+              "book_odd": 4.31,
+              "ev_pct": -8.37,
+              "stake": 5,
+              "recommended": false,
               "needs_odd": false
             },
             {
@@ -1289,8 +1300,8 @@
               "type": "O/U",
               "model_prob": 0.5883,
               "fair_odd": 1.7,
-              "book_odd": 1.98,
-              "ev_pct": 16.49,
+              "book_odd": 1.91,
+              "ev_pct": 12.37,
               "stake": 15,
               "recommended": true,
               "needs_odd": false
@@ -3690,8 +3701,8 @@
               "type": "1X2",
               "model_prob": 0.8632,
               "fair_odd": 1.158,
-              "book_odd": 1.18,
-              "ev_pct": 1.86,
+              "book_odd": 1.16,
+              "ev_pct": 0.14,
               "stake": 20,
               "recommended": false,
               "needs_odd": false
@@ -3723,8 +3734,8 @@
               "type": "O/U",
               "model_prob": 0.5658,
               "fair_odd": 1.768,
-              "book_odd": 1.75,
-              "ev_pct": -0.99,
+              "book_odd": 1.72,
+              "ev_pct": -2.69,
               "stake": 15,
               "recommended": false,
               "needs_odd": false
@@ -3767,8 +3778,8 @@
               "type": "O/U",
               "model_prob": 0.4342,
               "fair_odd": 2.303,
-              "book_odd": 2.13,
-              "ev_pct": -7.51,
+              "book_odd": 2.18,
+              "ev_pct": -5.34,
               "stake": 5,
               "recommended": false,
               "needs_odd": false
@@ -4172,8 +4183,8 @@
               "type": "1X2",
               "model_prob": 0.2552,
               "fair_odd": 3.918,
-              "book_odd": 4.57,
-              "ev_pct": 16.64,
+              "book_odd": 4.62,
+              "ev_pct": 17.91,
               "stake": 5,
               "recommended": true,
               "needs_odd": false
@@ -4194,8 +4205,8 @@
               "type": "O/U",
               "model_prob": 0.5781,
               "fair_odd": 1.73,
-              "book_odd": 2.14,
-              "ev_pct": 23.71,
+              "book_odd": 2.23,
+              "ev_pct": 28.91,
               "stake": 15,
               "recommended": true,
               "needs_odd": false
@@ -5532,8 +5543,8 @@
               "type": "1X2",
               "model_prob": 0.5982,
               "fair_odd": 1.672,
-              "book_odd": 2.11,
-              "ev_pct": 26.23,
+              "book_odd": 2.1,
+              "ev_pct": 25.63,
               "stake": 15,
               "recommended": true,
               "needs_odd": false
@@ -5565,8 +5576,8 @@
               "type": "O/U",
               "model_prob": 0.6346,
               "fair_odd": 1.576,
-              "book_odd": 2.05,
-              "ev_pct": 30.1,
+              "book_odd": 1.97,
+              "ev_pct": 25.02,
               "stake": 15,
               "recommended": true,
               "needs_odd": false
@@ -6479,8 +6490,8 @@
               "type": "1X2",
               "model_prob": 0.3426,
               "fair_odd": 2.919,
-              "book_odd": 3.67,
-              "ev_pct": 25.74,
+              "book_odd": 3.64,
+              "ev_pct": 24.71,
               "stake": 5,
               "recommended": true,
               "needs_odd": false
@@ -6490,8 +6501,8 @@
               "type": "1X2",
               "model_prob": 0.2807,
               "fair_odd": 3.562,
-              "book_odd": 3.33,
-              "ev_pct": -6.51,
+              "book_odd": 3.29,
+              "ev_pct": -7.63,
               "stake": 5,
               "recommended": false,
               "needs_odd": false
@@ -6966,8 +6977,8 @@
               "type": "O/U",
               "model_prob": 0.4925,
               "fair_odd": 2.03,
-              "book_odd": 2.42,
-              "ev_pct": 19.18,
+              "book_odd": 2.38,
+              "ev_pct": 17.21,
               "stake": 10,
               "recommended": true,
               "needs_odd": false
@@ -7139,8 +7150,8 @@
               "type": "1X2",
               "model_prob": 0.2733,
               "fair_odd": 3.659,
-              "book_odd": 4.11,
-              "ev_pct": 12.33,
+              "book_odd": 4.0,
+              "ev_pct": 9.32,
               "stake": 5,
               "recommended": true,
               "needs_odd": false
@@ -7150,8 +7161,8 @@
               "type": "1X2",
               "model_prob": 0.2959,
               "fair_odd": 3.379,
-              "book_odd": 4.11,
-              "ev_pct": 21.63,
+              "book_odd": 3.86,
+              "ev_pct": 14.23,
               "stake": 5,
               "recommended": true,
               "needs_odd": false
@@ -7172,8 +7183,8 @@
               "type": "O/U",
               "model_prob": 0.5491,
               "fair_odd": 1.821,
-              "book_odd": 1.68,
-              "ev_pct": -7.76,
+              "book_odd": 1.72,
+              "ev_pct": -5.56,
               "stake": 15,
               "recommended": false,
               "needs_odd": false
@@ -7216,10 +7227,10 @@
               "type": "O/U",
               "model_prob": 0.4509,
               "fair_odd": 2.218,
-              "book_odd": 2.38,
-              "ev_pct": 7.32,
+              "book_odd": 2.31,
+              "ev_pct": 4.17,
               "stake": 10,
-              "recommended": true,
+              "recommended": false,
               "needs_odd": false
             },
             {
@@ -8463,8 +8474,8 @@
               "type": "1X2",
               "model_prob": 0.7967,
               "fair_odd": 1.255,
-              "book_odd": 1.45,
-              "ev_pct": 15.53,
+              "book_odd": 1.41,
+              "ev_pct": 12.34,
               "stake": 20,
               "recommended": true,
               "needs_odd": false
@@ -8496,8 +8507,8 @@
               "type": "O/U",
               "model_prob": 0.5112,
               "fair_odd": 1.956,
-              "book_odd": 2.31,
-              "ev_pct": 18.1,
+              "book_odd": 2.27,
+              "ev_pct": 16.05,
               "stake": 10,
               "recommended": true,
               "needs_odd": false
@@ -8667,8 +8678,8 @@
               "type": "1X2",
               "model_prob": 0.5068,
               "fair_odd": 1.973,
-              "book_odd": 1.93,
-              "ev_pct": -2.19,
+              "book_odd": 1.99,
+              "ev_pct": 0.85,
               "stake": 10,
               "recommended": false,
               "needs_odd": false
@@ -8678,8 +8689,8 @@
               "type": "1X2",
               "model_prob": 0.2616,
               "fair_odd": 3.822,
-              "book_odd": 3.92,
-              "ev_pct": 2.55,
+              "book_odd": 3.86,
+              "ev_pct": 0.98,
               "stake": 5,
               "recommended": true,
               "needs_odd": false
@@ -8689,8 +8700,8 @@
               "type": "1X2",
               "model_prob": 0.2316,
               "fair_odd": 4.318,
-              "book_odd": 4.12,
-              "ev_pct": -4.58,
+              "book_odd": 3.92,
+              "ev_pct": -9.21,
               "stake": 5,
               "recommended": false,
               "needs_odd": false
@@ -8711,10 +8722,10 @@
               "type": "O/U",
               "model_prob": 0.5609,
               "fair_odd": 1.783,
-              "book_odd": 1.87,
-              "ev_pct": 4.89,
+              "book_odd": 1.89,
+              "ev_pct": 6.01,
               "stake": 15,
-              "recommended": false,
+              "recommended": true,
               "needs_odd": false
             },
             {
@@ -8755,8 +8766,8 @@
               "type": "O/U",
               "model_prob": 0.4391,
               "fair_odd": 2.277,
-              "book_odd": 2.08,
-              "ev_pct": -8.67,
+              "book_odd": 2.05,
+              "ev_pct": -9.98,
               "stake": 10,
               "recommended": false,
               "needs_odd": false
@@ -9560,10 +9571,10 @@
               "type": "1X2",
               "model_prob": 0.4219,
               "fair_odd": 2.37,
-              "book_odd": 2.44,
-              "ev_pct": 2.94,
+              "book_odd": 2.55,
+              "ev_pct": 7.58,
               "stake": 5,
-              "recommended": false,
+              "recommended": true,
               "needs_odd": false
             },
             {
@@ -9571,8 +9582,8 @@
               "type": "1X2",
               "model_prob": 0.2719,
               "fair_odd": 3.678,
-              "book_odd": 3.8,
-              "ev_pct": 3.33,
+              "book_odd": 3.77,
+              "ev_pct": 2.51,
               "stake": 5,
               "recommended": true,
               "needs_odd": false
@@ -9593,8 +9604,8 @@
               "type": "O/U",
               "model_prob": 0.5676,
               "fair_odd": 1.762,
-              "book_odd": 1.75,
-              "ev_pct": -0.67,
+              "book_odd": 1.77,
+              "ev_pct": 0.46,
               "stake": 15,
               "recommended": false,
               "needs_odd": false
@@ -9637,8 +9648,8 @@
               "type": "O/U",
               "model_prob": 0.4324,
               "fair_odd": 2.313,
-              "book_odd": 2.25,
-              "ev_pct": -2.71,
+              "book_odd": 2.22,
+              "ev_pct": -4.0,
               "stake": 5,
               "recommended": false,
               "needs_odd": false
@@ -10080,8 +10091,8 @@
               "type": "1X2",
               "model_prob": 0.1889,
               "fair_odd": 5.295,
-              "book_odd": 6.16,
-              "ev_pct": 16.33,
+              "book_odd": 6.63,
+              "ev_pct": 25.21,
               "stake": 2.5,
               "recommended": true,
               "needs_odd": false
@@ -10091,8 +10102,8 @@
               "type": "1X2",
               "model_prob": 0.2556,
               "fair_odd": 3.913,
-              "book_odd": 4.62,
-              "ev_pct": 18.07,
+              "book_odd": 4.72,
+              "ev_pct": 20.62,
               "stake": 5,
               "recommended": true,
               "needs_odd": false
@@ -10341,8 +10352,8 @@
               "type": "1X2",
               "model_prob": 0.7301,
               "fair_odd": 1.37,
-              "book_odd": 1.81,
-              "ev_pct": 32.15,
+              "book_odd": 1.79,
+              "ev_pct": 30.69,
               "stake": 20,
               "recommended": true,
               "needs_odd": false
