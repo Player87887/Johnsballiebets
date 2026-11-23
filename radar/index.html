@@ -626,9 +626,10 @@ function explainMatch(lg,m){
     li.push(`<b>${nl(lt,2)} goals</b> (${relPct(r)} t.o.v. ${avgSrc} ${nl(avgT,2)})`+
       (Math.abs(r-1)>=0.03&&gl.length?`, vooral door ${gl.map(x=>fTag(x,m,x.c>0)).join(' en ')}.`:'.'));
     // Betrouwbaarheid van de basis
-    const b=(side,name)=>side.basis?`${name} ${nl(side.basis.weight_this_season*100,0)}% (${nl(side.basis.played,0)} duels)`:null;
+    const b=(side,name)=>side.basis?`${name} ${nl(side.basis.weight_this_season*100,0)}% (${nl(side.basis.played,0)} duels${side.basis.prior==='none'?', geen prior: alleen dit seizoen':''})`:null;
     const bb=[b(F.home,H),b(F.away,A)].filter(Boolean);
-    if(bb.length) li.push(`Gewicht van dit seizoen in de teamcijfers: ${bb.join(', ')}; de rest komt uit de prior.`);
+    const allesSeizoen=[F.home,F.away].every(x=>!x.basis||x.basis.weight_this_season>=0.995);
+    if(bb.length) li.push(`Gewicht van dit seizoen in de teamcijfers: ${bb.join(', ')}${allesSeizoen?'.':'; de rest komt uit de prior.'}`);
   } else {
     li.push(`<b>${nl(lt,2)} goals</b> verwacht (${relPct(r)} t.o.v. ${avgSrc} ${nl(avgT,2)}).`);
   }
