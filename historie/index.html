@@ -873,7 +873,8 @@ async function renderCombis(){
   const alleLegs=new Map(); rijen.forEach(x=>x.legs.forEach(l=>alleLegs.set(x.week+'|'+l.id,l)));
   const legsAf=[...alleLegs.values()].filter(l=>l.resultaat&&(l.resultaat.gf==='G'||l.resultaat.gf==='F'));
   const legG=legsAf.filter(l=>l.resultaat.gf==='G').length, legVerw=legsAf.reduce((t,l)=>t+(+l.model_prob||0),0);
-  const perNaam=['Lage odd','Middel','Hoge odd'].map(n=>({n,s:combiStats(rijen.filter(x=>x.c.naam===n))})).filter(x=>x.s.n);
+  const namen=[...new Map(rijen.map(x=>[x.c.naam,x.c.risico??0])).entries()].sort((a,b)=>a[1]-b[1]).map(e=>e[0]);
+  const perNaam=namen.map(n=>({n,r:(rijen.find(x=>x.c.naam===n)||{}).c?.risico,u:(rijen.find(x=>x.c.naam===n)||{}).c?.uitleg,s:combiStats(rijen.filter(x=>x.c.naam===n))})).filter(x=>x.s.n||x.s.open);
   let html=`<p class="cb-note">Papieren bets met een vaste inzet. Ze tellen niet mee in je bankroll of in de totalen van Overzicht en Analyse.</p>
   <div class="kpis">
     <div class="stat hero"><div class="label">Winst/verlies (papier)</div><div class="value ${cls(st.winst)}">${eurSigned(st.winst)}</div><div class="sub">over ${eur(st.inzet)} inzet</div></div>
@@ -882,8 +883,8 @@ async function renderCombis(){
     <div class="stat"><div class="label">Legs goed</div><div class="value">${legsAf.length?num(legG/legsAf.length*100,0)+'%':'—'}</div><div class="sub">${legG}/${legsAf.length} · model ${legsAf.length?num(legVerw/legsAf.length*100,0)+'%':'—'}</div></div>
   </div>`;
   if(perNaam.length){
-    html+=`<div class="card"><div class="card-head"><h3>Per soort combi</h3></div><table><thead><tr><th class="l">Soort</th><th>Afgerond</th><th>Gewonnen</th><th>Model verwachtte</th><th>Winst</th><th>ROI</th></tr></thead><tbody>${
-      perNaam.map(x=>`<tr><td class="l">${escH(x.n)}</td><td>${x.s.n}</td><td>${x.s.g}</td><td>${num(x.s.verwacht,1)}</td><td class="${cls(x.s.winst)}">${eurSigned(x.s.winst)}</td><td class="${cls(x.s.roi)}">${x.s.roi==null?'—':pct(x.s.roi,1)}</td></tr>`).join('')}</tbody></table></div>`;
+    html+=`<div class="card"><div class="card-head"><h3>Per categorie</h3></div><table><thead><tr><th class="l">Categorie</th><th>Risico</th><th>Afgerond</th><th>Gewonnen</th><th>Model verwachtte</th><th>Winst</th><th>ROI</th></tr></thead><tbody>${
+      perNaam.map(x=>`<tr><td class="l" title="${escH(x.u||'')}">${escH(x.n)}</td><td>${x.r?'●'.repeat(x.r):'—'}</td><td>${x.s.n}${x.s.open?` <span style="color:var(--ink-faint)">(+${x.s.open} open)</span>`:''}</td><td>${x.s.g}</td><td>${num(x.s.verwacht,1)}</td><td class="${cls(x.s.winst)}">${eurSigned(x.s.winst)}</td><td class="${cls(x.s.roi)}">${x.s.roi==null?'—':pct(x.s.roi,1)}</td></tr>`).join('')}</tbody></table></div>`;
   }
   const legRegel=l=>{ const r=l.resultaat||{}; const k=r.gf==='G'?'g':r.gf==='F'?'f':'o';
     return `<span class="${k}">${r.gf==='G'?'✓':r.gf==='F'?'✗':r.gf==='P'?'=':'·'} ${escH(l.home)} – ${escH(l.away)}: ${escH(l.label)} @ ${num(+l.book_odd,2)}${r.uitslag?' ('+escH(r.uitslag)+')':''}</span>`; };
