@@ -279,6 +279,7 @@
   .onderbouwing[open] summary::before { content:"▾ "; }
   .onderbouwing ul { list-style:none; margin-top:4px; font-size:12px; color:var(--ink-dim); display:flex; flex-direction:column; gap:2px; }
   .onderbouwing .orig { color:var(--warn); }
+  .risico { font-family:var(--mono); font-size:11px; color:var(--warn); letter-spacing:1px; margin-left:6px; }
   .papierlabel { font-family:var(--mono); font-size:10px; color:var(--ink-faint); border:1px dashed var(--line); padding:2px 8px; border-radius:20px; }
 
   /* ── kaart-modus (?kaart=JJJJ-MM-DD): alleen de kaart, voor een screenshot ── */
@@ -1858,10 +1859,13 @@ function fmtNl(v, d) { return (+v).toLocaleString('nl-NL', { minimumFractionDigi
 
 function combiLegHTML(l, i) {
   const st = legStatus(l);
-  const typ = (l.type === 'O/U' || /^O\/U/i.test(l.market || '')) ? 'O/U' : '1X2';
-  const ev = parseFloat(l.ev_pct);
-  const evTxt = isFinite(ev) ? `<span class="ev">${ev < 0 ? '−' : '+'}${Math.abs(ev).toFixed(1)}%</span>` : '';
-  const kans = l.model_prob ? `kans ${Math.round(l.model_prob * 100)}% · ` : '';
+  const typ = (l.type === 'O/U' || /^O\/U/i.test(l.market || '')) ? 'O/U' : (l.type === 'DK' || /^DK/i.test(l.market || '')) ? 'DK' : '1X2';
+  const ev = l.waarde != null ? l.waarde * 100 : parseFloat(l.ev_pct);
+  const evTxt = isFinite(ev) ? `<span class="ev" title="${l.waarde != null ? 'waarde = eindkans × odd − 1 (model-EV: ' + (+l.ev_pct).toFixed(1) + '%)' : 'EV volgens het model'}">${ev < 0 ? '−' : '+'}${Math.abs(ev).toFixed(1)}%</span>` : '';
+  const kh = l.kans_historie != null ? l.kans_historie : l.model_prob;
+  const kans = kh ? `kans ${Math.round(kh * 100)}%${l.kans_historie != null && Math.round(l.kans_historie * 100) !== Math.round(l.model_prob * 100) ? ` <span title="model ${Math.round(l.model_prob * 100)}%, na historie-correctie ${Math.round(l.kans_historie * 100)}%">(model ${Math.round(l.model_prob * 100)}%)</span>` : ''} · ` : '';
+  const oddTag = l.odd_bron === 'afgeleid' ? '<span class="lijntag" title="Dubbele-kans-odd afgeleid uit de 1X2-odds van de bookie. Check de echte odd voordat je speelt.">≈ odd afgeleid</span>'
+    : l.odd_bron === 'geschat' ? '<span class="lijntag" title="Deze lijn is niet bij de bookie opgehaald; de odd is geschat uit de modelkans en de bookie-marge. Check de echte odd.">≈ odd geschat</span>' : '';
   const uitkomst = st ? `<span class="uitkomst ${st.k}">${st.k === 'goed' ? 'goed' : st.k === 'fout' ? 'fout' : 'push'}${st.uitslag ? ' · ' + esc(st.uitslag) : ''}</span>` : '';
   const orig = l.origineel ? `<li class="orig">${esc(l.lijn_aangepast || '')}</li>` : '';
   return `<div class="dk-pick ${st ? st.k : ''}">
@@ -1869,18 +1873,21 @@ function combiLegHTML(l, i) {
       <div style="min-width:0">
         <div class="meta"><span class="lg-badge">${esc(l.league_label || l.league || '')}</span><span>${fmtDate(l.match_date)}</span>
           ${l.origineel ? `<span class="lijntag" title="${esc(l.lijn_aangepast || '')}">lijn aangepast: ${esc(l.origineel.label)} → ${esc(l.label)}</span>` : ''}
-          ${l.gespeeld === false && !l.origineel ? '<span class="papier">niet in je weekpicks</span>' : ''}</div>
+          ${oddTag}
+          ${l.gespeeld && (COMBI_VERSIE(l) >= 2) ? '<span class="papier">ook in je weekpicks</span>' : ''}
+          ${l.gespeeld === false && !l.origineel && COMBI_VERSIE(l) < 2 ? '<span class="papier">niet in je weekpicks</span>' : ''}</div>
         <div class="wed">${esc(l.home)}<span class="vs">vs</span>${esc(l.away)}</div>
         <div class="markt"><span class="mkt-type">${typ}</span><span class="pick-name">${esc(l.label)}</span>${uitkomst}</div>
         <details class="onderbouwing"><summary>waarom deze leg</summary><ul>${orig}${(l.onderbouwing || []).map(t => `<li>${esc(t)}</li>`).join('')}</ul></details>
       </div>
       <div class="rechts">
-        <span class="odd">${(+l.book_odd).toFixed(2)}</span>
+        <span class="odd">${l.odd_bron && l.odd_bron !== 'bookie' ? '≈' : ''}${(+l.book_odd).toFixed(2)}</span>
         <span class="sub">${kans}${evTxt}</span>
       </div>
     </div>`;
 }
 
+function COMBI_VERSIE(l) { return l && l.kans_historie !== undefined ? 2 : 1; }
 function combiKaartHTML(c, legs) {
   const s = combiStatus(c, legs);
   const uitbetaling = (+c.inzet || 0) * (+c.odd || 0);
@@ -1890,13 +1897,15 @@ function combiKaartHTML(c, legs) {
   return `<div class="dkaart ckaart">
       <div class="dk-kop">
         <img src="../assets/mark.png" alt="" width="46" height="46">
-        <div><div class="t1">Combi <span>${esc(c.naam)}</span></div><div class="t2">${c.legs.length} legs · odd ${fmtNl(c.odd, 2)}</div></div>
+        <div><div class="t1">${c.categorie ? '' : 'Combi '}<span>${esc(c.naam)}</span>${c.risico ? ` <span class="risico" title="risico ${c.risico} van 5">${'●'.repeat(c.risico)}${'○'.repeat(5 - c.risico)}</span>` : ''}</div><div class="t2">${c.legs.length} legs · odd ${fmtNl(c.odd, 2)}${c.uitleg ? ' · ' + esc(c.uitleg) : ''}</div></div>
         ${stand}
       </div>
       <div class="cijfers">
-        <span>kans (model) <b>${fmtNl(c.kans * 100, 1)}%</b></span>
+        <span title="${c.kans_model != null ? 'kans volgens het model alleen: ' + fmtNl(c.kans_model * 100, 1) + '%' : ''}">kans ${c.kans_model != null ? '(model + markt + historie)' : '(model)'} <b>${fmtNl(c.kans * 100, 1)}%</b></span>
         <span>EV <b>${c.ev_pct >= 0 ? '+' : '−'}${fmtNl(Math.abs(c.ev_pct), 1)}%</b></span>
-        <span>historie-score <b>${c.score >= 0 ? '+' : '−'}${fmtNl(Math.abs(c.score * 100), 1)}</b></span>
+        ${c.groei !== undefined
+          ? `<span title="Gemiddelde waarde per leg na historie-correctie (kans × odd − 1)">waarde/leg <b>${c.score >= 0 ? '+' : '−'}${fmtNl(Math.abs(c.score * 100), 1)}%</b></span>`
+          : `<span>historie-score <b>${c.score >= 0 ? '+' : '−'}${fmtNl(Math.abs(c.score * 100), 1)}</b></span>`}
         <span>inzet <b>€${fmtNl(c.inzet, 2)}</b> → <b>€${fmtNl(uitbetaling, 2)}</b></span>
         <span class="papierlabel" title="Combi's tellen niet mee in je bankroll of de historie-totalen">papieren inzet</span>
       </div>
@@ -1910,7 +1919,7 @@ function renderCombi() {
   let html = beheerBarHTML() + hoofdtabsHTML();
   if (!weken.length) {
     main.innerHTML = html + `<div class="empty"><h2>Nog geen combi picks</h2>
-      <p>Zodra de picks van deze week online staan, stelt het model hier combi's samen (totale odd 5 – 30), onderbouwd met je historie.</p></div>`;
+      <p>Zodra de picks van deze week online staan, stelt het model hier combi's samen uit de hele radar (lage odds per leg, totale odd 5 – 30), getoetst aan je historie.</p></div>`;
     koppelHoofdtabs(); koppelBeheer(); return;
   }
   if (COMBI_WEEK == null || COMBI_WEEK >= weken.length) COMBI_WEEK = weken.length - 1;
@@ -1936,6 +1945,20 @@ function renderCombi() {
     : `<div class="klein">nog geen afgeronde combi's</div>`;
   zij += `<div class="klein" style="color:var(--ink-faint);margin-top:8px">Telt niet mee in je bankroll.</div>
     <a class="linkknop" href="../historie/#combis" style="display:inline-block;text-decoration:none">alle combi's in de historie →</a></div>`;
+  const perCat = {};
+  combiWeken().forEach(ww => {
+    const lg = Object.fromEntries((ww.legs || []).map(l => [l.id, l]));
+    (ww.combis || []).forEach(c => {
+      const st = combiStatus(c, lg); if (!st || st.voorlopig) return;
+      const k = perCat[c.naam] || (perCat[c.naam] = { n: 0, g: 0, inzet: 0, winst: 0, r: c.risico || 0 });
+      k.n++; k.inzet += +c.inzet || 0; k.winst += st.winst; if (st.k === 'goed') k.g++;
+    });
+  });
+  const cats = Object.entries(perCat).sort((a, b) => a[1].r - b[1].r);
+  if (cats.length) {
+    zij += `<div class="zijblok"><h3>Per categorie</h3>${cats.map(([n, k]) =>
+      `<div class="recap-rij"><span class="w"><b>${esc(n)}</b> · ${k.g}/${k.n}</span><span class="u ${k.winst > 0 ? 'goed' : k.winst < 0 ? 'fout' : 'open'}">${fmtPL(k.winst)}</span></div>`).join('')}</div>`;
+  }
   const reserve = (w.legs || []).filter(l => l.reserve);
   if (reserve.length) {
     zij += `<div class="zijblok"><h3>Ook onderbouwd, niet in een combi</h3>${reserve.map(l =>
