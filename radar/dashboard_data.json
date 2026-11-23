@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-23T12:47:49.649463+00:00",
+  "generated_at": "2026-11-23T15:04:10.528365+00:00",
   "ev_threshold_pct": 5.0,
   "beslisregels": {
     "versie": 1,
@@ -6236,21 +6236,21 @@
           "home": "Levante UD",
           "away": "Elche CF",
           "date": "2026-11-23T20:00:00Z",
-          "lambda_home": 1.879,
-          "lambda_away": 1.063,
-          "prob_home": 0.5507,
-          "prob_draw": 0.2514,
-          "prob_away": 0.1979,
+          "lambda_home": 1.88,
+          "lambda_away": 1.062,
+          "prob_home": 0.5512,
+          "prob_draw": 0.2513,
+          "prob_away": 0.1975,
           "bookmaker": "onexbet",
           "has_odds": true,
           "bets": [
             {
               "market": "1X2 Levante UD",
               "type": "1X2",
-              "model_prob": 0.5507,
-              "fair_odd": 1.816,
+              "model_prob": 0.5512,
+              "fair_odd": 1.814,
               "book_odd": 2.26,
-              "ev_pct": 24.46,
+              "ev_pct": 24.57,
               "stake": 15,
               "recommended": true,
               "needs_odd": false
@@ -6258,10 +6258,10 @@
             {
               "market": "1X2 Gelijkspel",
               "type": "1X2",
-              "model_prob": 0.2514,
-              "fair_odd": 3.978,
+              "model_prob": 0.2513,
+              "fair_odd": 3.98,
               "book_odd": 3.82,
-              "ev_pct": -3.97,
+              "ev_pct": -4.01,
               "stake": 5,
               "recommended": false,
               "needs_odd": false
@@ -6303,7 +6303,7 @@
               "market": "O/U 4.5 Over",
               "type": "O/U",
               "model_prob": 0.1751,
-              "fair_odd": 5.71,
+              "fair_odd": 5.711,
               "book_odd": null,
               "ev_pct": null,
               "stake": 2.5,
@@ -6407,7 +6407,7 @@
                 {
                   "key": "absences",
                   "label": "Aan-/afwezigen",
-                  "mult": 1.0053,
+                  "mult": 1.0059,
                   "detail": "verdediging Elche CF +0.01"
                 },
                 {
@@ -6468,7 +6468,7 @@
                 {
                   "key": "absences",
                   "label": "Aan-/afwezigen",
-                  "mult": 0.9907,
+                  "mult": 0.9897,
                   "detail": "aanval Elche CF -0.01"
                 },
                 {
@@ -6493,15 +6493,15 @@
           "markten": {
             "1x2": {
               "home": {
-                "p": 0.5507,
+                "p": 0.5512,
                 "odd": 2.26
               },
               "draw": {
-                "p": 0.2514,
+                "p": 0.2513,
                 "odd": 3.82
               },
               "away": {
-                "p": 0.1979,
+                "p": 0.1975,
                 "odd": 3.21
               }
             },
@@ -10674,21 +10674,21 @@
           "home": "Brentford FC",
           "away": "Everton FC",
           "date": "2026-11-23T20:00:00Z",
-          "lambda_home": 1.407,
-          "lambda_away": 1.199,
-          "prob_home": 0.4015,
+          "lambda_home": 1.408,
+          "lambda_away": 1.198,
+          "prob_home": 0.402,
           "prob_draw": 0.2943,
-          "prob_away": 0.3042,
+          "prob_away": 0.3038,
           "bookmaker": "onexbet",
           "has_odds": true,
           "bets": [
             {
               "market": "1X2 Brentford FC",
               "type": "1X2",
-              "model_prob": 0.4015,
-              "fair_odd": 2.491,
+              "model_prob": 0.402,
+              "fair_odd": 2.488,
               "book_odd": 2.36,
-              "ev_pct": -5.25,
+              "ev_pct": -5.14,
               "stake": 5,
               "recommended": false,
               "needs_odd": false
@@ -10699,7 +10699,7 @@
               "model_prob": 0.2943,
               "fair_odd": 3.398,
               "book_odd": 3.71,
-              "ev_pct": 9.18,
+              "ev_pct": 9.17,
               "stake": 5,
               "recommended": true,
               "needs_odd": false
@@ -10707,10 +10707,10 @@
             {
               "market": "1X2 Everton FC",
               "type": "1X2",
-              "model_prob": 0.3042,
-              "fair_odd": 3.287,
+              "model_prob": 0.3038,
+              "fair_odd": 3.292,
               "book_odd": 3.11,
-              "ev_pct": -5.38,
+              "ev_pct": -5.52,
               "stake": 5,
               "recommended": false,
               "needs_odd": false
@@ -10856,7 +10856,7 @@
                 {
                   "key": "absences",
                   "label": "Aan-/afwezigen",
-                  "mult": 0.9386,
+                  "mult": 0.9393,
                   "detail": "aanval Brentford FC -0.09"
                 },
                 {
@@ -10917,7 +10917,7 @@
                 {
                   "key": "absences",
                   "label": "Aan-/afwezigen",
-                  "mult": 1.0508,
+                  "mult": 1.05,
                   "detail": "verdediging Brentford FC +0.06"
                 },
                 {
@@ -10942,7 +10942,7 @@
           "markten": {
             "1x2": {
               "home": {
-                "p": 0.4015,
+                "p": 0.402,
                 "odd": 2.36
               },
               "draw": {
@@ -10950,7 +10950,7 @@
                 "odd": 3.71
               },
               "away": {
-                "p": 0.3042,
+                "p": 0.3038,
                 "odd": 3.11
               }
             },
